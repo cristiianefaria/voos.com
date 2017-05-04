@@ -13,6 +13,7 @@ hs_err_pid*
 .metadata
 bin/
 tmp/
+RemoteSystemTempFiles/
 *.tmp
 *.bak
 *.swp
