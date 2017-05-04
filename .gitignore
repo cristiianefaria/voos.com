@@ -13,7 +13,7 @@ hs_err_pid*
 .metadata
 bin/
 tmp/
-RemoteSystemTempFiles/
+RemoteSystemsTempFiles/
 *.tmp
 *.bak
 *.swp
@@ -22,7 +22,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-
+voo/target/
 # External tool builders
 .externalToolBuilders/
 
