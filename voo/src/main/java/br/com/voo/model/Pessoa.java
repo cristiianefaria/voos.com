@@ -1,5 +1,5 @@
 package br.com.voo.model;
 
-public class Pessoa {
+public class Pessoa extends Entidade {
 
 }
