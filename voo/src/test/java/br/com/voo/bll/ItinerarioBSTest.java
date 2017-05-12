@@ -1,24 +1,38 @@
 package br.com.voo.bll;
 
-import java.util.Date;
-
 import org.junit.Before;
+import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import br.com.voo.dal.ItinerarioDAO;
-import br.com.voo.model.Cliente;
+import br.com.voo.model.Itinerario;
 import junit.framework.TestCase;
 
 public class ItinerarioBSTest extends TestCase{
 
 	@Mock
 	ItinerarioDAO dao;
+	Itinerario itinerario;
+	ItinerarioBS bs;
 	
 	@Before
-	public void setUp(){
+	public void setUp(){ 
 		dao = Mockito.mock(ItinerarioDAO.class);
+		itinerario = new Itinerario();
+		bs = new ItinerarioBS(dao);
 		
+		itinerario.setOrigem("Goiania");
+		itinerario.setDestino("Gramado");
 	}
-
+	
+	@Test
+	public void testSalvar() throws Exception{
+		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
+		
+		boolean objetoTestado = bs.salvar(itinerario);
+		assertEquals(true, objetoTestado);
+	}
+	
+	
 }
