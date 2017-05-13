@@ -1,6 +1,8 @@
 package br.com.voo.model;
 
-public class Itinerario {
+public class Itinerario extends Entidade{
+	
+	
 	private String origem;
 	private String destino;
 	

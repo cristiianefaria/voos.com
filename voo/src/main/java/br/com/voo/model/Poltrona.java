@@ -28,6 +28,7 @@ public class Poltrona extends Entidade {
 	private double ifValorMenorQueZero(Double valor) {
 		if(valor > 0) {
 			return new Double(valor);
+			
 		}else {
 			return new Double(0);
 		}

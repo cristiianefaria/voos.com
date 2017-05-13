@@ -27,7 +27,7 @@ public class PoltronaBSTest {
 		dao = mock(PoltronaDAO.class);
 		bs = new PoltronaBS(dao);
 		
-		poltrona = new Poltrona("A1", new Double(60), "Executiva", "poltrona conforto");
+		poltrona = new Poltrona("A1", new Double(60), "Executiva", "Poltrona conforto");
 	}
 	
 	@Test
