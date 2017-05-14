@@ -1,6 +1,8 @@
 package br.com.voo.bll;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.voo.dal.ItinerarioDAO;
 import br.com.voo.model.Itinerario;
@@ -38,14 +40,24 @@ public class ItinerarioBS {
 	}
 
 	public boolean deletar(Itinerario itinerario) {
-		if ((itinerario.getId() != null) && (itinerario.getId() != 0)) {
-			return dao.remover(itinerario);
+		try {
+			if ((itinerario.getId() != null) && (itinerario.getId() != 0)) {
+				return dao.remover(itinerario.getId());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+
 		return false;
 	}
 
-	public ArrayList<Itinerario> listar(Itinerario itinerario) {
-		return new ArrayList<>();
+	public List<Itinerario> listar() {
+		try {
+			return dao.listar();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return new ArrayList<Itinerario>();
+		}
 	}
 
 	private boolean validarItinerario(Itinerario itinerario) {
@@ -54,7 +66,7 @@ public class ItinerarioBS {
 				if (itinerario.getOrigem().isEmpty() || itinerario.getDestino().isEmpty()) {
 					return false;
 				}
-			}else{
+			} else {
 				return false;
 			}
 		} else {
