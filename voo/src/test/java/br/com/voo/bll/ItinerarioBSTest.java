@@ -14,7 +14,6 @@ public class ItinerarioBSTest extends TestCase{
 	@Mock
 	ItinerarioDAO dao;
 	Itinerario itinerario;
-	Itinerario itinerario2;
 	ItinerarioBS bs;
 	
 	@Before
@@ -26,9 +25,6 @@ public class ItinerarioBSTest extends TestCase{
 		itinerario.setOrigem("Goiania");
 		itinerario.setDestino("Gramado");
 		
-		itinerario2.setId((long) 2);
-		itinerario2.setOrigem(null);
-		itinerario2.setDestino(null);
 	}
 	
 	@Test
@@ -41,6 +37,7 @@ public class ItinerarioBSTest extends TestCase{
 	
 	@Test
 	public void testAlterar() throws Exception{
+		itinerario.setId(new Long(2));
 		Mockito.when(dao.alterar(itinerario)).thenReturn(true);
 		
 		boolean objetoTestado = bs.salvar(itinerario);
@@ -49,12 +46,68 @@ public class ItinerarioBSTest extends TestCase{
 	
 	@Test
 	public void testSalvarNull() throws Exception{
-		itinerario2 = null;
+		itinerario = null;
 		Mockito.when(dao.incluir(null)).thenReturn(false);
 		
-		boolean objetoTestado = bs.salvar(itinerario2);
+		boolean objetoTestado = bs.salvar(itinerario);
 		assertEquals(false, objetoTestado);
 	}
 	
+	@Test
+	public void testSalvarOrigemVazio() throws Exception{
+		itinerario.setOrigem("");
+		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
+		
+		boolean objetoTestado = bs.salvar(itinerario);
+		assertEquals(false, objetoTestado);
+	}
+	
+	@Test
+	public void testSalvarDestinoVazio() throws Exception{
+		itinerario.setDestino("");
+		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
+		
+		boolean objetoTestado = bs.salvar(itinerario);
+		assertEquals(false, objetoTestado);
+	}
+	
+	@Test
+	public void testSalvarOrigemNull() throws Exception{
+		itinerario.setOrigem(null);
+		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
+		
+		boolean objetoTestado = bs.salvar(itinerario);
+		assertEquals(false, objetoTestado);
+	}
+	
+	@Test
+	public void testSalvarDestinoNull() throws Exception{
+		itinerario.setDestino(null);
+		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
+		
+		boolean objetoTestado = bs.salvar(itinerario);
+		assertEquals(false, objetoTestado);
+	}
+	
+	@Test
+	public void testSalvarOrigemEDestinoNull() throws Exception{
+		itinerario.setOrigem(null);
+		itinerario.setDestino(null);
+
+		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
+		
+		boolean objetoTestado = bs.salvar(itinerario);
+		assertEquals(false, objetoTestado);
+	}
+	
+	@Test
+	public void testSalvarOrigemEDestinoVazio() throws Exception{
+		itinerario.setDestino("");
+		itinerario.setDestino("");
+		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
+		
+		boolean objetoTestado = bs.salvar(itinerario);
+		assertEquals(false, objetoTestado);
+	}
 	
 }

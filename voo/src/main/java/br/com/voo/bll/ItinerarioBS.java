@@ -21,11 +21,15 @@ public class ItinerarioBS {
 	public boolean salvar(Itinerario itinerario) {
 
 		try {
-			if (itinerario.getId() == 0) {
-				return dao.incluir(itinerario);
+			if (validarItinerario(itinerario)) {
+				if (itinerario.getId() == 0) {
+					return dao.incluir(itinerario);
 
+				} else {
+					return dao.alterar(itinerario);
+				}
 			} else {
-				return dao.alterar(itinerario);
+				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -44,4 +48,18 @@ public class ItinerarioBS {
 		return new ArrayList<>();
 	}
 
+	private boolean validarItinerario(Itinerario itinerario) {
+		if (itinerario != null) {
+			if (itinerario.getOrigem() != null && itinerario.getDestino() != null) {
+				if (itinerario.getOrigem().isEmpty() || itinerario.getDestino().isEmpty()) {
+					return false;
+				}
+			}else{
+				return false;
+			}
+		} else {
+			return false;
+		}
+		return true;
+	}
 }
