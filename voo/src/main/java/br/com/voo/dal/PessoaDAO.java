@@ -1,5 +1,8 @@
 package br.com.voo.dal;
 
+
+import java.util.List;
+
 import br.com.voo.model.Pessoa;
 
 public class PessoaDAO {
@@ -8,6 +11,18 @@ public class PessoaDAO {
 		
 		return true;
 	}
+
+	public List<Pessoa> buscar(Pessoa pessoa) {
+		
+		return null;
+	}
+
+	public boolean exluir(int codigo) {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	
 
 	
 

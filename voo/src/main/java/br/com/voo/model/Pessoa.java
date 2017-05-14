@@ -6,10 +6,12 @@ public class Pessoa extends Entidade {
 
 	
 	private String nome;
-	private String cpf;
+	private Cpf cpf;
+	private Cnpj cnpj;
 	private String endereco;
 	private Date dataNascimento;
 	private EstadoCivil estadoCivil;
+	private boolean isPessoaFisisca;
 	
 	public Pessoa() {
 		super();
@@ -21,14 +23,6 @@ public class Pessoa extends Entidade {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
 	}
 
 	public String getEndereco() {
@@ -53,6 +47,30 @@ public class Pessoa extends Entidade {
 
 	public void setEstadoCivil(EstadoCivil estadoCivil) {
 		this.estadoCivil = estadoCivil;
+	}
+
+	public Cpf getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(Cpf cpf) {
+		this.cpf = cpf;
+	}
+
+	public Cnpj getCnpj() {
+		return cnpj;
+	}
+
+	public void setCnpj(Cnpj cnpj) {
+		this.cnpj = cnpj;
+	}
+
+	public boolean isPessoaFisisca() {
+		return isPessoaFisisca;
+	}
+
+	public void setPessoaFisisca(boolean isPessoaFisisca) {
+		this.isPessoaFisisca = isPessoaFisisca;
 	}
 
 	
