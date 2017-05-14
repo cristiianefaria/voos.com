@@ -14,6 +14,7 @@ public class ItinerarioBSTest extends TestCase{
 	@Mock
 	ItinerarioDAO dao;
 	Itinerario itinerario;
+	Itinerario itinerario2;
 	ItinerarioBS bs;
 	
 	@Before
@@ -22,8 +23,12 @@ public class ItinerarioBSTest extends TestCase{
 		itinerario = new Itinerario();
 		bs = new ItinerarioBS(dao);
 		
-		itinerario.setOrigem(null);
+		itinerario.setOrigem("Goiania");
 		itinerario.setDestino("Gramado");
+		
+		itinerario2.setId((long) 2);
+		itinerario2.setOrigem(null);
+		itinerario2.setDestino(null);
 	}
 	
 	@Test
@@ -43,29 +48,11 @@ public class ItinerarioBSTest extends TestCase{
 	}
 	
 	@Test
-	public void testDeletar() throws Exception{
-		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
-		
-		boolean objetoTestado = bs.salvar(itinerario);
-		assertEquals(true, objetoTestado);
-	}
-	
-	@Test
-	public void testListarTodos() throws Exception{
-		Mockito.when(dao.incluir(itinerario)).thenReturn(true);
-		
-		boolean objetoTestado = bs.salvar(itinerario);
-		assertEquals(true, objetoTestado);
-	}
-	
-	
-	@Test
 	public void testSalvarNull() throws Exception{
-		itinerario = null;
+		itinerario2 = null;
 		Mockito.when(dao.incluir(null)).thenReturn(false);
-
 		
-		boolean objetoTestado = bs.salvar(itinerario);
+		boolean objetoTestado = bs.salvar(itinerario2);
 		assertEquals(false, objetoTestado);
 	}
 	

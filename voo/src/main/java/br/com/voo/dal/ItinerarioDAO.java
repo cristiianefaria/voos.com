@@ -1,12 +1,27 @@
 package br.com.voo.dal;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 import br.com.voo.model.Itinerario;
 
 public class ItinerarioDAO {
 	
-	public boolean incluir(Itinerario objeto){
+	private Connection connection;
+	
+	public ItinerarioDAO(){
+		
+	}
+	
+	public boolean incluir(Itinerario objeto)throws Exception{
+		
+		PreparedStatement ps = connection.prepareStatement("insert into itinerario (origem, destino)"
+				+ "values (?,?)");
+		ps.setString(1, objeto.getOrigem());
+		ps.setString(2, objeto.getDestino());
+		
+		
 		return true;
 	}
 

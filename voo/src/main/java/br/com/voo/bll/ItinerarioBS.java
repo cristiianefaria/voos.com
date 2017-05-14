@@ -19,19 +19,28 @@ public class ItinerarioBS {
 	}
 
 	public boolean salvar(Itinerario itinerario) {
-		int codigo = 0;
-		if (codigo != 0) {
-			return dao.incluir(itinerario);
-		} else {
-			return dao.alterar(itinerario);
+
+		try {
+			if (itinerario.getId() == 0) {
+				return dao.incluir(itinerario);
+
+			} else {
+				return dao.alterar(itinerario);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
-	
-	public boolean deletar(Itinerario itinerario){
-		return dao.remover(itinerario);
+
+	public boolean deletar(Itinerario itinerario) {
+		if ((itinerario.getId() != null) && (itinerario.getId() != 0)) {
+			return dao.remover(itinerario);
+		}
+		return false;
 	}
-	
-	public ArrayList<Itinerario> listar(Itinerario itinerario){
+
+	public ArrayList<Itinerario> listar(Itinerario itinerario) {
 		return new ArrayList<>();
 	}
 
