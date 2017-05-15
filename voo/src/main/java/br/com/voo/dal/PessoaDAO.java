@@ -22,6 +22,11 @@ public class PessoaDAO {
 		return true;
 	}
 
+	public boolean Alterar(Pessoa _pessoa) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
 
 	

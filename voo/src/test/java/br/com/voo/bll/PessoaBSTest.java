@@ -109,8 +109,11 @@ public class PessoaBSTest {
 		boolean resultado = bs.excluir(codigo);
 		assertTrue(resultado);
 	}
+	@Test
+	public void TestAterar_Pessoa() {
+		Mockito.when(dao.Alterar(_pessoa)).thenReturn(true);
+		boolean resultado = bs.Alterar(_pessoa);
+		assertTrue(resultado);
+	}
 	
-	
-	
-
 }

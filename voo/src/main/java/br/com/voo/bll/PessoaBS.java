@@ -21,7 +21,15 @@ public class PessoaBS {
 	}
 
 	public boolean inserir(Pessoa pessoa) {
-		
+
+		if (ValidarPessoa(pessoa))
+			return dao.inserir(pessoa);
+
+		return false;
+	}
+
+	private boolean ValidarPessoa(Pessoa pessoa) {
+
 		if (pessoa.isPessoaFisisca()) {
 			if (!pessoa.getCpf().isCpf())
 				return false;
@@ -35,8 +43,8 @@ public class PessoaBS {
 
 		if (pessoa.getDataNascimento() == null)
 			return false;
+		return true;
 
-		return dao.inserir(pessoa);
 	}
 
 	public List<Pessoa> buscar(Pessoa pessoa) {
@@ -44,10 +52,15 @@ public class PessoaBS {
 	}
 
 	public boolean excluir(int codigo) {
-		
+
 		return dao.exluir(codigo);
 	}
-	
 
-	
+	public boolean Alterar(Pessoa _pessoa) {
+
+		if (ValidarPessoa(_pessoa))
+			return dao.Alterar(_pessoa);
+
+		return false;
+	}
 }
