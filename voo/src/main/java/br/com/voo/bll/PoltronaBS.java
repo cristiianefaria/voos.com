@@ -19,14 +19,18 @@ public class PoltronaBS {
 
 	}
 
-	public boolean incluir(Poltrona poltrona) {
+	public boolean salvar(Poltrona poltrona) {
 		try {
-			boolean retorno;
+			boolean retorno = false;
 			
-			if(poltrona.getId() == 0) {
-				retorno = dao.salvar();
+			if(poltrona != null) {
+				if(poltrona.getId() == 0) {
+					retorno = dao.salvar(poltrona);
+				}else {
+					retorno = dao.alterar(poltrona);
+				}
 			}else {
-				retorno = dao.alterar();
+				throw new Exception("Poltrona enviada para ser salva está null");
 			}
 			
 			return retorno;
@@ -42,12 +46,15 @@ public class PoltronaBS {
 			if(poltrona != null) {
 				if(poltrona.getId() != 0) {
 					retorno = dao.excluir(poltrona);
+				}else {
+					log.warning("Poltrona enviada para exclusão não tem id");
+					throw new Exception("Não é possivel excluir uma poltrona sem ID");
 				}
 			}else {
 				log.warning("Poltrona enviada para exclusão esta null");
+				throw new Exception("Poltrona enviada para exclusão esta null");
 			}
 			return retorno;
-			
 		}catch(Exception e) {
 			log.warning("Exceção no momento de excluir uma poltrona");
 			return false;

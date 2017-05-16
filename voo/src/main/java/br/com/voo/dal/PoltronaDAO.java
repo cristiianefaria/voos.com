@@ -17,21 +17,19 @@ public class PoltronaDAO {
         conexao = FactoryConexao.getConnection();
     }
     
-    public boolean salvar() throws SQLException{
+    public boolean salvar(Poltrona poltrona) throws SQLException{
     	return true;
     }
     
-    public boolean consultar() throws SQLException{
+    public boolean consultar(Poltrona poltrona) throws SQLException{
     	return true;
     }
 
-	public boolean alterar() throws SQLException{
-
+	public boolean alterar(Poltrona poltrona) throws SQLException{
 		return true;
 	}
 
 	public boolean excluir(Poltrona poltrona)throws SQLException {
-		
 		return true;
 	}
     

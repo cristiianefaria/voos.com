@@ -6,6 +6,7 @@ public class Poltrona extends Entidade {
 	private Double valor;
 	private String classe;
 	private String detalhes;
+	
 
 	public Poltrona() {
 		super();
@@ -24,23 +25,36 @@ public class Poltrona extends Entidade {
 		this.id = ifValorMenorQueZero(id);
 	}
 	
+	public Poltrona(Poltrona poltrona) {
+		this.id = new Long(poltrona.id);
+		this.valor = new Double(poltrona.valor);
+		this.descricao = poltrona.descricao;
+		this.classe = poltrona.classe;
+		this.detalhes = poltrona.detalhes;
+	}
 	
-	private double ifValorMenorQueZero(Double valor) {
-		if(valor > 0) {
-			return new Double(valor);
-			
-		}else {
-			return new Double(0);
+	
+	private Double ifValorMenorQueZero(Double valor) {
+		if(valor != null) {
+			if(valor > 0) {
+				return new Double(valor);
+				
+			}
 		}
+		return new Double(0);
 	}
 	
 	private Long ifValorMenorQueZero(Long valor) {
-		if(valor > 0) {
-			return new Long(valor);
-		}else {
-			return new Long(0);
+		if(valor != null) {
+			if(valor > 0) {
+				return new Long(valor);
+			}
 		}
+		return new Long(0);
 	}
+	
+	
+	
 
 	
 }
