@@ -61,8 +61,21 @@ public class ItinerarioDAO {
 			itinerario.setDestino(rs.getString("destino"));
 			lista.add(itinerario);		
 		}
-		
 		return lista;
+	}
+	
+	public Itinerario consultar(Long id) throws SQLException{
+		Itinerario itinerario = new Itinerario();
+		PreparedStatement ps= connection.prepareStatement("select * from itinerario where id=?");
+		ps.setLong(1, id);
+		ResultSet rs = ps.executeQuery();
+		
+		if (rs.next()){
+			itinerario.setId(rs.getLong("id"));
+			itinerario.setOrigem(rs.getString("origem"));
+			itinerario.setDestino(rs.getString("destino"));
+		}
+		return itinerario;
 	}
 
 }
