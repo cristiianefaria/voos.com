@@ -1,17 +1,19 @@
 package br.com.voo.bll;
 
-import static org.junit.Assert.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.assertj.core.api.Assertions.*;
 
 import java.sql.SQLException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import br.com.voo.dal.PoltronaDAO;
+import br.com.voo.model.Aeronave;
 import br.com.voo.model.Poltrona;
 
 public class PoltronaBSTest {
@@ -26,11 +28,11 @@ public class PoltronaBSTest {
 	public void setUp(){
 		dao = mock(PoltronaDAO.class);
 		bs = new PoltronaBS(dao);
-		poltrona = new Poltrona("A1", new Double(60), "Executiva", "Poltrona conforto");
+		poltrona = new Poltrona("A1", new Double(60), "Executiva", "Poltrona conforto", new Aeronave());
 	}
 	
 	@Test
-	public void testSalvar() throws SQLException {
+	public void testSalvar() throws Exception {
 		
 		when(dao.salvar(poltrona)).thenReturn(true);
 		
@@ -39,7 +41,7 @@ public class PoltronaBSTest {
 	}
 	
 	@Test
-	public void testAlterar() throws SQLException {
+	public void testAlterar() throws Exception {
 		
 		when(dao.alterar(poltrona)).thenReturn(true);
 		poltrona.setId(new Long(10));
@@ -49,7 +51,7 @@ public class PoltronaBSTest {
 	}
 	
 	@Test
-	public void testExcluir() throws SQLException{
+	public void testExcluir() throws Exception{
 		when(dao.excluir(Mockito.any())).thenReturn(true);
 		poltrona.setId(new Long(10));
 		boolean resultadoEsperado = bs.excluir(poltrona);
@@ -98,8 +100,8 @@ public class PoltronaBSTest {
 	// TEST COM PARAMETROS NULOS
 	
 	@Test
-	public void testSalvarIdNull() throws SQLException {
-		poltrona = new Poltrona(null, "descricao", 29.90, "Executiva", "Poltrona conforto");
+	public void testSalvarIdNull() throws Exception {
+		poltrona = new Poltrona(null, "descricao", 29.90, "Executiva", "Poltrona conforto", new Aeronave());
 		when(dao.salvar(poltrona)).thenReturn(true);
 		
 		boolean resultadoEsperado = bs.salvar(poltrona);
@@ -107,8 +109,8 @@ public class PoltronaBSTest {
 	}
 	
 	@Test
-	public void testSalvarDescricaoNull() throws SQLException {
-		poltrona = new Poltrona(null, 29.90, "Executiva", "Poltrona conforto");
+	public void testSalvarDescricaoNull() throws Exception {
+		poltrona = new Poltrona(null, 29.90, "Executiva", "Poltrona conforto",new Aeronave());
 		when(dao.salvar(poltrona)).thenReturn(true);
 		
 		boolean resultadoEsperado = bs.salvar(poltrona);
@@ -116,8 +118,8 @@ public class PoltronaBSTest {
 	}
 	
 	@Test
-	public void testSalvarValorNull() throws SQLException {
-		poltrona = new Poltrona("descricao", null, "Executiva", "Poltrona conforto");
+	public void testSalvarValorNull() throws Exception {
+		poltrona = new Poltrona("descricao", null, "Executiva", "Poltrona conforto",new Aeronave());
 		when(dao.salvar(poltrona)).thenReturn(true);
 		
 		boolean resultadoEsperado = bs.salvar(poltrona);
@@ -125,8 +127,8 @@ public class PoltronaBSTest {
 	}
 	
 	@Test
-	public void testSalvarClasseNull() throws SQLException {
-		poltrona = new Poltrona("descricao", 29.90, null, "Poltrona conforto");
+	public void testSalvarClasseNull() throws Exception {
+		poltrona = new Poltrona("descricao", 29.90, null, "Poltrona conforto", new Aeronave());
 		when(dao.salvar(poltrona)).thenReturn(true);
 		
 		boolean resultadoEsperado = bs.salvar(poltrona);
@@ -134,8 +136,8 @@ public class PoltronaBSTest {
 	}
 	
 	@Test
-	public void testSalvarDetalhesNull() throws SQLException {
-		poltrona = new Poltrona("descricao", 29.90, "Executiva", null);
+	public void testSalvarDetalhesNull() throws Exception {
+		poltrona = new Poltrona("descricao", 29.90, "Executiva", null, new Aeronave());
 		when(dao.salvar(poltrona)).thenReturn(true);
 		
 		boolean resultadoEsperado = bs.salvar(poltrona);
@@ -148,7 +150,7 @@ public class PoltronaBSTest {
 			when(dao.excluir(Mockito.any())).thenReturn(true);
 			bs.excluir(poltrona);
 		}catch(Exception e) {
-			assertThat(e).hasMessage("Poltrona enviada para exclusão esta null");
+			assertThat(e).hasMessage("Não é possivel excluir uma poltrona sem ID");
 		}
 	}
 	

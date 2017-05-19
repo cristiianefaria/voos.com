@@ -3,6 +3,7 @@ package br.com.voo.bll;
 import java.util.logging.Logger;
 
 import br.com.voo.dal.PoltronaDAO;
+import br.com.voo.model.Aeronave;
 import br.com.voo.model.Poltrona;
 
 public class PoltronaBS {
@@ -19,8 +20,7 @@ public class PoltronaBS {
 
 	}
 
-	public boolean salvar(Poltrona poltrona) {
-		try {
+	public boolean salvar(Poltrona poltrona) throws Exception{
 			boolean retorno = false;
 			
 			if(poltrona != null) {
@@ -34,31 +34,22 @@ public class PoltronaBS {
 			}
 			
 			return retorno;
-		}catch(Exception e) {
-			log.warning("Exceção no momento de incluir poltrona");		
-			return false;
-		}
 	}
 
-	public boolean excluir(Poltrona poltrona) {
-		try{
-			boolean retorno = false;
-			if(poltrona != null) {
-				if(poltrona.getId() != 0) {
-					retorno = dao.excluir(poltrona);
-				}else {
-					log.warning("Poltrona enviada para exclusão não tem id");
-					throw new Exception("Não é possivel excluir uma poltrona sem ID");
-				}
+	public boolean excluir(Poltrona poltrona)throws Exception{
+		boolean retorno = false;
+		if(poltrona != null) {
+			if(poltrona.getId() != 0) {
+				retorno = dao.excluir(poltrona);
 			}else {
-				log.warning("Poltrona enviada para exclusão esta null");
-				throw new Exception("Poltrona enviada para exclusão esta null");
+				log.warning("Poltrona enviada para exclusão não tem id");
+				throw new Exception("Não é possivel excluir uma poltrona sem ID");
 			}
-			return retorno;
-		}catch(Exception e) {
-			log.warning("Exceção no momento de excluir uma poltrona");
-			return false;
+		}else {
+			log.warning("Poltrona enviada para exclusão esta null");
+			throw new Exception("Poltrona enviada para exclusão esta null");
 		}
+		return retorno;
 	}
 	
 }
