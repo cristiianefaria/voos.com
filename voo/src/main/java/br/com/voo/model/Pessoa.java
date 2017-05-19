@@ -13,6 +13,20 @@ public class Pessoa extends Entidade {
 	private EstadoCivil estadoCivil;
 	private boolean isPessoaFisisca;
 	
+    
+	
+	public Pessoa(String nome, String cpf, String cnpj, String endereco, Date dataNascimento, EstadoCivil estadoCivil,
+			boolean isPessoaFisisca) {
+		super();
+		this.nome = nome;
+		this.cpf = new Cpf(cpf);
+		this.cnpj = new Cnpj(cnpj);
+		this.endereco = endereco;
+		this.dataNascimento = dataNascimento;
+		this.estadoCivil = estadoCivil;
+		this.isPessoaFisisca = isPessoaFisisca;
+	}
+
 	public Pessoa() {
 		super();
 	}
@@ -21,57 +35,34 @@ public class Pessoa extends Entidade {
 		return nome;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
 	public String getEndereco() {
 		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
 	}
 
 	public Date getDataNascimento() {
 		return dataNascimento;
 	}
 
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
 
 	public EstadoCivil getEstadoCivil() {
 		return estadoCivil;
 	}
 
-	public void setEstadoCivil(EstadoCivil estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
 
 	public Cpf getCpf() {
 		return cpf;
 	}
 
-	public void setCpf(Cpf cpf) {
-		this.cpf = cpf;
-	}
 
 	public Cnpj getCnpj() {
 		return cnpj;
-	}
-
-	public void setCnpj(Cnpj cnpj) {
-		this.cnpj = cnpj;
 	}
 
 	public boolean isPessoaFisisca() {
 		return isPessoaFisisca;
 	}
 
-	public void setPessoaFisisca(boolean isPessoaFisisca) {
-		this.isPessoaFisisca = isPessoaFisisca;
-	}
+	
 
 	
 }

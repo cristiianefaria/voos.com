@@ -7,7 +7,7 @@ import br.com.voo.model.Pessoa;
 
 public class PessoaDAO {
 
-	public boolean inserir(Pessoa _pessoa) {
+	public boolean salvar(Pessoa _pessoa) {
 		
 		return true;
 	}
