@@ -74,4 +74,12 @@ public class ItinerarioBS {
 		}
 		return true;
 	}
+	
+	public Itinerario consultar(Long id){
+		try {
+			return dao.consultar(id);
+		} catch (Exception e) {
+			e.printStackTrace();		}
+			return new Itinerario();
+	}
 }
