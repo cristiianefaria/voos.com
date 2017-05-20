@@ -21,7 +21,7 @@ public class ClienteBS {
 	public ClienteBS() {
 		super();
 	}
-
+	
 	public boolean salvar(Cliente _cliente) throws Exception {
 		try {
 			ValidarPessoa(_cliente.getPessoa());
