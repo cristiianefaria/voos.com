@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,31 +29,71 @@ public class PassageiroBSTest {
 	Passageiro _passageiro;
 	PassageiroBS bs;
 	private Date _data;
-	
+
 	@Before
-	public void setUp() throws ParseException{
+	public void setUp() throws ParseException {
 		dao = Mockito.mock(PassageiroDAO.class);
 		bs = new PassageiroBS(dao);
-		
-		
+
 		SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
 		String dataNascimento = "11/12/1989";
 		_data = data.parse(dataNascimento);
-		
-		
-		Pessoa p = new Pessoa("Thiago", "02165072190", 
-				             "24036864000121", 
-				            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-				            _data, EstadoCivil.Casado, true);
-		
+
+		Pessoa p = new Pessoa("Thiago", "02165072190", "24036864000121",
+				"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, true);
+
 		_passageiro = new Passageiro(p);
 	}
-	
+
 	@Test
 	public void test_Salvar_Passageiro_Valido() {
 		try {
 			Mockito.when(dao.salvar(_passageiro)).thenReturn(true);
 			boolean resultado = bs.salvar(_passageiro);
+			assertTrue(resultado);
+		} catch (Exception e) {
+			assertThat(e).hasMessage("");
+		}
+	}
+
+	@Test
+	public void test_Salvar_Passageiro_Menor_De_Idade() {
+		try {
+			SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyyy");
+			String dataNascimento = "11/12/2010";
+			_data = data.parse(dataNascimento);
+
+			Pessoa p = new Pessoa("Thiago", "02165072190", "24036864000121",
+					"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, true);
+
+			_passageiro = new Passageiro(p);
+			Mockito.when(dao.salvar(_passageiro)).thenReturn(true);
+			boolean resultado = bs.salvar(_passageiro);
+			assertEquals(false, resultado);
+		} catch (Exception e) {
+			assertThat(e).hasMessage("É nescessário informar o responsável!");
+		}
+	}
+
+	@Test
+	public void test_Listar_Passageiros() {
+		try {
+			List<Passageiro> lista = new ArrayList<Passageiro>();
+			lista.add(_passageiro);
+			Mockito.when(dao.listar()).thenReturn(lista);
+			List<Passageiro> resultado = bs.listar();
+			assertEquals(lista, resultado);
+		} catch (Exception e) {
+			assertThat(e).hasMessage("");
+		}
+	}
+
+	@Test
+	public void test_Excluir_passageiro() {
+		try {
+			int id = 1;
+			Mockito.when(dao.excluir(id)).thenReturn(true);
+			boolean resultado = bs.excluir(id);
 			assertTrue(resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("");
