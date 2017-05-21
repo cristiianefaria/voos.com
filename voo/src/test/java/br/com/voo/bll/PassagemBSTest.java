@@ -8,7 +8,6 @@ public class PassagemBSTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }
