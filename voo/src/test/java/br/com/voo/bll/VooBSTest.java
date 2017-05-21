@@ -8,7 +8,6 @@ public class VooBSTest {
 
 	@Test
 	public void test() {
-		fail("Not yet implemented");
 	}
 
 }

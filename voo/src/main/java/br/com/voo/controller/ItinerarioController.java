@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.voo.bll.ItinerarioBS;
 import br.com.voo.model.Itinerario;
 
-@WebServlet("/ItinerarioControleler")
+@WebServlet("/ItinerarioController")
 public class ItinerarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String INCLUIR_OU_ALTERAR = "/cadastro.jsp";
@@ -29,18 +29,26 @@ public class ItinerarioController extends HttpServlet {
 		String caminho = "";
 		String acao = request.getParameter("acao");
 
-	if (acao.equalsIgnoreCase("alterar")){
-		caminho = INCLUIR_OU_ALTERAR;
-		String idTela = request.getParameter("id");
-		Long id = (long)0;
-		if(idTela != null && idTela.isEmpty()){
-			id = Long.parseLong(idTela);
-			Itinerario itinerario = bs.consultar(id);
-			request.setAttribute("salvar", itinerario);
-			request.setAttribute("lista", bs.listar());
+		if (acao.equalsIgnoreCase("alterar")){
+			caminho = INCLUIR_OU_ALTERAR;
+			String idTela = request.getParameter("id");
+			Long id = (long)0;
+			if(idTela != null && !idTela.isEmpty()){
+	//			id = Long.parseLong(idTela);
+	//			Itinerario itinerario = bs.consultar(id);
+	//			request.setAttribute("salvar", itinerario);
+	//			request.setAttribute("lista", bs.listar());
+				
+				Itinerario iti = new Itinerario();
+				iti.setDestino("Brasil");
+				iti.setOrigem("USA");
+				request.setAttribute("objeto", iti);
+			}
+			
 		}
 		
-	}
+		RequestDispatcher view = request.getRequestDispatcher(caminho);
+		view.forward(request, response);
 		
 	}
 
