@@ -6,6 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import br.com.voo.dal.PassageiroDAO;
 import br.com.voo.model.Passageiro;
@@ -56,5 +57,12 @@ public class PassageiroBS {
 		if (!validacao.validarPeesoa(pessoa).isEmpty())
 			throw new Exception("Erros encontrados " + validacao.validarPeesoa(pessoa));
 
+	}
+	public List<Passageiro> listar() {
+		
+		return dao.listar();
+	}
+	public boolean excluir(int id) {
+		return dao.excluir(id);
 	}
 }
