@@ -54,6 +54,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 					<td><a href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
 							Remover</a></td>
@@ -62,6 +63,9 @@
 =======
 					<td><a
 						href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
+>>>>>>> crud itinerario
+=======
+					<td><a href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
 >>>>>>> crud itinerario
 =======
 					<td><a href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
