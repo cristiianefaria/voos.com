@@ -65,6 +65,7 @@ public class ItinerarioController extends HttpServlet {
 		RequestDispatcher view = request.getRequestDispatcher(caminho);
 		view.forward(request, response);
 
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
