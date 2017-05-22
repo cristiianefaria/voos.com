@@ -28,8 +28,7 @@
 					<td><a
 						href="ItinerarioController?acao=alterar&id=<c:out value="${listagem.id}"/>">
 							Alterar</a></td>
-					<td><a
-						href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
+					<td><a href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
 							Remover</a></td>
 				</tr>
 			</c:forEach>
