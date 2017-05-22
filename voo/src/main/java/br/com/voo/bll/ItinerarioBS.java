@@ -18,6 +18,7 @@ public class ItinerarioBS {
 
 	public ItinerarioBS() {
 		super();
+		dao = new ItinerarioDAO();
 	}
 
 	public boolean salvar(Itinerario itinerario) {
@@ -39,10 +40,11 @@ public class ItinerarioBS {
 		}
 	}
 
-	public boolean deletar(Itinerario itinerario) {
+	public boolean remover(Itinerario itinerario) {
 		try {
 			if ((itinerario.getId() != null) && (itinerario.getId() != 0)) {
-				return dao.remover(itinerario.getId());
+				dao.remover(itinerario.getId());
+				return true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

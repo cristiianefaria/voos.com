@@ -15,8 +15,8 @@ import br.com.voo.model.Itinerario;
 @WebServlet("/ItinerarioController")
 public class ItinerarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static String INCLUIR_OU_ALTERAR = "/cadastro.jsp";
-	private static String LISTAR = "/listaitinerario.jsp";
+	private static String FORMULARIO = "/itinerario.jsp";
+	private static String LISTAR = "/itinerarios.jsp";
 	private ItinerarioBS bs;
 
 	public ItinerarioController() {
@@ -29,40 +29,60 @@ public class ItinerarioController extends HttpServlet {
 		String caminho = "";
 		String acao = request.getParameter("acao");
 
-		if (acao.equalsIgnoreCase("alterar")){
-			caminho = INCLUIR_OU_ALTERAR;
+		if (acao.equalsIgnoreCase("listar")) {
+			caminho = LISTAR;
+			request.setAttribute("lista", bs.listar());
+
+		} else if (acao.equalsIgnoreCase("alterar")) {
+			caminho = FORMULARIO;
 			String idTela = request.getParameter("id");
-			Long id = (long)0;
-			if(idTela != null && !idTela.isEmpty()){
-	//			id = Long.parseLong(idTela);
-	//			Itinerario itinerario = bs.consultar(id);
-	//			request.setAttribute("salvar", itinerario);
-	//			request.setAttribute("lista", bs.listar());
-				
-				Itinerario iti = new Itinerario();
-				iti.setDestino("Brasil");
-				iti.setOrigem("USA");
-				request.setAttribute("objeto", iti);
+			Long id = (long) 0;
+			if (idTela != null && !idTela.isEmpty()) {
+				id = Long.parseLong(idTela);
+				Itinerario itinerario = bs.consultar(id);
+				request.setAttribute("salvar", itinerario);
+				request.setAttribute("lista", bs.listar());
 			}
 			
+		} else if(acao.equalsIgnoreCase("remover")){
+			String idTela = request.getParameter("id");
+			Long id = (long) 0;
+			if (idTela != null && !idTela.isEmpty()) {
+				id = Long.parseLong(idTela);
+			}
+			Itinerario itinerario = new Itinerario();
+			itinerario.setId(id);
+			bs.remover(itinerario);
+			caminho = LISTAR;
+			request.setAttribute("lista", bs.listar());
 		}
 		
+		else {
+			caminho = LISTAR;
+		}
+
 		RequestDispatcher view = request.getRequestDispatcher(caminho);
 		view.forward(request, response);
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
+
+		String id = request.getParameter("id");
+		if(id.equals("")){
+			id = "0";
+		}
+		
 		Itinerario itinerario = new Itinerario();
+		
+		itinerario.setId(Long.parseLong(id));
 		itinerario.setOrigem(request.getParameter("origem"));
 		itinerario.setDestino(request.getParameter("destino"));
-		itinerario.setId(Long.parseLong(request.getParameter("id")));
-		
+
 		bs.salvar(itinerario);
-		
-		RequestDispatcher view = request.getRequestDispatcher(INCLUIR_OU_ALTERAR);
+
+		RequestDispatcher view = request.getRequestDispatcher(FORMULARIO);
 		request.setAttribute("lista", bs.listar());
 		view.forward(request, response);
 	}
