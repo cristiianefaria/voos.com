@@ -30,9 +30,13 @@ public class ItinerarioController extends HttpServlet {
 		String acao = request.getParameter("acao");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> crud itinerario
+=======
+
+>>>>>>> corrigindo conflito
 		if (acao.equalsIgnoreCase("listar")) {
 			caminho = LISTAR;
 			request.setAttribute("lista", bs.listar());
@@ -69,9 +73,13 @@ public class ItinerarioController extends HttpServlet {
 		view.forward(request, response);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> crud itinerario
+=======
+
+>>>>>>> corrigindo conflito
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
