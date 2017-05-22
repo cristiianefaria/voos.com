@@ -27,24 +27,31 @@ public class ItinerarioDAO {
 		ps.setString(2, objeto.getDestino());
 		ps.execute();
 		
+		ps.close();
+		
 		return true;
 	}
 
 	public boolean alterar(Itinerario itinerario) throws SQLException {
-		PreparedStatement ps = connection.prepareStatement("update itinerario (origem=?, destino=?"
-				+ " where id=?)");
+		PreparedStatement ps = connection.prepareStatement("update itinerario set origem=?, destino=?"
+				+ " where codigo=?");
 		ps.setString(1, itinerario.getOrigem());
 		ps.setString(2, itinerario.getDestino());
 		ps.setLong(3, itinerario.getId());
 		ps.executeUpdate();
 		
+		ps.close();
+		
 		return true;
 	}
 	
-	public boolean remover(Long id) throws SQLException  {
-		PreparedStatement ps = connection.prepareStatement("delete from itinerario where id=?");
-		ps.setLong(1, id);
+	public boolean remover(Long codigo) throws SQLException  {
+		PreparedStatement ps = connection.prepareStatement("delete from itinerario where codigo=?");
+		ps.setLong(1, codigo);
 		ps.executeQuery();
+		
+		ps.close();
+		
 		return true;
 	}
 	
@@ -56,25 +63,29 @@ public class ItinerarioDAO {
 		
 		while (rs.next()){
 			Itinerario itinerario = new Itinerario();
-			itinerario.setId(rs.getLong("id"));
+			itinerario.setId(rs.getLong("codigo"));
 			itinerario.setOrigem(rs.getString("origem"));
 			itinerario.setDestino(rs.getString("destino"));
 			lista.add(itinerario);		
 		}
+		
+		st.close();
 		return lista;
 	}
 	
-	public Itinerario consultar(Long id) throws SQLException{
+	public Itinerario consultar(Long codigo) throws SQLException{
 		Itinerario itinerario = new Itinerario();
-		PreparedStatement ps= connection.prepareStatement("select * from itinerario where id=?");
-		ps.setLong(1, id);
+		PreparedStatement ps= connection.prepareStatement("select * from itinerario where codigo=?");
+		ps.setLong(1, codigo);
 		ResultSet rs = ps.executeQuery();
 		
 		if (rs.next()){
-			itinerario.setId(rs.getLong("id"));
+			itinerario.setId(rs.getLong("codigo"));
 			itinerario.setOrigem(rs.getString("origem"));
 			itinerario.setDestino(rs.getString("destino"));
 		}
+		
+		ps.close();
 		return itinerario;
 	}
 
