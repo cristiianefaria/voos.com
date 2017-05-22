@@ -6,6 +6,7 @@
 <html>
 <head>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <title>Consulta Itinerario</title>
 <jsp:include page="importacao.jsp" />
 </head>
@@ -16,6 +17,8 @@
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> crud itinerario
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
@@ -31,6 +34,9 @@
 		</thead>
 		<tbody>
 
+<<<<<<< HEAD
+>>>>>>> crud itinerario
+=======
 >>>>>>> crud itinerario
 			<c:forEach items="${lista}" var="listagem">
 				<tr>
@@ -40,6 +46,7 @@
 					<td><a
 						href="ItinerarioController?acao=alterar&id=<c:out value="${listagem.id}"/>">
 							Alterar</a></td>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -78,10 +85,16 @@
 						href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
 							Remover</a></td>
 >>>>>>> crud itinerario
+=======
+					<td><a href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
+							Remover</a></td>
+					
+>>>>>>> crud itinerario
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 		<div class="container">
@@ -118,6 +131,10 @@
 	</div>
 
 	<jsp:include page="footer.jsp" />
+=======
+
+
+>>>>>>> crud itinerario
 =======
 
 
