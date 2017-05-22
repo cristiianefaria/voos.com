@@ -25,11 +25,9 @@ public class PessoaDAO {
 			ps.setString(4, _pessoa.getEndereco());
 			ps.setDate(5, new java.sql.Date(_pessoa.getDataNascimento().getTime()));
 			ps.setString(6, estadoCivilDescricao(_pessoa.getEstadoCivil()));
-<<<<<<< HEAD
+
 			ps.setBoolean(7, _pessoa.isRemovido());
-=======
-			ps.setBoolean(7, false);
->>>>>>> criando persitencia de passageiro
+
 
 			ps.execute();
 			return true;
@@ -40,11 +38,9 @@ public class PessoaDAO {
 
 	}
 
-<<<<<<< HEAD
+
 	public String estadoCivilDescricao(EstadoCivil estadoCivil) {
-=======
-	private String estadoCivilDescricao(EstadoCivil estadoCivil) {
->>>>>>> criando persitencia de passageiro
+
 
 		String descricao = "";
 		switch (estadoCivil) {
@@ -65,7 +61,7 @@ public class PessoaDAO {
 		}
 
 		return descricao;
-<<<<<<< HEAD
+
 	}
 	
 	public EstadoCivil estadoCivilDescricao(String descricao) {
@@ -86,8 +82,7 @@ public class PessoaDAO {
 		}
 
 		return estadoCivil;
-=======
->>>>>>> criando persitencia de passageiro
+
 	}
 
 	public List<Pessoa> buscar(Pessoa pessoa) {
@@ -103,17 +98,10 @@ public class PessoaDAO {
 	public boolean Alterar(Pessoa _pessoa,Connection conexao) throws Exception {
 		try {
 			PreparedStatement ps = conexao
-<<<<<<< HEAD
 					.prepareStatement("UPDATE public.pessoa "
 							+ "SET nome=?, cpf=?, "
 							+ "cnpj=?, endereco=?, data_nascimeto=?, "
 							+ "estado_civil=?, removido=? "
-=======
-					.prepareStatement("UPDATE public.pessoa"
-							+ "SET nome=?, cpf=?, "
-							+ "cnpj=?, endereco=?, data_nascimeto=?, "
-							+ "estado_civil=?, removido"
->>>>>>> criando persitencia de passageiro
 							+ "WHERE codigo ="+_pessoa.getId());
 			ps.setString(1, _pessoa.getNome());
 			ps.setString(2, _pessoa.getCpf().getNumero());
@@ -121,12 +109,7 @@ public class PessoaDAO {
 			ps.setString(4, _pessoa.getEndereco());
 			ps.setDate(5, new java.sql.Date(_pessoa.getDataNascimento().getTime()));
 			ps.setString(6, estadoCivilDescricao(_pessoa.getEstadoCivil()));
-<<<<<<< HEAD
 			ps.setBoolean(7, _pessoa.isRemovido());
-=======
-			ps.setBoolean(7, false);
-			ps.setLong(8, _pessoa.getId());
->>>>>>> criando persitencia de passageiro
 			
 			ps.executeUpdate();
 			return true;
@@ -153,15 +136,9 @@ public class PessoaDAO {
 				pessoa.setId(rs.getLong("codigo"));
 				
 			}
-<<<<<<< HEAD
 
 			return pessoa;
 
-=======
-
-			return pessoa;
-
->>>>>>> criando persitencia de passageiro
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

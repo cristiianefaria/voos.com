@@ -40,11 +40,7 @@ public class PassageiroBSTest {
 		_data = data.parse(dataNascimento);
 
 		Pessoa p = new Pessoa("Thiago", "02165072190", "24036864000121",
-<<<<<<< HEAD
 				"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, false);
-=======
-				"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, true);
->>>>>>> criando persitencia de passageiro
 
 		_passageiro = new Passageiro(p);
 	}
@@ -68,17 +64,11 @@ public class PassageiroBSTest {
 			_data = data.parse(dataNascimento);
 
 			Pessoa p = new Pessoa("Thiago", "02165072190", "24036864000121",
-<<<<<<< HEAD
 					"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, false);
 
 			_passageiro = new Passageiro(p);
 			Mockito.when(dao.inserir(_passageiro)).thenReturn(true);
-=======
-					"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, true);
 
-			_passageiro = new Passageiro(p);
-			Mockito.when(dao.salvar(_passageiro)).thenReturn(true);
->>>>>>> criando persitencia de passageiro
 			boolean resultado = bs.salvar(_passageiro);
 			assertEquals(false, resultado);
 		} catch (Exception e) {
@@ -102,15 +92,10 @@ public class PassageiroBSTest {
 	@Test
 	public void test_Excluir_passageiro() {
 		try {
-<<<<<<< HEAD
+
 			
 			Mockito.when(dao.excluir(_passageiro)).thenReturn(true);
 			boolean resultado = bs.excluir(_passageiro);
-=======
-			int id = 1;
-			Mockito.when(dao.excluir(id)).thenReturn(true);
-			boolean resultado = bs.excluir(id);
->>>>>>> criando persitencia de passageiro
 			assertTrue(resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("");

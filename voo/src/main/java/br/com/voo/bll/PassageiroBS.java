@@ -67,12 +67,9 @@ public class PassageiroBS {
 		
 		return dao.listar();
 	}
-<<<<<<< HEAD
+
 	public boolean excluir(Passageiro passageiro) throws Exception {
 		return dao.excluir(passageiro);
-=======
-	public boolean excluir(int id) {
-		return dao.excluir(id);
->>>>>>> criando persitencia de passageiro
+
 	}
 }

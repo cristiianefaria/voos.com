@@ -38,18 +38,7 @@ public class Pessoa extends Entidade {
 		this.estadoCivil = estadoCivil;
 		this.removido = removido;
 	}
-	public Pessoa(long id,String nome, String cpf, String cnpj, String endereco, Date dataNascimento, EstadoCivil estadoCivil,
-			boolean isPessoaFisisca) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.cpf = new Cpf(cpf);
-		this.cnpj = new Cnpj(cnpj);
-		this.endereco = endereco;
-		this.dataNascimento = dataNascimento;
-		this.estadoCivil = estadoCivil;
-		this.isPessoaFisisca = isPessoaFisisca;
-	}
+
 
 	public Pessoa() {
 		super();
