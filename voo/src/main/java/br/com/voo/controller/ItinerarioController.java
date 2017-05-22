@@ -29,6 +29,7 @@ public class ItinerarioController extends HttpServlet {
 		String caminho = "";
 		String acao = request.getParameter("acao");
 
+
 		if (acao.equalsIgnoreCase("listar")) {
 			caminho = LISTAR;
 			request.setAttribute("lista", bs.listar());
@@ -63,6 +64,7 @@ public class ItinerarioController extends HttpServlet {
 
 		RequestDispatcher view = request.getRequestDispatcher(caminho);
 		view.forward(request, response);
+
 
 	}
 
