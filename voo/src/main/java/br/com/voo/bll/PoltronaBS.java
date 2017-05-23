@@ -17,7 +17,7 @@ public class PoltronaBS {
 	}
 
 	public PoltronaBS() {
-
+		dao = new PoltronaDAO();
 	}
 
 	public boolean salvar(Poltrona poltrona) throws Exception{
@@ -34,6 +34,14 @@ public class PoltronaBS {
 			}
 			
 			return retorno;
+	}
+	
+	public boolean cadastrarPoltronasNaAeronave(Poltrona poltrona,int quantidade) throws Exception{
+		
+		for(int i = 0; i < quantidade; i++){
+			salvar(poltrona);
+		}
+		return true;
 	}
 
 	public boolean excluir(Poltrona poltrona)throws Exception{
