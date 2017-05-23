@@ -24,10 +24,15 @@ public class PassageiroBS {
 	}
 	public boolean salvar(Passageiro _passageiro) throws Exception{
 		try {
+			
 			validarPessoa(_passageiro.getPessoa());
 			validarPassageiro(_passageiro);
 			
-			return dao.salvar(_passageiro);
+			if (_passageiro.getId() == 0)
+				return dao.inserir(_passageiro);
+			else
+				return dao.atualiza(_passageiro);
+			
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -62,7 +67,7 @@ public class PassageiroBS {
 		
 		return dao.listar();
 	}
-	public boolean excluir(int id) {
-		return dao.excluir(id);
+	public boolean excluir(Passageiro passageiro) throws Exception {
+		return dao.excluir(passageiro);
 	}
 }

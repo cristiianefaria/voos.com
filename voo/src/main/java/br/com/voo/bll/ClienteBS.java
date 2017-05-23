@@ -24,8 +24,10 @@ public class ClienteBS {
 	
 	public boolean salvar(Cliente _cliente) throws Exception {
 		try {
+			
 			ValidarPessoa(_cliente.getPessoa());
 			ValidarCliente(_cliente);
+			
 			return dao.salvar(_cliente);
 
 		} catch (Exception e) {

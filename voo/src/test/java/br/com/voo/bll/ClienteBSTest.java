@@ -44,7 +44,7 @@ public class ClienteBSTest {
 		Pessoa p = new Pessoa("Thiago", "02165072190", 
 				             "24036864000121", 
 				            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-				            _data, EstadoCivil.Casado, true);
+				            _data, EstadoCivil.Casado, false);
 		_cliente.setMilhagem(200);
 		_cliente.setPercentDesconto(10.0);
 		_cliente.setPessoa(p);
@@ -69,7 +69,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado, true);
+		            _data, EstadoCivil.Casado, false);
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
@@ -86,7 +86,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            null, EstadoCivil.Casado, true);
+		            null, EstadoCivil.Casado, false);
 
 			_cliente.setPessoa(p);
 			_cliente.setPessoa(p);
@@ -113,9 +113,9 @@ public class ClienteBSTest {
 		try {
 			Mockito.when(dao.salvar(_cliente)).thenReturn(true);
 			Pessoa p = new Pessoa("thiago", "021650721390", 
-		             "240368640001211", 
+		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado, true);
+		            _data, EstadoCivil.Casado, false);
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
@@ -132,7 +132,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado, true);
+		            _data, EstadoCivil.Casado, false);
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
 			assertEquals(true, resultado);

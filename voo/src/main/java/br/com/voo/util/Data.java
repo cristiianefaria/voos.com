@@ -13,7 +13,6 @@ public class Data extends Date {
 	private Data() {
 
 	}
-
 	public Data(Date data) {
 		this.data = data;
 	}

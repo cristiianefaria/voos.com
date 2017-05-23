@@ -6,6 +6,7 @@ public class Cnpj {
 	private boolean isCnpj;
 
 	public Cnpj(String numero) {
+		this.numero = numero;
 		ValidarCnpj(numero);
 	}
 
@@ -13,7 +14,7 @@ public class Cnpj {
 		if (numero.equals("00000000000000") || numero.equals("11111111111111") || numero.equals("22222222222222")
 				|| numero.equals("33333333333333") || numero.equals("44444444444444") || numero.equals("55555555555555")
 				|| numero.equals("66666666666666") || numero.equals("77777777777777") || numero.equals("88888888888888")
-				|| numero.equals("99999999999999") || (numero.length() != 14)) {
+				|| numero.equals("99999999999999") || (numero.length() != 14) || numero.equals("")) {
 			isCnpj = false;
 			return;
 

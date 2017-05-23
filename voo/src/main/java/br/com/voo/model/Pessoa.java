@@ -11,12 +11,11 @@ public class Pessoa extends Entidade {
 	private String endereco;
 	private Date dataNascimento;
 	private EstadoCivil estadoCivil;
-	private boolean isPessoaFisisca;
+	private boolean removido;
 	
-    
-	
-	public Pessoa(String nome, String cpf, String cnpj, String endereco, Date dataNascimento, EstadoCivil estadoCivil,
-			boolean isPessoaFisisca) {
+	public Pessoa(String nome, String cpf, String cnpj, 
+			            String endereco, Date dataNascimento,
+			                           EstadoCivil estadoCivil, boolean removido) {
 		super();
 		this.nome = nome;
 		this.cpf = new Cpf(cpf);
@@ -24,10 +23,11 @@ public class Pessoa extends Entidade {
 		this.endereco = endereco;
 		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
-		this.isPessoaFisisca = isPessoaFisisca;
+		this.removido = removido;
 	}
-	public Pessoa(long id,String nome, String cpf, String cnpj, String endereco, Date dataNascimento, EstadoCivil estadoCivil,
-			boolean isPessoaFisisca) {
+	public Pessoa(long id,String nome, String cpf, 
+			String cnpj, String endereco, Date dataNascimento, 
+			EstadoCivil estadoCivil, boolean removido) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -36,7 +36,7 @@ public class Pessoa extends Entidade {
 		this.endereco = endereco;
 		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
-		this.isPessoaFisisca = isPessoaFisisca;
+		this.removido = removido;
 	}
 
 	public Pessoa() {
@@ -70,9 +70,10 @@ public class Pessoa extends Entidade {
 		return cnpj;
 	}
 
-	public boolean isPessoaFisisca() {
-		return isPessoaFisisca;
+	public boolean isRemovido() {
+		return removido;
 	}
+
 
 	
 
