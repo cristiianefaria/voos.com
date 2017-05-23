@@ -31,6 +31,7 @@ public class Aeronave extends Entidade {
 	}
 	
 	public Aeronave(Aeronave aeronave){
+		this.id = aeronave.id;
 		this.descricao = aeronave.descricao;
 		this.poltronas = new ArrayList<>(aeronave.poltronas);
 	}

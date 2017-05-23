@@ -14,6 +14,12 @@ import br.com.voo.util.FactoryConexao;
 
 public class PoltronaDAO {
 	
+	Connection cnn;
+	
+	public PoltronaDAO() {
+		this.cnn = FactoryConexao.getConnection();
+	}
+
 	final static Logger log = Logger.getLogger(PoltronaDAO.class.getName());
 
     public boolean salvar(Poltrona poltrona) throws SQLException{
@@ -22,7 +28,7 @@ public class PoltronaDAO {
     	
     	Connection cnn = FactoryConexao.getConnection();
     	PreparedStatement ps =  cnn.prepareStatement(sql);
-    	ps.setString(0, poltrona.getDescricao());
+    	ps.setString(1, poltrona.getDescricao());
     	ps.setDouble(2, poltrona.getValor());
     	ps.setString(3, poltrona.getClasse());
     	ps.setString(4, poltrona.getDetalhes());
@@ -31,7 +37,6 @@ public class PoltronaDAO {
     	ps.execute();
     	
     	ps.close();
-    	cnn.close();
     	
     	return true;
     }
@@ -40,7 +45,6 @@ public class PoltronaDAO {
 		String sql = "UPDATE poltrona SET descricao = ?,"
 				+ " valor = ?, classe = ?, detalhes = ? WHERE codigo = ?";
 		
-		Connection cnn = FactoryConexao.getConnection();
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setString(1, poltrona.getDescricao());
 		ps.setDouble(2, poltrona.getValor());
@@ -50,7 +54,6 @@ public class PoltronaDAO {
 		
 		ps.execute();
 		ps.close();
-		cnn.close();
 		
 		return true;
 	}
@@ -58,35 +61,30 @@ public class PoltronaDAO {
 	public boolean excluir(Poltrona poltrona)throws SQLException {
 		String sql = "DELETE FROM poltrona where codigo = ?";
 		
-		Connection cnn = FactoryConexao.getConnection();
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setLong(1, poltrona.getId());
 		
 		ps.execute();
 		
 		ps.close();
-		cnn.close();
 		return true;
 	}
 	
 	public boolean excluirPorAeronave(Poltrona poltrona)throws SQLException {
 		String sql = "DELETE FROM poltrona where codigo_aeronave = ?";
 		
-		Connection cnn = FactoryConexao.getConnection();
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setLong(1, poltrona.getCodigoAeronave());
 		
 		ps.execute();
 		
 		ps.close();
-		cnn.close();
 		return true;
 	}
 	
 	public Poltrona consultar(Poltrona poltrona)throws SQLException{
     	String sql = "SELECT * FROM poltrona where codigo = ?";
     	
-    	Connection cnn = FactoryConexao.getConnection();
     	PreparedStatement ps = cnn.prepareStatement(sql);
     	ps.setLong(1, poltrona.getId());
     	ResultSet rs = ps.executeQuery();
@@ -105,8 +103,7 @@ public class PoltronaDAO {
     
     public List<Poltrona> listar(Poltrona poltrona)throws SQLException{
     	String sql = "SELECT * FROM poltrona where codigo_aeronave = ?";
-    	
-    	Connection cnn = FactoryConexao.getConnection();
+
     	PreparedStatement ps = cnn.prepareStatement(sql);
     	ps.setLong(1, poltrona.getCodigoAeronave());
     	
