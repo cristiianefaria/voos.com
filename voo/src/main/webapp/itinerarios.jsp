@@ -30,6 +30,13 @@
 							Alterar</a></td>
 					<td><a href="ItinerarioController?acao=remover&id=<c:out value="${listagem.id}"/>">
 							Remover</a></td>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+					
+>>>>>>> 9c68c0121d405dccfc6220503522ccafcd1e6f51
+>>>>>>> e3b8e5c25734527946e3638d01e5013b95a4e514
 				</tr>
 			</c:forEach>
 		</tbody>
