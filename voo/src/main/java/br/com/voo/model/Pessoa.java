@@ -74,6 +74,9 @@ public class Pessoa extends Entidade {
 	public boolean isRemovido() {
 		return removido;
 	}
+	public void setRemovido(boolean removido){
+		this.removido = removido;
+	}
 
 
 	

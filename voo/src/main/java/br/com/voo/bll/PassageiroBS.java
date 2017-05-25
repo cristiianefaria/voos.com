@@ -1,11 +1,6 @@
 package br.com.voo.bll;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import br.com.voo.dal.PassageiroDAO;
@@ -31,12 +26,11 @@ public class PassageiroBS {
 			if (_passageiro.getId() == 0)
 				return dao.inserir(_passageiro);
 			else
-				return dao.atualiza(_passageiro);
+				return dao.alterar(_passageiro);
 			
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-		
 		
 	}
 	private void validarPassageiro(Passageiro passageiro) throws Exception {
@@ -44,7 +38,6 @@ public class PassageiroBS {
 		if(idade(passageiro.getPessoa().getDataNascimento())<=idadeMaxima &&
 				passageiro.getResponsavel() == null){
 			throw new Exception("É nescessário informar o responsável!");
-			
 		}
 		
 	}
@@ -59,17 +52,20 @@ public class PassageiroBS {
 		
 		ValidarPessoa validacao = new ValidarPessoa();
 
-		if (!validacao.validarPeesoa(pessoa).isEmpty())
-			throw new Exception("Erros encontrados " + validacao.validarPeesoa(pessoa));
+		if (!validacao.validarPessoa(pessoa).isEmpty())
+			throw new Exception("Erros encontrados " + validacao.validarPessoa(pessoa));
 
 	}
-	public List<Passageiro> listar() {
+	public List<Passageiro> listar(String nome) throws Exception {
 		
-		return dao.listar();
+		return dao.listar(nome);
 	}
 
-	public boolean excluir(Passageiro passageiro) throws Exception {
-		return dao.excluir(passageiro);
+	public boolean excluir(Long id) throws Exception {
+		return dao.excluir(id);
 
+	}
+	public Passageiro consultar(Long id) throws Exception{
+		return dao.consultar(id);
 	}
 }

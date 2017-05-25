@@ -20,7 +20,7 @@ public class FactoryConexao {
 	                
 	                String url = "jdbc:postgresql://localhost:5432/voodev";
 	                String user = "postgres";
-	                String password = "12345";
+	                String password = "123456";
 
 	                Class.forName("org.postgresql.Driver");
 	                connection = DriverManager.getConnection(url, user, password);

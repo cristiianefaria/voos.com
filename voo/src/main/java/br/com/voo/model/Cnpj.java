@@ -1,16 +1,30 @@
 package br.com.voo.model;
 
-public class Cnpj {
+public class Cnpj extends Documento{
 
-	private String numero;
 	private boolean isCnpj;
 
 	public Cnpj(String numero) {
+		super();
+		this.isCnpj = false;
 		this.numero = numero;
-		ValidarCnpj(numero);
+		Validar(numero);
 	}
 
-	private void ValidarCnpj(String numero) {
+	
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public boolean isCnpj() {
+		return isCnpj;
+	}
+
+
+
+	@Override
+	public void Validar(String numero) {
 		if (numero.equals("00000000000000") || numero.equals("11111111111111") || numero.equals("22222222222222")
 				|| numero.equals("33333333333333") || numero.equals("44444444444444") || numero.equals("55555555555555")
 				|| numero.equals("66666666666666") || numero.equals("77777777777777") || numero.equals("88888888888888")
@@ -60,14 +74,7 @@ public class Cnpj {
 		else
 			isCnpj = false;
 
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public boolean isCnpj() {
-		return isCnpj;
+		
 	}
 
 }
