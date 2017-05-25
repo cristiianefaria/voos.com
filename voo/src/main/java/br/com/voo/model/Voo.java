@@ -1,7 +1,6 @@
 package br.com.voo.model;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Voo extends Entidade {
 	
@@ -21,14 +20,14 @@ public class Voo extends Entidade {
 		super();
 		this.horario = horario;
 		this.itinerario = itinerario;
-		this.aeronave = aeronave;
+		this.aeronave = new Aeronave(aeronave);
 	}
 	
 	public Voo(Long id,LocalDate horario, Itinerario itinerario, Aeronave aeronave) {
 		super(id);
 		this.horario = horario;
 		this.itinerario = itinerario;
-		this.aeronave = aeronave;
+		this.aeronave = new Aeronave(aeronave);
 	}
 
 	public LocalDate getHorario() {
@@ -39,10 +38,6 @@ public class Voo extends Entidade {
 		return itinerario;
 	}
 
-	public Aeronave getAeronave() {
-		return aeronave;
-	}
-
 	public long getCodigoAeronave() {
 		return aeronave.getId();
 	}
@@ -51,7 +46,17 @@ public class Voo extends Entidade {
 		return itinerario.getId();
 	}
 	
+	public String getOrigem(){
+		return itinerario.getOrigem();
+	}
 	
+	public String getDestino(){
+		return itinerario.getDestino();
+	}
+	
+	public String getAeronave(){
+		return aeronave.getDescricao();
+	}
 	
 	
 

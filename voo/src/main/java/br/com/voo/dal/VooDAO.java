@@ -15,17 +15,15 @@ import br.com.voo.util.FactoryConexao;
 
 public class VooDAO {
 	
-	VooDAO dao;
 	Connection cnn;
 	
 	public VooDAO(){
-		this.dao = new VooDAO();
 		cnn = FactoryConexao.getConnection();
 	}
 	
 	public boolean incluir(Voo voo) throws SQLException{
-		String sql = "INSERT INTO voo horario,codigo_itinerario,"
-				+ "codigo_aeronave VALUES(?,?,?)";
+		String sql = "INSERT INTO voo (horario,codigo_itinerario,"
+				+ "codigo_aeronave) VALUES(?,?,?)";
 	
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setDate(1, Date.valueOf(voo.getHorario()));
@@ -63,10 +61,11 @@ public class VooDAO {
 		ResultSet rs = ps.executeQuery();
 		List<Voo> voos = new ArrayList<Voo>();
 		while(rs.next()){
-			new Voo(rs.getLong("codigo"),
+			Voo voo = new Voo(rs.getLong("codigo"),
 					rs.getDate("horario").toLocalDate(),
 					new Itinerario(rs.getLong("codigo_itinerario")),
 					new Aeronave(rs.getLong("codigo_aeronave")));
+			voos.add(voo);
 		}
 		rs.close();
 		ps.close();
