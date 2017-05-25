@@ -6,6 +6,17 @@ public class Itinerario extends Entidade{
 	private String origem;
 	private String destino;
 	
+	
+	
+	public Itinerario() {
+		super();
+	}
+	
+	public Itinerario(Long id) {
+		super(id);
+	}
+	
+	
 	public String getOrigem() {
 		return origem;
 	}

@@ -1,5 +1,6 @@
 package br.com.voo.bll;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,8 @@ public class VooBS {
 		dao = new VooDAO();
 	}
 
-	public boolean salvar(Voo voo) {
+	public boolean salvar(Voo voo) throws SQLException {
 		boolean retorno = false;
-		try {
 			if (voo != null) {
 				if (voo.getId() == 0) {
 					retorno = dao.incluir(voo);
@@ -30,41 +30,22 @@ public class VooBS {
 					retorno = dao.alterar(voo);
 				}
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
+			
 		return retorno;
 	}
 
-	public List<Voo> listar() {
-		try {
+	public List<Voo> listar() throws SQLException {
 			return dao.listar();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ArrayList<Voo>();
-		}
-
 	}
 
-	public boolean remover(Voo voo) {
-		try {
-			if ((voo.getId() != null) && (voo.getId() != 0)) {
-				dao.remover(voo.getId());
-				return true;
-		}
-		} catch (Exception e) {
-			e.printStackTrace();
-			}
-		return false;
+	public boolean remover(Voo voo) throws SQLException {
+		if ((voo.getId() != null) && (voo.getId() != 0)) 
+				dao.remover(voo);
+			
+		return true;
 	}
 
-	public Voo consultar(Voo voo) {
-		try {
+	public Voo consultar(Voo voo) throws SQLException {
 			return dao.consultar(voo);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Voo();
-		}
 	}
 }

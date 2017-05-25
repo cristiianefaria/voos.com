@@ -3,10 +3,13 @@ package br.com.voo.dal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.voo.model.Aeronave;
+import br.com.voo.model.Itinerario;
 import br.com.voo.model.Voo;
 import br.com.voo.util.FactoryConexao;
 
@@ -31,6 +34,7 @@ public class VooDAO {
 		
 		ps.execute();
 		
+		ps.close();
 		return true;
 	}
 	
@@ -43,19 +47,40 @@ public class VooDAO {
 		ps.setLong(2, voo.getCodigoItinerario());
 		ps.setLong(3, voo.getCodigoAeronave());
 		ps.setLong(4, voo.getId());
+		
+		
 		ps.execute();
 		
+		ps.close();
 		return true;
 	}
 	
 	public List<Voo> listar() throws SQLException {
-		return new ArrayList<>();
+	
+		String sql = "SELECT * FROM voo";
+		
+		PreparedStatement ps = cnn.prepareStatement(sql);
+		ResultSet rs = ps.executeQuery();
+		List<Voo> voos = new ArrayList<Voo>();
+		while(rs.next()){
+			new Voo(rs.getLong("codigo"),
+					rs.getDate("horario").toLocalDate(),
+					new Itinerario(rs.getLong("codigo_itinerario")),
+					new Aeronave(rs.getLong("codigo_aeronave")));
+		}
+		rs.close();
+		ps.close();
+		
+		return voos;
 	}
 	
-	public boolean remover(Long id) throws SQLException {
-		PreparedStatement ps = cnn.prepareStatement("delete from voo where codigo=?");
-		ps.setLong(1, id);
-		ps.executeQuery();
+	public boolean remover(Voo voo) throws SQLException {
+		String sql = "DELETE FROM voo WHERE codigo = ?";
+		
+		PreparedStatement ps = cnn.prepareStatement(sql);
+		
+		ps.setLong(1, voo.getId());
+		ps.execute();
 		
 		ps.close();
 		
@@ -63,7 +88,24 @@ public class VooDAO {
 	}
 
 	public Voo consultar(Voo voo) throws SQLException {
-		return new Voo();
+		String sql = "SELECT * FROM voo WHERE codigo = ?";
+		
+		PreparedStatement ps = cnn.prepareStatement(sql);
+		ps.setLong(1, voo.getId());
+		
+		ResultSet rs = ps.executeQuery();
+		Voo retorno = new Voo();
+		
+		if(rs.next()){
+			retorno = new Voo(rs.getLong("codigo"),
+					rs.getDate("horario").toLocalDate(),
+					new Itinerario(rs.getLong("codigo_itinerario")),
+					new Aeronave(rs.getLong("codigo_aeronave")));
+		}
+		rs.close();
+		ps.close();
+		
+		return retorno;
 	}
 	
 }
