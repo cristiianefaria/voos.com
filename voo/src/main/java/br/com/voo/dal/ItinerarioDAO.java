@@ -45,9 +45,9 @@ public class ItinerarioDAO {
 		return true;
 	}
 	
-	public boolean remover(Long codigo) throws SQLException  {
+	public boolean remover(Long id) throws SQLException  {
 		PreparedStatement ps = connection.prepareStatement("delete from itinerario where codigo=?");
-		ps.setLong(1, codigo);
+		ps.setLong(1, id);
 		ps.executeQuery();
 		
 		ps.close();
