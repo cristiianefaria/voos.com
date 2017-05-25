@@ -1,13 +1,11 @@
 package br.com.voo.bll;
 
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
 
 import br.com.voo.dal.ClienteDAO;
 import br.com.voo.model.Cliente;
 import br.com.voo.model.Pessoa;
-import br.com.voo.util.*;
+import br.com.voo.util.ValidarPessoa;
 
 public class ClienteBS {
 
@@ -28,7 +26,7 @@ public class ClienteBS {
 			ValidarPessoa(_cliente.getPessoa());
 			ValidarCliente(_cliente);
 			
-			return dao.salvar(_cliente);
+			return dao.inserir(_cliente);
 
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -46,17 +44,20 @@ public class ClienteBS {
 
 		ValidarPessoa validacao = new ValidarPessoa();
 
-		if (!validacao.validarPeesoa(pessoa).isEmpty())
-			throw new Exception("Erros encontrados " + validacao.validarPeesoa(pessoa));
+		if (!validacao.validarPessoa(pessoa).isEmpty())
+			throw new Exception("Erros encontrados " + validacao.validarPessoa(pessoa));
 
 	}
 
-	public List<Cliente> buscar() {
-		return dao.buscar();
+	public List<Cliente> listar(String nome) throws Exception {
+		return dao.listar(nome);
 	}
 
-	public boolean excluir(int codigo) {
+	public boolean excluir(Long codigo) throws Exception {
 		return dao.exluir(codigo);
+	}
+	public Cliente consultar(Long id) throws Exception{
+		return dao.consultar(id);
 	}
 
 }

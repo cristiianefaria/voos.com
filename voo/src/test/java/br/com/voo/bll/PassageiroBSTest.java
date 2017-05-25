@@ -81,8 +81,9 @@ public class PassageiroBSTest {
 		try {
 			List<Passageiro> lista = new ArrayList<Passageiro>();
 			lista.add(_passageiro);
-			Mockito.when(dao.listar()).thenReturn(lista);
-			List<Passageiro> resultado = bs.listar();
+			String nome = "thi";
+			Mockito.when(dao.listar(nome)).thenReturn(lista);
+			List<Passageiro> resultado = bs.listar(nome);
 			assertEquals(lista, resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("");
@@ -92,10 +93,9 @@ public class PassageiroBSTest {
 	@Test
 	public void test_Excluir_passageiro() {
 		try {
-
 			
-			Mockito.when(dao.excluir(_passageiro)).thenReturn(true);
-			boolean resultado = bs.excluir(_passageiro);
+			Mockito.when(dao.excluir(new Long(1))).thenReturn(true);
+			boolean resultado = bs.excluir(new Long(1));
 			assertTrue(resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("");

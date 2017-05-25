@@ -31,7 +31,6 @@ public class PassageiroDAOTest {
 		_data = data.parse(dataNascimento);
 
 		Pessoa p = new Pessoa("Thiago", "02165072190", "", "Rua cp 33 quadra 77 lote 11 conjunto primavera", _data,
-
 				EstadoCivil.Casado, false);
 		_passageiro = new Passageiro(p);
 
@@ -66,7 +65,7 @@ public class PassageiroDAOTest {
 					_data, EstadoCivil.Casado, true);
 			_passageiro = new Passageiro(p3);
 			_passageiro.setId(Long.parseLong("1"));
-			boolean resultado = dao.atualiza(_passageiro);
+			boolean resultado = dao.alterar(_passageiro);
 			assertTrue(resultado);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -86,8 +85,20 @@ public class PassageiroDAOTest {
 			_passageiro = new Passageiro(p);
 			_passageiro.setRemovido(true);
 			_passageiro.setId(Long.parseLong("1"));
-			boolean resultado = dao.excluir(_passageiro);
+			boolean resultado = dao.excluir(new Long(1));
 			assertTrue(resultado);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			assertThat(e).hasMessage("");
+
+		}
+	}
+	@Test
+	public void test_Buscar_Passageiro() {
+		try {
+			_passageiro.setId(new Long(1));
+			Passageiro resultado = dao.consultar(new Long(1));
+			assertEquals(_passageiro.getId(), resultado.getId());
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			assertThat(e).hasMessage("");

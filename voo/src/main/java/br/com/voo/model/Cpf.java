@@ -1,20 +1,29 @@
 package br.com.voo.model;
 
-public class Cpf {
+public class Cpf extends Documento {
 
-	private String numero;
+	
 	private boolean isCpf;
 
 	public Cpf(String numero) {
+		super();
+		this.isCpf = false;
 		this.numero = numero;
-		ValidarCpf(numero);
+		Validar(numero);
 	}
 
 	public String getNumero() {
 		return numero;
 	}
 
-	private void ValidarCpf(String numero) {
+
+	public boolean isCpf() {
+		return isCpf;
+
+	}
+
+	@Override
+	public void Validar(String numero) {
 		if (numero.equals("00000000000") || numero.equals("11111111111") || numero.equals("22222222222")
 				|| numero.equals("33333333333") || numero.equals("44444444444") || numero.equals("55555555555")
 				|| numero.equals("66666666666") || numero.equals("77777777777") || numero.equals("88888888888")
@@ -60,12 +69,6 @@ public class Cpf {
 			else
 				isCpf = false;
 		
-
-	}
-
-	public boolean isCpf() {
-		return isCpf;
-
 	}
 
 }
