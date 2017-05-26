@@ -12,3 +12,10 @@ ul.breadcrumb {
     background-color: #58ACFA;
     font-size: 17px;
 }
+.bloco{
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+.panel-heading{
+	background-color: #58ACFA;
+}

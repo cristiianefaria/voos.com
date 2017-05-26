@@ -16,7 +16,6 @@ import br.com.voo.model.Itinerario;
 public class ItinerarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String FORMULARIO = "/itinerario.jsp";
-	private static String LISTAR = "/itinerarios.jsp";
 	private ItinerarioBS bs;
 
 	public ItinerarioController() {
@@ -27,14 +26,14 @@ public class ItinerarioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String caminho = "";
-		String acao = request.getParameter("acao");
+		String botao = request.getParameter("botao");
 
 
-		if (acao.equalsIgnoreCase("listar")) {
-			caminho = LISTAR;
+		if (botao.equalsIgnoreCase("listar")) {
+			caminho = FORMULARIO;
 			request.setAttribute("lista", bs.listar());
 
-		} else if (acao.equalsIgnoreCase("alterar")) {
+		} else if (botao.equalsIgnoreCase("alterar")) {
 			caminho = FORMULARIO;
 			String idTela = request.getParameter("id");
 			Long id = (long) 0;
@@ -45,7 +44,7 @@ public class ItinerarioController extends HttpServlet {
 				request.setAttribute("lista", bs.listar());
 			}
 			
-		} else if(acao.equalsIgnoreCase("remover")){
+		} else if(botao.equalsIgnoreCase("remover")){
 			String idTela = request.getParameter("id");
 			Long id = (long) 0;
 			if (idTela != null && !idTela.isEmpty()) {
@@ -54,18 +53,15 @@ public class ItinerarioController extends HttpServlet {
 			Itinerario itinerario = new Itinerario();
 			itinerario.setId(id);
 			bs.remover(itinerario);
-			caminho = LISTAR;
+			caminho = FORMULARIO;
 			request.setAttribute("lista", bs.listar());
 		}
 		
 		else {
-			caminho = LISTAR;
+			caminho = FORMULARIO;
 		}
-
 		RequestDispatcher view = request.getRequestDispatcher(caminho);
 		view.forward(request, response);
-
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -77,7 +73,6 @@ public class ItinerarioController extends HttpServlet {
 		}
 		
 		Itinerario itinerario = new Itinerario();
-		
 		itinerario.setId(Long.parseLong(id));
 		itinerario.setOrigem(request.getParameter("origem"));
 		itinerario.setDestino(request.getParameter("destino"));

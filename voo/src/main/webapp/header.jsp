@@ -29,7 +29,7 @@
 				<li><a href="#">Comprar Passagem</a></li>
 				<li><a href="#">Fazer Checkin</a></li>
 				<li><a href="#">Aeronave</a></li>
-				<li><a href="ItinerarioController?action=listar">Itinerário</a></li>
+				<li><a href="ItinerarioController?botao=listar">Itinerário</a></li>
 			</ul>
 		</div>
 	</nav>
