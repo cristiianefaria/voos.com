@@ -4,7 +4,6 @@ import java.util.Date;
 
 public class Pessoa extends Entidade {
 
-	
 	private String nome;
 	private Cpf cpf;
 	private Cnpj cnpj;
@@ -12,10 +11,11 @@ public class Pessoa extends Entidade {
 	private Date dataNascimento;
 	private EstadoCivil estadoCivil;
 	private boolean removido;
-	
-	public Pessoa(String nome, String cpf, String cnpj, 
-			            String endereco, Date dataNascimento,
-			                           EstadoCivil estadoCivil, boolean removido) {
+	private String telefone;
+	private String email;
+
+	public Pessoa(String nome, String cpf, String cnpj, String endereco, Date dataNascimento, EstadoCivil estadoCivil,
+			boolean removido, String telefone, String email) {
 		super();
 		this.nome = nome;
 		this.cpf = new Cpf(cpf);
@@ -24,10 +24,12 @@ public class Pessoa extends Entidade {
 		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
 		this.removido = removido;
+		this.telefone = telefone;
+		this.email = email;
 	}
-	public Pessoa(long id,String nome, String cpf, 
-			String cnpj, String endereco, Date dataNascimento, 
-			EstadoCivil estadoCivil, boolean removido) {
+
+	public Pessoa(long id, String nome, String cpf, String cnpj, String endereco, Date dataNascimento,
+			EstadoCivil estadoCivil, boolean removido, String telefone, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -37,13 +39,14 @@ public class Pessoa extends Entidade {
 		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
 		this.removido = removido;
+		this.telefone = telefone;
+		this.email = email;
 	}
-
 
 	public Pessoa() {
 		super();
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
@@ -56,16 +59,13 @@ public class Pessoa extends Entidade {
 		return dataNascimento;
 	}
 
-
 	public EstadoCivil getEstadoCivil() {
 		return estadoCivil;
 	}
 
-
 	public Cpf getCpf() {
 		return cpf;
 	}
-
 
 	public Cnpj getCnpj() {
 		return cnpj;
@@ -74,12 +74,17 @@ public class Pessoa extends Entidade {
 	public boolean isRemovido() {
 		return removido;
 	}
-	public void setRemovido(boolean removido){
+
+	public void setRemovido(boolean removido) {
 		this.removido = removido;
 	}
 
+	public String getTelefone() {
+		return telefone;
+	}
 
-	
+	public String getEmail() {
+		return email;
+	}
 
-	
 }

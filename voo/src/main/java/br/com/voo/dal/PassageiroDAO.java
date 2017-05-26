@@ -100,7 +100,8 @@ public class PassageiroDAO {
 	    		Passageiro passageiro = new Passageiro();
 	    		Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"));
+						pessoa.estadoCivilDescricao(rs.getString("estado_civil")),
+						rs.getBoolean("removido"), rs.getString("telefone"),rs.getString("email"));
 				passageiro.setId(rs.getLong("codigo"));
 				passageiro.setPessoa(p);
 				
@@ -141,7 +142,8 @@ public class PassageiroDAO {
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"));
+						pessoa.estadoCivilDescricao(rs.getString("estado_civil")),
+						rs.getBoolean("removido"), rs.getString("telefone"),rs.getString("email"));
 				passageiro.setId(rs.getLong("codigo"));
 
 				passageiro.setPessoa(p);
@@ -164,7 +166,8 @@ public class PassageiroDAO {
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"));
+						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), 
+						rs.getBoolean("removido"), rs.getString("telefone"),rs.getString("email"));
 				passageiro.setId(rs.getLong("codigo"));
 
 				passageiro.setPessoa(p);

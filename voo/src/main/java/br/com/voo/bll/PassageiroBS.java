@@ -1,5 +1,6 @@
 package br.com.voo.bll;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,59 +14,84 @@ public class PassageiroBS {
 
 	private PassageiroDAO dao;
 	private final int idadeMaxima = 12;
-	
-	public PassageiroBS(PassageiroDAO dao){
-	  this.dao = dao;
+
+	public PassageiroBS(PassageiroDAO dao) {
+		this.dao = dao;
 	}
-	public boolean salvar(Passageiro _passageiro) throws Exception{
+
+	public PassageiroBS() {
+		this.dao = new PassageiroDAO();
+	}
+
+	public boolean salvar(Passageiro _passageiro) throws Exception {
 		try {
-			
+
 			validarPessoa(_passageiro.getPessoa());
 			validarPassageiro(_passageiro);
-			
+
 			if (_passageiro.getId() == 0)
 				return dao.inserir(_passageiro);
 			else
 				return dao.alterar(_passageiro);
-			
+
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-		
+
 	}
+
 	private void validarPassageiro(Passageiro passageiro) throws Exception {
-		
-		if(idade(passageiro.getPessoa().getDataNascimento())<=idadeMaxima &&
-				passageiro.getResponsavel() == null){
+
+		if (idade(passageiro.getPessoa().getDataNascimento()) <= idadeMaxima && passageiro.getResponsavel() == null) {
 			throw new Exception("É nescessário informar o responsável!");
 		}
-		
+
 	}
+
 	private int idade(Date dataNascimento) {
-      
-       Data data = new Data(dataNascimento);
-       
-       return data.calcularIdade();
-       
+
+		Data data = new Data(dataNascimento);
+
+		return data.calcularIdade();
+
 	}
+
 	private void validarPessoa(Pessoa pessoa) throws Exception {
-		
+
 		ValidarPessoa validacao = new ValidarPessoa();
 
 		if (!validacao.validarPessoa(pessoa).isEmpty())
 			throw new Exception("Erros encontrados " + validacao.validarPessoa(pessoa));
 
 	}
-	public List<Passageiro> listar(String nome) throws Exception {
-		
-		return dao.listar(nome);
+
+	public List<Passageiro> listar(String nome) {
+		try {
+
+			return dao.listar(nome);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<Passageiro>();
+		}
 	}
 
-	public boolean excluir(Long id) throws Exception {
-		return dao.excluir(id);
+	public boolean excluir(Long id) {
+		try {
+			return dao.excluir(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 
 	}
-	public Passageiro consultar(Long id) throws Exception{
-		return dao.consultar(id);
+
+	public Passageiro consultar(Long id) {
+		try {
+			return dao.consultar(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Passageiro();
+		}
 	}
 }
