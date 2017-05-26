@@ -28,8 +28,8 @@ public class ClienteDAO {
 					+ "senha, percent_desconto, tipo_cliente, removido) " + "VALUES (?, ?, ?, ?, ?, ?);");
 			conexao.setAutoCommit(false);
 			if (pessoa.salvar(_cliente.getPessoa(), conexao)) {
-				long codigoPessoa = pessoa.consultar(_cliente.getPessoa().getCpf(),
-						_cliente.getPessoa().getCnpj(), conexao).getId();
+				long codigoPessoa = pessoa
+						.consultar(_cliente.getPessoa().getCpf(), _cliente.getPessoa().getCnpj(), conexao).getId();
 
 				ps.setLong(1, codigoPessoa);
 				ps.setDouble(2, _cliente.getMilhagem());
@@ -68,23 +68,23 @@ public class ClienteDAO {
 
 	public List<Cliente> listar(String nome) throws Exception {
 		try {
-			
-			String sql ="select * from cliente c1 "
-					+ "inner join pessoa p1 "
-					+ "on c1.codigo_pessoa = p1.codigo " 
-					+ "where c1.nome like '%"+nome+"%'";
-			
+
+			String sql = "select * from cliente c1 " + "inner join pessoa p1 " + "on c1.codigo_pessoa = p1.codigo "
+					+ "where c1.nome like '%" + nome + "%'";
+
 			PreparedStatement ps = conexao.prepareStatement(sql);
-	    	ResultSet rs = ps.executeQuery();
-	    	Cliente cliente = null;
-	    	List<Cliente> lista = new ArrayList<Cliente>();
-	    	while(rs.next()){
-	    		
-	    		Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+			ResultSet rs = ps.executeQuery();
+			Cliente cliente = null;
+			List<Cliente> lista = new ArrayList<Cliente>();
+			while (rs.next()) {
+
+				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"));
-	    		cliente = new Cliente(p);
-	    		cliente = new Cliente(p);
+						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"),
+						rs.getString("telefone"), rs.getString("email"));
+				
+				cliente = new Cliente(p);
+				cliente = new Cliente(p);
 				cliente.setId(rs.getLong("codigo"));
 				cliente.setMilhagem(rs.getInt("milhagem"));
 				cliente.setPercentDesconto(rs.getDouble("percent_desconto"));
@@ -92,11 +92,11 @@ public class ClienteDAO {
 				cliente.setTipoCliente(obterTipoCliente(rs.getString("tipo_cliente")));
 				cliente.setRemovido(rs.getBoolean("removido"));
 				lista.add(cliente);
-	    		
-	    	}
-			
+
+			}
+
 			return lista;
-			
+
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -112,7 +112,9 @@ public class ClienteDAO {
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"));
+						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"),
+						rs.getString("telefone"), rs.getString("email"));
+
 				cliente = new Cliente(p);
 				cliente.setId(rs.getLong("codigo"));
 				cliente.setMilhagem(rs.getInt("milhagem"));
@@ -134,10 +136,8 @@ public class ClienteDAO {
 			conexao.setAutoCommit(false);
 			if (pessoa.alterar(_cliente.getPessoa(), conexao)) {
 				PreparedStatement ps = conexao
-						.prepareStatement("UPDATE public.cliente " 
-				                + "SET milhagem=?, senha=?, percent_desconto=?, "
-								+ "tipo_cliente=?, removido = ?" 
-								+ "WHERE codigo = " + _cliente.getId());
+						.prepareStatement("UPDATE public.cliente " + "SET milhagem=?, senha=?, percent_desconto=?, "
+								+ "tipo_cliente=?, removido = ?" + "WHERE codigo = " + _cliente.getId());
 
 				ps.setInt(1, _cliente.getMilhagem());
 				ps.setString(2, _cliente.getSenha());
@@ -168,12 +168,12 @@ public class ClienteDAO {
 
 	public boolean exluir(Long id) throws Exception {
 		try {
-			Cliente cliente  = consultar(id);
+			Cliente cliente = consultar(id);
 			cliente.getPessoa().setRemovido(true);
 			cliente.setRemovido(true);
-			
+
 			return alterar(cliente);
-			
+
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

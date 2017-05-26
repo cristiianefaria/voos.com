@@ -138,7 +138,7 @@ public class PessoaDAO {
 			if(rs.next()){
 				pessoa = new Pessoa(rs.getLong("codigo"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"));
+						estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"), rs.getString("telefone"),rs.getString("email"));
 			}
 			
 			return pessoa != null? pessoa : new Pessoa();

@@ -42,7 +42,7 @@ public class ClienteBSTest {
 		Pessoa p = new Pessoa("Thiago", "02165072190", 
 				             "24036864000121", 
 				            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-				            _data, EstadoCivil.Casado, false);
+				            _data, EstadoCivil.Casado, false,"99999999","thiago@gmail");
 		
 
 		_cliente = new Cliente(p);
@@ -69,7 +69,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado, false);
+		            _data, EstadoCivil.Casado, false,"99999999","thiago@gmail");
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
@@ -86,7 +86,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            null, EstadoCivil.Casado, false);
+		            null, EstadoCivil.Casado, false,"99999999","thiago@gmail");
 
 			_cliente.setPessoa(p);
 			_cliente.setPessoa(p);
@@ -115,7 +115,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "021650721390", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado, false);
+		            _data, EstadoCivil.Casado, false,"99999999","thiago@gmail");
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
@@ -132,7 +132,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado, false);
+		            _data, EstadoCivil.Casado, false,"99999999","thiago@gmail");
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
 			assertEquals(true, resultado);

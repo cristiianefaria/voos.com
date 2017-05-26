@@ -29,7 +29,7 @@ public class ClienteDAOTest {
 		_data = data.parse(dataNascimento);
 
 		Pessoa p = new Pessoa("Thiago", "02165072190", "", "Rua cp 33 quadra 77 lote 11 conjunto primavera", _data,
-				EstadoCivil.Casado, false);
+				EstadoCivil.Casado, false,"99999999","thiago@gmail");
 		_cliente = new Cliente(p);
 		_cliente.setMilhagem(1000);
 		_cliente.setPercentDesconto(10.0);
@@ -75,7 +75,7 @@ public class ClienteDAOTest {
 		try {
 			
 			Pessoa p = new Pessoa(new Long(39),"fayga", "02165072190", "", "Rua cp 33 quadra 77 lote 11 conjunto primavera", _data,
-					EstadoCivil.Casado, false);
+					EstadoCivil.Casado, false,"99999999","thiago@gmail");
 			
 			_cliente.setId(new Long(1));
 			_cliente.setPessoa(p);
