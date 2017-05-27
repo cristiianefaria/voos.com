@@ -3,6 +3,7 @@ package br.com.voo.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +70,8 @@ public class VooController extends HttpServlet {
 		Long idAeronave = new Long(0);
 		Long idItinerario = new Long(0);
 		LocalDate horario = LocalDate.now();
+		
+	
 		
 		String vooIdTela = request.getParameter("id");
 		String aeronave = request.getParameter("aeronave");
