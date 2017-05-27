@@ -50,65 +50,76 @@
 							name="adicionarCliente">
 							<div class="col-md-2">
 								<div class="form-group">
-									<label>Código:</label> <input type="text" id="id" readonly="readonly"
-										name="id" class="form-control"
+									<label>Código:</label> <input type="text" id="id"
+										readonly="readonly" name="id" class="form-control"
 										value="<c:out value="${salvar.id}"/>" />
 								</div>
 							</div>
-							<div class="col-md-5">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label>Origem:</label> <input type="text" id="origem"
 										name="origem" class="form-control"
 										value="<c:out value="${salvar.origem}"/>" />
 								</div>
 							</div>
-							<div class="col-md-5">
+							<div class="col-md-4">
 								<div class="form-group">
 									<label>Destino:</label> <input type="text" class="form-control"
 										id="destino" name="destino"
 										value="<c:out value="${salvar.destino}"/>" />
 								</div>
 							</div>
-							
+							<div class="col-md-2">
+								<div class="form-group">
+									<label>Valor:</label> <input type="text" class="form-control"
+										id="valor" name="valor"
+										value="<c:out value="${salvar.valor}"/>" />
+								</div>
+							</div>
+
+
 							<div class="text-right">
 								<input type="submit" class="btn btn-success" value="SALVAR" />
 							</div>
 						</form>
 					</div>
 				</div>
-				<div class="panel panel-default">
 
-					<div class="panel-heading">Lista de Itinerário</div>
-					<div class="panel-body">
-						<table class="table table-striped">
-							<thead>
+				<div class="panel-heading">Lista de Itinerário</div>
+				<div class="panel-body">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Código</th>
+								<th>Origem</th>
+								<th>Destino</th>
+								<th>Valor</th>
+								<th colspan="2"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${lista}" var="listagem">
 								<tr>
-									<th>Origem</th>
-									<th>Destino</th>
-									<th colspan="2"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${lista}" var="listagem">
-									<tr>
-										<td><c:out value="${listagem.origem}" /></td>
-										<td><c:out value="${listagem.destino}" /></td>
-										<td><a class="btn btn-warning"
-											href="ItinerarioController?botao=alterar&id=<c:out value="${listagem.id}"/>">
-												Alterar</a></td>
-										<td><a class="btn btn-danger"
-											href="ItinerarioController?botao=remover&id=<c:out value="${listagem.id}"/>">
-												Remover</a></td>
+									<td><c:out value="${listagem.id}" /></td>
+									<td><c:out value="${listagem.origem}" /></td>
+									<td><c:out value="${listagem.destino}" /></td>
+									<td><c:out value="${listagem.valor}" /></td>
+									<td><a class="btn btn-warning"
+										href="ItinerarioController?botao=alterar&id=<c:out value="${listagem.id}"/>">
+											Alterar</a></td>
+									<td><a class="btn btn-danger"
+										href="ItinerarioController?botao=remover&id=<c:out value="${listagem.id}"/>">
+											Remover</a></td>
 
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-					</div>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
+	</div>
 
-		<jsp:include page="footer.jsp" />
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

@@ -76,6 +76,7 @@ public class ItinerarioController extends HttpServlet {
 		itinerario.setId(Long.parseLong(id));
 		itinerario.setOrigem(request.getParameter("origem"));
 		itinerario.setDestino(request.getParameter("destino"));
+		itinerario.setValor(Double.parseDouble(request.getParameter("valor")));
 
 		bs.salvar(itinerario);
 
