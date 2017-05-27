@@ -54,8 +54,12 @@ public class Voo extends Entidade {
 		return itinerario.getDestino();
 	}
 	
-	public String getAeronave(){
+	public String getDescricaoAeronave(){
 		return aeronave.getDescricao();
+	}
+	
+	public Aeronave getAeronave(){
+		return new Aeronave(this.aeronave);
 	}
 	
 	
