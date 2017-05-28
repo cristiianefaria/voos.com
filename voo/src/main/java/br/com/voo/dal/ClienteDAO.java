@@ -10,6 +10,7 @@ import br.com.voo.model.Cliente;
 import br.com.voo.model.Pessoa;
 import br.com.voo.model.TipoCliente;
 import br.com.voo.util.FactoryConexao;
+import br.com.voo.util.ValidarPessoa;
 
 public class ClienteDAO {
 
@@ -70,7 +71,7 @@ public class ClienteDAO {
 		try {
 
 			String sql = "select * from cliente c1 " + "inner join pessoa p1 " + "on c1.codigo_pessoa = p1.codigo "
-					+ "where c1.nome like '%" + nome + "%'";
+					+ "where c1.nome like '%" + nome + "%' and p1.removido != true";
 
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -80,9 +81,9 @@ public class ClienteDAO {
 
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"),
-						rs.getString("telefone"), rs.getString("email"));
-				
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"));
+
 				cliente = new Cliente(p);
 				cliente = new Cliente(p);
 				cliente.setId(rs.getLong("codigo"));
@@ -105,15 +106,15 @@ public class ClienteDAO {
 	public Cliente consultar(Long id) throws Exception {
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from cliente c1 " + "inner join pessoa p1 "
-					+ "on c1.codigo_pessoa = p1.codigo " + "where c1.codigo = " + id);
+					+ "on c1.codigo_pessoa = p1.codigo " + "where c1.codigo = " +id+" and p1.removido != true");
 			ResultSet rs = ps.executeQuery();
 
 			Cliente cliente = null;
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getBoolean("removido"),
-						rs.getString("telefone"), rs.getString("email"));
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"));
 
 				cliente = new Cliente(p);
 				cliente.setId(rs.getLong("codigo"));

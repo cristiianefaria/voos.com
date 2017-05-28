@@ -40,7 +40,7 @@ public class PassageiroBSTest {
 		_data = data.parse(dataNascimento);
 
 		Pessoa p = new Pessoa("Thiago", "02165072190", "24036864000121",
-				"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, false,"99999999","thiago@gmail");
+				"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado,"99999999","thiago@gmail");
 
 		_passageiro = new Passageiro(p);
 	}
@@ -64,7 +64,7 @@ public class PassageiroBSTest {
 			_data = data.parse(dataNascimento);
 
 			Pessoa p = new Pessoa("Thiago", "02165072190", "24036864000121",
-					"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado, false,"99999999","thiago@gmail");
+					"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado,"99999999","thiago@gmail");
 
 			_passageiro = new Passageiro(p);
 			Mockito.when(dao.inserir(_passageiro)).thenReturn(true);
@@ -72,7 +72,7 @@ public class PassageiroBSTest {
 			boolean resultado = bs.salvar(_passageiro);
 			assertEquals(false, resultado);
 		} catch (Exception e) {
-			assertThat(e).hasMessage("É nescessário informar o responsável!");
+			assertThat(e).hasMessage("ï¿½ nescessï¿½rio informar o responsï¿½vel!");
 		}
 	}
 

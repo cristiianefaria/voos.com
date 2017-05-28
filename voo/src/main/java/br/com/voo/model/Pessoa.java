@@ -15,7 +15,7 @@ public class Pessoa extends Entidade {
 	private String email;
 
 	public Pessoa(String nome, String cpf, String cnpj, String endereco, Date dataNascimento, EstadoCivil estadoCivil,
-			boolean removido, String telefone, String email) {
+			          String telefone, String email) {
 		super();
 		this.nome = nome;
 		this.cpf = new Cpf(cpf);
@@ -23,13 +23,13 @@ public class Pessoa extends Entidade {
 		this.endereco = endereco;
 		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
-		this.removido = removido;
+		this.removido = false;
 		this.telefone = telefone;
 		this.email = email;
 	}
 
 	public Pessoa(long id, String nome, String cpf, String cnpj, String endereco, Date dataNascimento,
-			EstadoCivil estadoCivil, boolean removido, String telefone, String email) {
+			EstadoCivil estadoCivil, String telefone, String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -38,7 +38,7 @@ public class Pessoa extends Entidade {
 		this.endereco = endereco;
 		this.dataNascimento = dataNascimento;
 		this.estadoCivil = estadoCivil;
-		this.removido = removido;
+		this.removido = false;
 		this.telefone = telefone;
 		this.email = email;
 	}
