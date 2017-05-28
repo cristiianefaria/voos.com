@@ -98,7 +98,7 @@ public class AeronaveController extends HttpServlet {
 
 			try {
 				aeronaveBS.salvar(aeronave);
-				request.setAttribute("aeronaves", aeronaveBS.listar());
+				aeronaves = aeronaveBS.listar();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}

@@ -7,6 +7,7 @@ public class Aeronave extends Entidade {
 
 	private String descricao;
 	private List<Poltrona> poltronas;
+
 	
 	public Aeronave() {
 		super();
@@ -59,10 +60,5 @@ public class Aeronave extends Entidade {
 	public List<Poltrona> getPoltronas(){
 		return this.poltronas;
 	}
-	
-	
-	
-	
-	
 	
 }
