@@ -7,14 +7,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!-- Jquery -->
+<script src="app/lib/jquery/jquery-3.2.1.min.js"></script>
+
 <!-- Bootstrap -->
 <link  rel="stylesheet" href="app/lib/bootstrap/bootstrap.min.css">
+<script src="app/lib/bootstrap/bootstrap.min.js"></script>
+
 
 <!-- CSS -->
 <link  rel="stylesheet" href="app/css/style.css">
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="app/lib/font-awesome/font-awesome.min.css">
+
+
 
 </head>
 <body>
@@ -28,8 +35,9 @@
 				<li><a href="#">Efetuar Reserva</a></li>
 				<li><a href="#">Comprar Passagem</a></li>
 				<li><a href="#">Fazer Checkin</a></li>
-				<li><a href="#">Aeronave</a></li>
-				<li><a href="ItinerarioController?botao=listar">Itinerário</a></li>
+				<li><a href="Voo?acao=listar">Voo</a></li>
+				<li><a href="Aeronave?acao=listar">Aeronave</a></li>
+				<li><a href="Itinerario?botao=listar">Itinerário</a></li>
 			</ul>
 		</div>
 	</nav>

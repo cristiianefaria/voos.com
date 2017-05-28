@@ -9,6 +9,7 @@
 <title>Gerenciamento de voos</title>
 </head>
 <body>
+	<jsp:include page="header.jsp" />
     <div class="container">
          <h1>Voos</h1>
             <div id="listagem">

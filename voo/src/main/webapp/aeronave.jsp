@@ -5,11 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Cadastro de Aeronave</title>
 </head>
     <body>
+    <jsp:include page="header.jsp" />
         <div class="container">
+        <div class="bloco">
             <h1>Aeronaves</h1>
             <div id="listagem">
                 <h2>Listagem de Aeronaves</h2>
@@ -42,7 +43,7 @@
             <div id="cadastroDeAeronave">
                 <h2>Cadastro de Aeronaves</h2> 
                 <form method="POST" action="Aeronave" >
-                    <input type="text" value="<c:out value="${aeronave.id}"></c:out>" name="aeronave_id">
+                    <input class="hide" type="text" value="<c:out value="${aeronave.id}"></c:out>" name="aeronave_id">
                     <div class="row">
                         <div class="form-group col-md-12">
                             <label for="">Descrição da Aeronave</label>
@@ -84,7 +85,7 @@
                                     <c:out value="${poltrona.valor}"></c:out>
                                 </td>
                                 <td>
-                                    <a class="btn btn-primary" href="/Aeronave?acao=alterarPoltrona&id=<c:out value="${poltrona.id}"></c:out>">Alterar</a>
+                                    <a class="btn btn-warning" href="/Aeronave?acao=alterarPoltrona&id=<c:out value="${poltrona.id}"></c:out>">Alterar</a>
                                 </td>
                                 <td>
                                     <a class="btn btn-danger" href="/Aeronave?acao=removerPoltrona&id=<c:out value="${poltrona.id}"></c:out>">Remover</a>
@@ -95,7 +96,7 @@
                 </table>
                 <form method="POST" action="/Aeronave">
                     <div class="row">
-                        <input type="text" value="<c:out value="${aeronave.id}"></c:out>" name="aeronave_id">
+                        <input class="hide" type="text" value="<c:out value="${aeronave.id}"></c:out>" name="aeronave_id">
                         <div class="form-group col-md-6">
                             <label>Valor das Poltronas</label>
                             <input class="form-control" type="text"  value="<c:out value="${poltrona.valor}"></c:out>" name="poltrona_valor">
@@ -118,6 +119,6 @@
                     <input class="btn btn-success" type="submit" value="Cadastrar Poltronas" name="botao">
                 </form>
             </div>
-        </div>
+        </div></div>
     </body>
 </html>

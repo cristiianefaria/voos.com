@@ -1,20 +1,21 @@
 @CHARSET "UTF-8";
 
 .page-header{
-	padding: 30px 20px;
+	padding: 20px;
 	background-color: #58ACFA;
-	height: 20%;
+	height: 15%;
+	color:white;
+	font-size: 24px;
 }
-ul.breadcrumb {
-    padding: 10px 16px;
+ul.breadcrumb{
+    padding-left:10px;
     list-style: none;
     color: white;
     background-color: #58ACFA;
     font-size: 17px;
 }
 .bloco{
-	padding-top: 20px;
-	padding-bottom: 20px;
+	padding-top: 20px 0;
 }
 .panel-heading{
 	background-color: #58ACFA;

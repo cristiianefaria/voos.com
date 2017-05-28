@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.voo.bll.ItinerarioBS;
 import br.com.voo.model.Itinerario;
 
-@WebServlet("/ItinerarioController")
+@WebServlet("/Itinerario")
 public class ItinerarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String FORMULARIO = "/itinerario.jsp";

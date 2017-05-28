@@ -37,7 +37,7 @@ public class ItinerarioDAO {
 
 	public boolean alterar(Itinerario itinerario) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(
-				"update itinerario set origem=?, destino=?, valor=?, removido=? " + " where codigo=?");
+				"update itinerario set origem=?, destino=?, valor=?, removido=?  where codigo=?");
 		ps.setString(1, itinerario.getOrigem());
 		ps.setString(2, itinerario.getDestino());
 		ps.setDouble(3, itinerario.getValor());
@@ -54,7 +54,7 @@ public class ItinerarioDAO {
 		List<Itinerario> lista = new ArrayList<Itinerario>();
 
 		Statement st = connection.createStatement();
-		ResultSet rs = st.executeQuery("select * from itinerario");
+		ResultSet rs = st.executeQuery("select * from itinerario where removido = false");
 
 		while (rs.next()) {
 			Itinerario itinerario = new Itinerario();
