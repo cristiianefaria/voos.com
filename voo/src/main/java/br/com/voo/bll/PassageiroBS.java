@@ -23,19 +23,22 @@ public class PassageiroBS {
 		this.dao = new PassageiroDAO();
 	}
 
-	public boolean salvar(Passageiro _passageiro) throws Exception {
+	public boolean salvar(Passageiro _passageiro) {
 		try {
 
+			Long codigoPessoa = dao.consultar(_passageiro.getId()).getPessoa().getId();
+			_passageiro.getPessoa().setId(codigoPessoa);
 			validarPessoa(_passageiro.getPessoa());
 			validarPassageiro(_passageiro);
-
+  
 			if (_passageiro.getId() == 0)
 				return dao.inserir(_passageiro);
 			else
 				return dao.alterar(_passageiro);
 
 		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+			e.printStackTrace();
+			return false;
 		}
 
 	}
@@ -43,7 +46,7 @@ public class PassageiroBS {
 	private void validarPassageiro(Passageiro passageiro) throws Exception {
 
 		if (idade(passageiro.getPessoa().getDataNascimento()) <= idadeMaxima && passageiro.getResponsavel() == null) {
-			throw new Exception("É nescessário informar o responsável!");
+			throw new Exception("ï¿½ nescessï¿½rio informar o responsï¿½vel!");
 		}
 
 	}

@@ -13,6 +13,7 @@ import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Pessoa;
 import br.com.voo.util.FactoryConexao;
+import br.com.voo.util.ValidarPessoa;
 
 public class PassageiroDAO {
 
@@ -27,6 +28,7 @@ public class PassageiroDAO {
 	public boolean alterar(Passageiro _passageiro) throws Exception {
 
 		try {
+			
 			conexao.setAutoCommit(false);
 			if (pessoa.alterar(_passageiro.getPessoa(), conexao)) {
 
@@ -57,18 +59,17 @@ public class PassageiroDAO {
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO public.passageiro(codigo_pessoa, responsavel, removido)" + "VALUES (?, ?, ?);");
+					"INSERT INTO public.passageiro(codigo_pessoa, removido)" + "VALUES (?, ?);");
 
 			conexao.setAutoCommit(false);
 
 			if (pessoa.salvar(_passageiro.getPessoa(), conexao)) {
-				long codigoPessoa = pessoa.consultar(_passageiro.getPessoa().getCpf(),
-						_passageiro.getPessoa().getCnpj(), conexao).getId();
+				long codigoPessoa = pessoa
+						.consultar(_passageiro.getPessoa().getCpf(), _passageiro.getPessoa().getCnpj(), conexao)
+						.getId();
 
 				ps.setLong(1, codigoPessoa);
-				if (_passageiro.getResponsavel() != null)
-					ps.setLong(2, _passageiro.getResponsavel().getPessoa().getId());
-				ps.setBoolean(3, false);
+				ps.setBoolean(2, _passageiro.isRemovido());
 
 				ps.execute();
 				conexao.commit();
@@ -88,26 +89,26 @@ public class PassageiroDAO {
 
 	public List<Passageiro> listar(String nome) throws Exception {
 		try {
-			
-			String sql = "select * from passageiro p1 inner join pessoa p2 "
-					+ "on p1.codigo_pessoa = p2.codigo where p2.nome like '%"+nome+"%'";
 
-	    	PreparedStatement ps = conexao.prepareStatement(sql);
-	    	ResultSet rs = ps.executeQuery();
-	    	List<Passageiro> lista = new ArrayList<Passageiro>();
-	    	
-	    	while(rs.next()){
-	    		Passageiro passageiro = new Passageiro();
-	    		Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+			String sql = "select * from passageiro p1 inner join pessoa p2 "
+					+ "on p1.codigo_pessoa = p2.codigo where p2.nome like '%" + nome + "%' and p2.removido != true";
+
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			List<Passageiro> lista = new ArrayList<Passageiro>();
+
+			while (rs.next()) {
+				Passageiro passageiro = new Passageiro();
+				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")),
-						rs.getBoolean("removido"), rs.getString("telefone"),rs.getString("email"));
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"));
 				passageiro.setId(rs.getLong("codigo"));
 				passageiro.setPessoa(p);
-				
+
 				lista.add(passageiro);
-	    	}
-			
+			}
+
 			return lista;
 
 		} catch (Exception e) {
@@ -120,10 +121,9 @@ public class PassageiroDAO {
 		try {
 			Passageiro passageiro = consultar(id);
 			passageiro.getPessoa().setRemovido(true);
-			
+
 			passageiro.setRemovido(true);
-			
-			
+
 			return alterar(passageiro);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
@@ -134,16 +134,16 @@ public class PassageiroDAO {
 	public Passageiro consultar(Long id) throws Exception {
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from passageiro p1 " + "inner join pessoa p2 "
-					+ "on p1.codigo_pessoa = p2.codigo where p1.codigo = " + id);
+					+ "on p1.codigo_pessoa = p2.codigo where p1.codigo = " +id+" and p2.removido != true");
 			ResultSet rs = ps.executeQuery();
 
 			Passageiro passageiro = new Passageiro();
 
 			if (rs.next()) {
-				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+				Pessoa p = new Pessoa(rs.getLong("codigo_pessoa"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")),
-						rs.getBoolean("removido"), rs.getString("telefone"),rs.getString("email"));
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"));
 				passageiro.setId(rs.getLong("codigo"));
 
 				passageiro.setPessoa(p);
@@ -155,10 +155,11 @@ public class PassageiroDAO {
 			throw new Exception(e.getMessage());
 		}
 	}
+
 	public Passageiro buscar(String cpf) throws Exception {
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from passageiro p1 " + "inner join pessoa p2 "
-					+ "on p1.codigo_pessoa = p2.codigo where p2.cpf = '" +cpf+"'");
+					+ "on p1.codigo_pessoa = p2.codigo where p2.cpf = '" + cpf + "'");
 			ResultSet rs = ps.executeQuery();
 
 			Passageiro passageiro = new Passageiro();
@@ -166,8 +167,8 @@ public class PassageiroDAO {
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
-						pessoa.estadoCivilDescricao(rs.getString("estado_civil")), 
-						rs.getBoolean("removido"), rs.getString("telefone"),rs.getString("email"));
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"));
 				passageiro.setId(rs.getLong("codigo"));
 
 				passageiro.setPessoa(p);
@@ -179,6 +180,5 @@ public class PassageiroDAO {
 			throw new Exception(e.getMessage());
 		}
 	}
-	
 
 }
