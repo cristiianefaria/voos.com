@@ -45,19 +45,8 @@ public class PoltronaBS {
 	}
 
 	public boolean excluir(Poltrona poltrona)throws Exception{
-		boolean retorno = false;
-		if(poltrona != null) {
-			if(poltrona.getId() != 0) {
-				retorno = dao.excluir(poltrona);
-			}else {
-				log.warning("Poltrona enviada para exclusão não tem id");
-				throw new Exception("Não é possivel excluir uma poltrona sem ID");
-			}
-		}else {
-			log.warning("Poltrona enviada para exclusão esta null");
-			throw new Exception("Poltrona enviada para exclusão esta null");
-		}
-		return retorno;
+		poltrona.setRemovida(true);
+		return this.salvar(poltrona);
 	}
 	
 }

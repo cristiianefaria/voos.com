@@ -3,13 +3,15 @@ package br.com.voo.model;
 public abstract class Entidade {
 	
 	protected Long id;
+	protected boolean entidadeRemovida;
 	
 	public Entidade() {
 		this.id = new Long(0);
+		entidadeRemovida = false;
 	}
 	
 	public Entidade(Long id) {
-		super();
+		this();
 		this.id = ifValorMenorQueZero(id);
 	}
 
@@ -29,6 +31,16 @@ public abstract class Entidade {
 		}
 		return new Long(0);
 	}
+	
+	public void setRemovida(boolean removida){
+		this.entidadeRemovida = removida;
+	}
+	
+	public boolean getRemovida(){
+		return this.entidadeRemovida;
+	}
+	
+	
 	
 	
 	

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import br.com.voo.model.Aeronave;
 import br.com.voo.model.Poltrona;
@@ -15,6 +16,8 @@ public class AeronaveDAO {
 
 	PoltronaDAO poltronaDAO;
 	Connection cnn;
+	
+	final static Logger log = Logger.getLogger(AeronaveDAO.class.getName());
 	
 	public AeronaveDAO() {
 		this.poltronaDAO = new PoltronaDAO();
@@ -26,7 +29,10 @@ public class AeronaveDAO {
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setString(1, aeronave.getDescricao());
+		
 		ResultSet rs = ps.executeQuery();
+		log.info(ps.toString());
+		
 		rs.next();
 		aeronave.setId(rs.getLong("codigo"));
 
@@ -40,25 +46,31 @@ public class AeronaveDAO {
 	}
 
 	public boolean alterar(Aeronave aeronave) throws SQLException {
-		String sql = "UPDATE aeronave SET descricao = ? WHERE codigo = ?";
+		String sql = "UPDATE aeronave SET descricao = ?, removido = ? WHERE codigo = ?";
 
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setString(1, aeronave.getDescricao());
-		ps.setLong(2, aeronave.getId());
+		ps.setBoolean(2, aeronave.getRemovida());
+		ps.setLong(3, aeronave.getId());
 		
 		ps.execute();
+		log.info(ps.toString());
+		
+		
 		ps.close();
 		
 		return true;
 	}
 	
 	public Aeronave consultar(Aeronave aeronave)throws SQLException {
-		String sql = "SELECT * FROM aeronave WHERE codigo = ?";
+		String sql = "SELECT * FROM aeronave WHERE codigo = ? and removido = false";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setLong(1, aeronave.getId());
 
 		ResultSet rs = ps.executeQuery();
+		log.info(ps.toString());
+		
 		Aeronave retorno = new Aeronave();
 		
 		if(rs.next()) {
@@ -74,10 +86,13 @@ public class AeronaveDAO {
 	}
 	
 	public List<Aeronave> listar()throws SQLException{
-    	String sql = "SELECT * FROM aeronave";
+    	String sql = "SELECT * FROM aeronave WHERE removido = false";
     	
     	PreparedStatement ps = cnn.prepareStatement(sql);
+    	
     	ResultSet rs = ps.executeQuery();
+    	log.info(ps.toString());
+    	
     	List<Aeronave> aeronaves = new ArrayList<Aeronave>();
     	while(rs.next()) {
     		Aeronave aeronaveTemp = new Aeronave(
@@ -94,16 +109,4 @@ public class AeronaveDAO {
     	
 		return aeronaves;
     }
-
-	public boolean remover(Aeronave aeronave) throws SQLException {
-		String sql = "DELETE FROM aeronave WHERE codigo = ?";
-		
-		PreparedStatement ps = cnn.prepareStatement(sql);
-		ps.setLong(1, aeronave.getId());
-		ps.execute();
-		
-		ps.close();
-		
-		return true;
-	}
 }

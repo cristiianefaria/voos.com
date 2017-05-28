@@ -52,7 +52,7 @@ public class PoltronaBSTest {
 	
 	@Test
 	public void testExcluir() throws Exception{
-		when(dao.excluir(Mockito.any())).thenReturn(true);
+		when(dao.alterar(Mockito.any())).thenReturn(true);
 		poltrona.setId(new Long(10));
 		boolean resultadoEsperado = bs.excluir(poltrona);
 		
@@ -89,7 +89,7 @@ public class PoltronaBSTest {
 	public void testExcluirNull() throws SQLException{
 		try {
 			poltrona = null;
-			when(dao.excluir(Mockito.any())).thenReturn(true);
+			when(dao.alterar(Mockito.any())).thenReturn(true);
 			bs.excluir(poltrona);
 		}catch(Exception e) {
 			assertThat(e).hasMessage("Poltrona enviada para exclusão esta null");
@@ -147,7 +147,7 @@ public class PoltronaBSTest {
 	@Test
 	public void testExcluirIdVazio() throws SQLException{
 		try {
-			when(dao.excluir(Mockito.any())).thenReturn(true);
+			when(dao.alterar(Mockito.any())).thenReturn(true);
 			bs.excluir(poltrona);
 		}catch(Exception e) {
 			assertThat(e).hasMessage("Não é possivel excluir uma poltrona sem ID");
