@@ -45,14 +45,25 @@ public class Venda extends Entidade {
 	public LocalDate getHorario() {
 		return horario;
 	}
+	
 	public Double getDesconto() {
 		return desconto;
 	}
+	
 	public String getTipoDePagamento() {
 		return tipoDePagamento;
 	}
+	
 	public String getSituacao() {
 		return situacao;
+	}
+	
+	public Long getCodigoPassagem(){
+		return this.passagem.getId();
+	}
+	
+	public Long getCodigoCliente(){
+		return this.cliente.getId();
 	}
 	
 	
