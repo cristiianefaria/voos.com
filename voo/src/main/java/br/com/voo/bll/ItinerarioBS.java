@@ -21,6 +21,29 @@ public class ItinerarioBS {
 		dao = new ItinerarioDAO();
 	}
 
+	public boolean limpaCampos(Itinerario itinerario) {
+		if (itinerario != null) {
+			itinerario.setOrigem("");
+			itinerario.setDestino("");
+			itinerario.setValor(Double.parseDouble(""));
+			return true;
+		}
+		// return new Itinerario();
+		return false;
+	}
+
+	public boolean validaSeIguais(Itinerario itinerario) {
+		String origemRpl = itinerario.getOrigem();
+		String destinoRpl = itinerario.getDestino();
+		origemRpl = origemRpl.trim();
+		destinoRpl = destinoRpl.trim();
+
+		if (origemRpl.equalsIgnoreCase(destinoRpl)) {
+			return false;
+		}
+		return true;
+	}
+
 	public boolean salvar(Itinerario itinerario) {
 
 		try {
@@ -67,6 +90,8 @@ public class ItinerarioBS {
 			if (itinerario.getOrigem() != null && itinerario.getDestino() != null) {
 				if (itinerario.getOrigem().isEmpty() || itinerario.getDestino().isEmpty()) {
 					return false;
+				} else {
+					return validaSeIguais(itinerario);
 				}
 			} else {
 				return false;
@@ -74,14 +99,15 @@ public class ItinerarioBS {
 		} else {
 			return false;
 		}
-		return true;
+
 	}
-	
-	public Itinerario consultar(Long id){
+
+	public Itinerario consultar(Long id) {
 		try {
 			return dao.consultar(id);
 		} catch (Exception e) {
-			e.printStackTrace();		}
-			return new Itinerario();
+			e.printStackTrace();
+		}
+		return new Itinerario();
 	}
 }

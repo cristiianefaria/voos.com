@@ -17,6 +17,7 @@ public class ItinerarioController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static String FORMULARIO = "/itinerario.jsp";
 	private ItinerarioBS bs;
+	Itinerario itinerario = new Itinerario();
 
 	public ItinerarioController() {
 		super();
@@ -26,14 +27,17 @@ public class ItinerarioController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String caminho = "";
-		String botao = request.getParameter("botao");
+		String acao = request.getParameter("acao");
 
-
-		if (botao.equalsIgnoreCase("listar")) {
+		if (acao.equalsIgnoreCase("listar")) {
 			caminho = FORMULARIO;
 			request.setAttribute("lista", bs.listar());
 
-		} else if (botao.equalsIgnoreCase("alterar")) {
+		} else if (acao.equalsIgnoreCase("cancelar")) {
+			caminho = FORMULARIO;
+			request.setAttribute("salvar", bs.limpaCampos(itinerario));
+
+		} else if (acao.equalsIgnoreCase("alterar")) {
 			caminho = FORMULARIO;
 			String idTela = request.getParameter("id");
 			Long id = (long) 0;
@@ -43,8 +47,8 @@ public class ItinerarioController extends HttpServlet {
 				request.setAttribute("salvar", itinerario);
 				request.setAttribute("lista", bs.listar());
 			}
-			
-		} else if(botao.equalsIgnoreCase("remover")){
+
+		} else if (acao.equalsIgnoreCase("remover")) {
 			String idTela = request.getParameter("id");
 			Long id = (long) 0;
 			if (idTela != null && !idTela.isEmpty()) {
@@ -56,7 +60,7 @@ public class ItinerarioController extends HttpServlet {
 			caminho = FORMULARIO;
 			request.setAttribute("lista", bs.listar());
 		}
-		
+
 		else {
 			caminho = FORMULARIO;
 		}
@@ -68,11 +72,11 @@ public class ItinerarioController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String id = request.getParameter("id");
-		if(id.equals("")){
+		if (id.equals("")) {
 			id = "0";
 		}
+
 		
-		Itinerario itinerario = new Itinerario();
 		itinerario.setId(Long.parseLong(id));
 		itinerario.setOrigem(request.getParameter("origem"));
 		itinerario.setDestino(request.getParameter("destino"));
