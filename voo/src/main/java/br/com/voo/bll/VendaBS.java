@@ -32,7 +32,8 @@ public class VendaBS {
 	}
 	
 	public boolean excluir(Venda venda) throws SQLException{
-		return dao.excluir(venda);
+		venda.setRemovida(true);
+		return this.salvar(venda);
 	}
 	
 	public Venda consultar(Venda venda)throws Exception{
