@@ -5,18 +5,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Cadastro Itinerário</title>
-
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Cadastro de Itinerário</title>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
 
 	<div class="page-header">
-		<h1>ITINERÁRIO</h1>
+		<h1>Itinerario</h1>
 		<ul class="breadcrumb">
 			<li><a href="index.jsp">home</a></li>
-			<li><a href="itinerario.jsp">itininerário</a></li>
+			<li>itininerário</li>
 		</ul>
 	</div>
 
@@ -48,42 +47,45 @@
 											readonly="readonly" name="id" class="form-control"
 											value="<c:out value="${salvar.id}"/>" />
 									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="form-group">
-										<label>Origem:</label> <input type="text" id="origem"
-											name="origem" class="form-control"
-											value="<c:out value="${salvar.origem}"/>" />
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="form-group">
-										<label>Destino:</label> <input type="text"
-											class="form-control" id="destino" name="destino"
-											value="<c:out value="${salvar.destino}"/>" />
-									</div>
-								</div>
-								<div class="col-md-2">
-									<div class="form-group">
-										<label>Valor:</label> <input type="text" class="form-control"
-											id="valor" name="valor"
-											value="<c:out value="${salvar.valor}"/>" />
-									</div>
-								</div>
 
-
-								<div class="text-right">
-									<input type="reset" class="btn btn-DEFAULT" value="CANCELAR" />
-									<input type="submit" class="btn btn-success" value="SALVAR" />
 								</div>
-							</form>
-						</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>Origem:</label> <input type="text" id="origem"
+										name="origem" class="form-control"
+										value="<c:out value="${salvar.origem}"/>" />
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>Destino:</label> <input type="text" class="form-control"
+										id="destino" name="destino"
+										value="<c:out value="${salvar.destino}"/>" />
+								</div>
+							</div>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label>Valor:</label> <input type="text"
+										onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+										class="form-control" id="valor" name="valor"
+										value="<c:out value="${salvar.valor}"/>" />
+								</div>
+							</div>
+							<div class="text-right">
+								<input type="submit" class="btn btn-default" value="CANCELAR" />
+								<input type="submit" class="btn btn-success" value="SALVAR" />
+							</div>
+						</form>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class=""></div>
+		<div class="bloco">
+			<div class="row">
 				<div class="panel-heading">Lista de Itinerário</div>
-				<div class="col-md-8 panel-body">
+				<div class="panel-body">
 					<table class="table table-striped">
 						<thead>
 							<tr>
@@ -102,10 +104,10 @@
 									<td><c:out value="${listagem.destino}" /></td>
 									<td><c:out value="${listagem.valor}" /></td>
 									<td><a class="btn btn-warning"
-										href="Itinerario?botao=alterar&id=<c:out value="${listagem.id}"/>">
+										href="Itinerario?acao=alterar&id=<c:out value="${listagem.id}"/>">
 											Alterar</a></td>
 									<td><a class="btn btn-danger"
-										href="Itinerario?botao=remover&id=<c:out value="${listagem.id}"/>">
+										href="Itinerario?acao=remover&id=<c:out value="${listagem.id}"/>">
 											Remover</a></td>
 
 								</tr>

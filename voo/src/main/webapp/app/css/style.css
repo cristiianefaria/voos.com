@@ -3,23 +3,28 @@
 .page-header{
 	padding: 20px;
 	background-color: #58ACFA;
-	height: 15%;
+	height: 150px;
 	color:white;
 	font-size: 24px;
 }
 ul.breadcrumb{
-    padding-left:10px;
     list-style: none;
     color: white;
     background-color: #58ACFA;
-    font-size: 17px;
+    font-size: 20px;
 }
 .bloco{
-	padding-top: 20px 0;
+	padding: 20px;
+	margin:20px 60px;
+	
 }
 .panel-heading{
 	background-color: #58ACFA;
 }
 footer{
 	background-color: #58ACFA;
+}
+h3{
+	text-align: center;
+	color:#58ACFA;
 }
