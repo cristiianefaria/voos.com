@@ -8,6 +8,10 @@ public class FactoryConexao {
 
 		private static Connection connection = null;
 
+		private FactoryConexao(){
+			
+		}
+		
 		public static Connection getConnection() {
 	        if (connection != null)
 	            return connection;

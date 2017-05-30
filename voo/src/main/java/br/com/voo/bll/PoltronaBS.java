@@ -1,5 +1,6 @@
 package br.com.voo.bll;
 
+import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import br.com.voo.dal.PoltronaDAO;
@@ -47,6 +48,10 @@ public class PoltronaBS {
 	public boolean excluir(Poltrona poltrona)throws Exception{
 		poltrona.setRemovida(true);
 		return this.salvar(poltrona);
+	}
+
+	public Poltrona consultar(Poltrona poltrona) throws SQLException {
+		return dao.consultar(poltrona);
 	}
 	
 }

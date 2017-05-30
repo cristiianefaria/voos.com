@@ -66,6 +66,36 @@ public class AeronaveController extends HttpServlet {
 				}catch(SQLException e){
 					e.printStackTrace();
 				}
+			}else if(acao.equals("removerPoltrona")){
+				Long idPoltrona = Long.parseLong(
+				request.getParameter("id"));
+				Long codigoAeronave = Long.parseLong(
+						request.getParameter("poltrona_aeronave_id"));
+						
+				try {
+					poltronaBS.excluir(new Poltrona(idPoltrona));
+					aeronaves = aeronaveBS.listar();
+					Aeronave aeronave = aeronaveBS.consultar(new Aeronave(codigoAeronave));
+					request.setAttribute("aeronave", aeronave);
+					
+				} catch (Exception e) {
+					// TODO Tratar exception
+					e.printStackTrace();
+				}
+			}else if(acao.equals("alterarPoltrona")){
+				Long idPoltrona = Long.parseLong(
+						request.getParameter("id"));
+				
+				try {
+					Poltrona poltrona = poltronaBS.consultar(new Poltrona(idPoltrona));
+					request.setAttribute("poltrona", poltrona);
+					request.setAttribute("aeronave", 
+							aeronaveBS.consultar(new Aeronave(poltrona.getCodigoAeronave())));
+					aeronaves = aeronaveBS.listar();
+				} catch (SQLException e) {
+					// TODO Tratar exception
+					e.printStackTrace();
+				}
 			}
 		}else{
 			try {
@@ -84,17 +114,20 @@ public class AeronaveController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Aeronave> aeronaves = new ArrayList<Aeronave>();
 		String descricao = request.getParameter("aeronave_descricao");
-		String codigoAeronave = request.getParameter("aeronave_id");
+		String codigoAeronave = request.getParameter("poltrona_aeronave_id");
+		String codigoAeronaveForm = request.getParameter("aeronave_id_form");
 		String botao = request.getParameter("botao");
 		List<Poltrona> poltronas = new ArrayList<Poltrona>();	
 		Aeronave aeronave = new Aeronave();
+		Long idDaAeronave = new Long(0);
 		
-		if(codigoAeronave != null && !"".equals(codigoAeronave)){
-			aeronave.setId(Long.parseLong(codigoAeronave));
+		
+		if(codigoAeronaveForm != null && !"".equals(codigoAeronaveForm)){
+			idDaAeronave = Long.parseLong(codigoAeronaveForm);
 		}
 		
 		if(botao.equals("Cadastrar Aeronave")){
-			aeronave = new Aeronave(descricao, poltronas);
+			aeronave = new Aeronave(idDaAeronave,descricao, poltronas);
 
 			try {
 				aeronaveBS.salvar(aeronave);
@@ -103,7 +136,8 @@ public class AeronaveController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-		}else{
+		}else if(botao.equals("Cadastrar Poltronas")){
+			aeronave = new Aeronave(idDaAeronave);
 			String classePoltrona = request.getParameter("poltrona_classe");
 			String detalhesPoltrona = request.getParameter("poltrona_detalhes");
 			String valorPoltrona = request.getParameter("poltrona_valor");

@@ -31,7 +31,7 @@ public class AeronaveDAO {
 		ps.setString(1, aeronave.getDescricao());
 		
 		ResultSet rs = ps.executeQuery();
-		log.info(ps.toString());
+		
 		
 		rs.next();
 		aeronave.setId(rs.getLong("codigo"));

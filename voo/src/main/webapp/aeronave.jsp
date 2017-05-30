@@ -9,15 +9,15 @@
 <title>Cadastro de Aeronave</title>
 </head>
     <body>
-    <!-- <jsp:include page="header.jsp" /> -->
+    	 <jsp:include page="header.jsp" /> 
         <div class="container">
             <div class="bloco">
                 <h1>Aeronaves</h1>
                 <div class="col-md-5" id="cadastroDeAeronave">
                     <h2>Cadastro de Aeronaves</h2> 
                     <form method="POST" action="Aeronave" >
-                        <input class="hide" type="text" 
-                            value="<c:out value="${aeronave.id}"></c:out>" name="aeronave_id">
+                        <input class="hide" type="text" id="aeronave_id"
+                            value="<c:out value="${aeronave.id}"></c:out>" name="aeronave_id_form">
 
                         <div class="row">
                             <div class="form-group col-md-10">
@@ -106,7 +106,7 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-danger" 
-                                            href="/Aeronave?acao=removerPoltrona&id=<c:out value="${poltrona.id}"></c:out>">Remover</a>
+                                            href="/Aeronave?acao=removerPoltrona&id=<c:out value="${poltrona.id}"></c:out>&poltrona_aeronave_id=<c:out value="${aeronave.id}"></c:out>">Remover</a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -114,9 +114,13 @@
                     </table>
                     <form method="POST" action="/Aeronave">
                         <div class="row">
-                            <input class="hide" id="aeronave_id" type="text" 
+                            <input class="hide" id="poltrona_aeronave_id" type="text" 
                                 value="<c:out value="${aeronave.id}"></c:out>" 
-                                name="aeronave_id">
+                                name="poltrona_aeronave_id">
+                                
+                                <input class="hide" id="poltrona_id" type="text" 
+                                value="<c:out value="${poltrona.id}"></c:out>" 
+                                name="poltrona_id">
 
                             <div class="form-group col-md-6">
                                 <label>Valor das Poltronas</label>
@@ -147,6 +151,7 @@
                                 <input onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                      class="form-control" 
                                      type="text" 
+                                     id="poltrona_quantidade"
                                      name="poltrona_quantidade" 
                                      onkeypress="return event.charCode >= 48 && event.charCode <= 57">
                             </div>

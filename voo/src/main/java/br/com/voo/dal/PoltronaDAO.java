@@ -82,7 +82,7 @@ public class PoltronaDAO {
     	ResultSet rs = ps.executeQuery();
     	log.info(ps.toString());
     	
-    	Poltrona retorno;
+    	Poltrona retorno = new Poltrona();
     	if(rs.next()) {
     		retorno = new Poltrona (rs.getLong("codigo"),
     				rs.getString("descricao"),
@@ -92,7 +92,7 @@ public class PoltronaDAO {
     				new Aeronave(rs.getLong("codigo_aeronave")));
     	}
     	
-    	return poltrona;
+    	return retorno;
     }
     
     public List<Poltrona> listar(Poltrona poltrona)throws SQLException{

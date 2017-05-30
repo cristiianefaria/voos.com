@@ -3,7 +3,7 @@ package br.com.voo.model;
 public class Poltrona extends Entidade {
 	
 	private String descricao;
-	private Double valor;
+	private Double valor = new Double(0);
 	private String classe;
 	private String detalhes;
 	private Aeronave aeronave;

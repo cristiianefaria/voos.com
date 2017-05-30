@@ -36,10 +36,8 @@
 			</div>
 		</div>
 		<div class="bloco">
-			<button type="button" class="btn btn-primary" data-toggle="collapse"
-				data-target="#adicionarItinerario">Novo Itinerário</button>
-			<div id="adicionarItinerario" class="collapse">
-				
+			
+			<div id="adicionarItinerario" >
 				<div class="row">
 					<div class="panel panel-default">
 						<div class="panel-body">
