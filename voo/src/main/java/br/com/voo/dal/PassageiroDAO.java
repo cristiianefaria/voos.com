@@ -19,10 +19,12 @@ public class PassageiroDAO {
 
 	private Connection conexao;
 	private PessoaDAO pessoa;
+	private ContatoDAO contato;
 
 	public PassageiroDAO() {
 		conexao = FactoryConexao.getConnection();
 		pessoa = new PessoaDAO();
+		contato = new ContatoDAO();
 	}
 
 	public boolean alterar(Passageiro _passageiro) throws Exception {
@@ -40,6 +42,7 @@ public class PassageiroDAO {
 
 				ps.executeUpdate();
 				conexao.commit();
+				
 				return true;
 			} else
 				conexao.rollback();
@@ -59,7 +62,7 @@ public class PassageiroDAO {
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
-					"INSERT INTO public.passageiro(codigo_pessoa, removido)" + "VALUES (?, ?);");
+					"INSERT INTO public.passageiro(codigo_pessoa, removido)" + "VALUES (?, ?) RETURNING codigo;");
 
 			conexao.setAutoCommit(false);
 
@@ -72,6 +75,11 @@ public class PassageiroDAO {
 				ps.setBoolean(2, _passageiro.isRemovido());
 
 				ps.execute();
+				ResultSet rs = ps.getResultSet();
+				
+				_passageiro.setId(rs.getLong("codigo"));
+				
+				//contato.ineserir(_passageiro.getContato(), conexao);
 				conexao.commit();
 				return true;
 

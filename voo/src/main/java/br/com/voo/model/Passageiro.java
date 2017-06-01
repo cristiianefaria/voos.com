@@ -4,6 +4,7 @@ public class Passageiro extends Entidade {
 
 	Pessoa pessoa;
 	private boolean removido;
+	private Contato contato;
 	
 	private Passageiro responsavel;
 	
@@ -34,6 +35,12 @@ public class Passageiro extends Entidade {
 	}
 	public void setRemovido(boolean cancelado) {
 		this.removido = cancelado;
+	}
+	public Contato getContato() {
+		return contato;
+	}
+	public void setContato(Contato contato) {
+		this.contato = contato;
 	}
 
 

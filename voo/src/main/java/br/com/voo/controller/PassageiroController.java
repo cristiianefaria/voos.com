@@ -48,7 +48,6 @@ public class PassageiroController extends HttpServlet {
 
 		case "inserir":
 
-			
 			break;
 		case "editar":
 
@@ -72,14 +71,36 @@ public class PassageiroController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		PassageiroBS bs = new PassageiroBS();
+
+		Pessoa pessoa = ObterPessoa(request);
+		
+		Passageiro passageiro = new Passageiro(pessoa);
+		
+		int codigo = Integer.parseInt(request.getParameter("codigo"));
+		
+		if (codigo >0) {
+			Long id = new Long(codigo);
+			passageiro.setId(id);
+		}
+
+		
+		bs.salvar(passageiro);
+
+		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
+		request.setAttribute("passageiros", bs.listar(""));
+		view.forward(request, response);
+
+	}
+
+	private Pessoa ObterPessoa(HttpServletRequest request) {
+
 		String nome = request.getParameter("nome");
 		String cpf = request.getParameter("cpf") != null ? request.getParameter("cpf") : "";
-		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj"): "";
+		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj") : "";
 		String endereco = request.getParameter("endereco");
-		
-		
+
 		SimpleDateFormat dataS = new SimpleDateFormat("dd-MM-yyyy");
 		Date dataNascimento = new Date();
 		try {
@@ -87,26 +108,12 @@ public class PassageiroController extends HttpServlet {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
 		String telefone = request.getParameter("telefone");
 		String email = request.getParameter("email");
-		
-		Pessoa pessoa = new Pessoa(nome, cpf, cnpj, 
-				                         endereco, dataNascimento, estadoCivil, 
-				                                                     telefone, email);
-		
-		long codigo = request.getParameter("codigo") != null ?Long.parseLong(request.getParameter("codigo")) : 0;
-		
-		Passageiro passageiro = new Passageiro(pessoa);
-		passageiro.setId(codigo);
-		bs.salvar(passageiro);
-		
-		
-		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
-		request.setAttribute("passageiros", bs.listar(""));
-		view.forward(request, response);
 
+		return new Pessoa(nome, cpf, cnpj, endereco, dataNascimento, estadoCivil, telefone, email);
 	}
 
 }
