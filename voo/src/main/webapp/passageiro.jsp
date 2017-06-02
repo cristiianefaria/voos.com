@@ -53,7 +53,6 @@
 								class="form-control" id="nome" placeholder="nome" name="nome"
 								value="<c:out value="${passageiro.pessoa.nome}"/>">
 						</div>
-
 						<div class="form-group col-md-3">
 							<label for="datepicker">Data de Nascimento</label>
 							<p>
@@ -71,7 +70,7 @@
 
 						<div class="form-group col-md-3">
 							<label for="cpf">CNPJ</label> <input type="text"
-								class="form-control" id="cpf" placeholder="cpf" name="cpf"
+								class="form-control" id="cnpj" placeholder="CNPJ" name="cnpj"
 								value="<c:out value="${passageiro.pessoa.cnpj.numero}"/>">
 						</div>
 
