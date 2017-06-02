@@ -74,9 +74,8 @@ public class PassageiroDAO {
 				ps.setLong(1, codigoPessoa);
 				ps.setBoolean(2, _passageiro.isRemovido());
 
-				ps.execute();
-				ResultSet rs = ps.getResultSet();
-				
+				ResultSet rs = ps.executeQuery();
+				rs.next();
 				_passageiro.setId(rs.getLong("codigo"));
 				
 				//contato.ineserir(_passageiro.getContato(), conexao);

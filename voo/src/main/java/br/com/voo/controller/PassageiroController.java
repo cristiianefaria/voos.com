@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,11 +29,15 @@ public class PassageiroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final String PAGINA = "/passageiro.jsp";
-	private PassageiroBS bs;
+	private PassageiroBS passageiroBS;
+
+	private Long idPessoa;
 
 	public PassageiroController() {
 		super();
-		bs = new PassageiroBS();
+		passageiroBS = new PassageiroBS();
+		idPessoa = new Long(0);
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,7 +48,7 @@ public class PassageiroController extends HttpServlet {
 		switch (acao) {
 		case "listar":
 
-			passageiros = bs.listar("");
+			passageiros = passageiroBS.listar("");
 			break;
 
 		case "inserir":
@@ -52,13 +57,14 @@ public class PassageiroController extends HttpServlet {
 		case "editar":
 
 			int codigoEdicao = Integer.parseInt(request.getParameter("codigo"));
-			Passageiro passageiro = bs.consultar(new Long(codigoEdicao));
+			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicao));
+			idPessoa = passageiro.getPessoa().getId();
 			request.setAttribute("passageiro", passageiro);
 
 			break;
 		case "excluir":
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
-			bs.excluir(new Long(codigoExclusao));
+			passageiroBS.excluir(new Long(codigoExclusao));
 		default:
 			break;
 		}
@@ -72,21 +78,27 @@ public class PassageiroController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		String botao = request.getParameter("botao");
 		PassageiroBS bs = new PassageiroBS();
+		
+		if (botao.equals("Salvar Passageiro")) {
 
-		Pessoa pessoa = ObterPessoa(request);
-		
-		Passageiro passageiro = new Passageiro(pessoa);
-		
-		int codigo = Integer.parseInt(request.getParameter("codigo"));
-		
-		if (codigo >0) {
-			Long id = new Long(codigo);
-			passageiro.setId(id);
+			Long codigo = new Long(0);
+			Passageiro passageiro = new Passageiro(ObterPessoa(request));
+			String codigoParam = request.getParameter("codigo");
+
+			if (codigoParam == null || !"".equals(codigoParam)) {
+				codigo = Long.parseLong(codigoParam);
+			}
+
+			passageiro.setId(codigo);
+			bs.salvar(passageiro);
+			
 		}
+		if (botao.equals("")) {
 
-		
-		bs.salvar(passageiro);
+			
+		}
 
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
 		request.setAttribute("passageiros", bs.listar(""));
@@ -100,9 +112,9 @@ public class PassageiroController extends HttpServlet {
 		String cpf = request.getParameter("cpf") != null ? request.getParameter("cpf") : "";
 		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj") : "";
 		String endereco = request.getParameter("endereco");
-
 		SimpleDateFormat dataS = new SimpleDateFormat("dd-MM-yyyy");
 		Date dataNascimento = new Date();
+
 		try {
 			dataNascimento = dataS.parse(request.getParameter("dataNascimento"));
 		} catch (ParseException e) {
@@ -113,7 +125,7 @@ public class PassageiroController extends HttpServlet {
 		String telefone = request.getParameter("telefone");
 		String email = request.getParameter("email");
 
-		return new Pessoa(nome, cpf, cnpj, endereco, dataNascimento, estadoCivil, telefone, email);
+		return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNascimento, estadoCivil, telefone, email);
 	}
 
 }

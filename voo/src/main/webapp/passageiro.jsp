@@ -13,11 +13,13 @@
 		<form action="Passageiro" method="POST">
 
 			<div class="form-group col-md-3">
-				<label for="codigo">Código</label> <input type="text"
+				<label for="codigo">Código</label>
+				 <input type="text"
 					class="form-control" id="codigo" readonly="readonly"
 					placeholder="código" name="codigo"
 					value="<c:out value="${passageiro.id}"/>">
 			</div>
+	
 
 			<div class="form-group col-md-9">
 				<label for="nome">Nome</label> <input type="text"
@@ -41,8 +43,9 @@
 			</div>
 
 			<div class="form-group col-md-3">
-				<label>Estado Civil</label> <select class="form-control" id="estadoCivil"
-					name="estadoCivil" value="<c:out value="${passageiro.pessoa.estadoCivil}"/>">
+				<label>Estado Civil</label> <select class="form-control"
+					id="estadoCivil" name="estadoCivil"
+					value="<c:out value="${passageiro.pessoa.estadoCivil}"/>">
 					<option>Casado</option>
 					<option>Solteiro</option>
 					<option>Divorciado</option>
@@ -63,25 +66,27 @@
 			</div>
 
 			<div class="form-group col-md-3">
-				<label for="cpf">CNPJ</label> <input type="text" class="form-control"
-					id="cpf" placeholder="cpf" name="cpf"
+				<label for="cpf">CNPJ</label> <input type="text"
+					class="form-control" id="cpf" placeholder="cpf" name="cpf"
 					value="<c:out value="${passageiro.pessoa.cnpj.numero}"/>">
 			</div>
 
 			<div class="form-group col-md-3">
 				<label for="telefone">Telefone</label> <input type="text"
 					class="form-control" id="telefone" placeholder="telefone"
-					name="telefone" value="<c:out value="${passageiro.pessoa.telefone}"/>">
+					name="telefone"
+					value="<c:out value="${passageiro.pessoa.telefone}"/>">
 			</div>
-			
+
 			<div class="form-group col-md-3">
 				<label for="endereco">endereco</label> <input type="text"
 					class="form-control" id="telefone" placeholder="telefone"
-					name="telefone" value="<c:out value="${passageiro.pessoa.endereco}"/>">
+					name="telefone"
+					value="<c:out value="${passageiro.pessoa.endereco}"/>">
 			</div>
 
 			<input class="btn btn-success" type="submit"
-				value="Cadastrar Passageiro" name="botao">
+				value="Salvar Passageiro" name="botao">
 
 		</form>
 		<div>
