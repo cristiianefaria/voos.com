@@ -36,7 +36,7 @@ public class AeronaveBS {
 	
 	public boolean excluir(Aeronave aeronave) throws SQLException{
 		aeronave.setRemovida(true);
-		return this.salvar(aeronave);
+		return dao.remover(aeronave);
 	}
 
 	public Aeronave consultar(Aeronave aeronave) throws SQLException {

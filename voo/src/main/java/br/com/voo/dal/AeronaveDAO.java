@@ -31,7 +31,7 @@ public class AeronaveDAO {
 		ps.setString(1, aeronave.getDescricao());
 		
 		ResultSet rs = ps.executeQuery();
-		
+		log.info(ps.toString());
 		
 		rs.next();
 		aeronave.setId(rs.getLong("codigo"));
@@ -52,6 +52,22 @@ public class AeronaveDAO {
 		ps.setString(1, aeronave.getDescricao());
 		ps.setBoolean(2, aeronave.getRemovida());
 		ps.setLong(3, aeronave.getId());
+		
+		ps.execute();
+		log.info(ps.toString());
+		
+		
+		ps.close();
+		
+		return true;
+	}
+	
+	public boolean remover(Aeronave aeronave) throws SQLException {
+		String sql = "UPDATE aeronave SET removido = ? WHERE codigo = ?";
+
+		PreparedStatement ps = cnn.prepareStatement(sql);
+		ps.setBoolean(1, aeronave.getRemovida());
+		ps.setLong(2, aeronave.getId());
 		
 		ps.execute();
 		log.info(ps.toString());

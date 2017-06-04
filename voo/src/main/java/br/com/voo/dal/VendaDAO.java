@@ -95,7 +95,6 @@ public class VendaDAO {
 		ResultSet rs = ps.executeQuery();
 		log.info(ps.toString());
 		
-		
 		Venda retorno = new Venda();
 		
 		if(rs.next()){

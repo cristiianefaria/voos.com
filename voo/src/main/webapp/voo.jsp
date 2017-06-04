@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<html lang="pt-br">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gerenciamento de voos</title>
@@ -38,7 +38,10 @@
 						<c:forEach items="${voos}" var="voo">
 							<tr>
 								<td><c:out value="${voo.id}"></c:out></td>
-								<td><c:out value="${voo.horario}"></c:out></td>
+								<td>
+									<fmt:parseDate value="${voo.horario}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+									<fmt:formatDate pattern="dd/MM/yyyy" value="${parsedDate}" type="date" />
+								</td>
 								<td><c:out value="${voo.itinerario.origem}"></c:out></td>
 								<td><c:out value="${voo.itinerario.destino}"></c:out></td>
 								<td><c:out value="${voo.aeronave.descricao}"></c:out></td>
@@ -67,7 +70,7 @@
 				<div class="col-md-4">
 					<div class="form-group">
 						<label for="horario">Hora do voo</label> <input
-							class="form-control" type="date" name="horario" id="horario">
+							class="form-control" type="date" name="horario" id="horario" pattern="dd/MM/yyyy">
 					</div>
 				</div>
 				<div class="col-md-4">

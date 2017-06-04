@@ -3,7 +3,7 @@ package br.com.voo.controller;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +51,34 @@ public class VooController extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
+		}else if(acao.equals("remover")){
+			try{
+				Long id = Long.parseLong(request.getParameter("id"));
+				vooBS.remover(new Voo(id));
+				
+				voos = vooBS.listar();
+				aeronaves = aeronaveBS.listar();
+				itinerarios = itinerarioBS.listar();
+			}catch(Exception e){
+				e.printStackTrace();
+				
+			}
+		}else if(acao.equals("alterar")){
+			try{
+				Long id = Long.parseLong(request.getParameter("id"));
+				
+				
+				request.setAttribute("aeronave", vooBS.consultar(new Voo(id)));
+				
+				voos = vooBS.listar();
+				aeronaves = aeronaveBS.listar();
+				itinerarios = itinerarioBS.listar();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
+		
+		
 		
 		request.setAttribute("aeronaves", aeronaves);
 		request.setAttribute("itinerarios", itinerarios);
@@ -69,13 +96,12 @@ public class VooController extends HttpServlet {
 		Long idVoo = new Long(0);
 		Long idAeronave = new Long(0);
 		Long idItinerario = new Long(0);
-		LocalDate horario = LocalDate.now();
-		
-	
 		
 		String vooIdTela = request.getParameter("id");
 		String aeronave = request.getParameter("aeronave");
 		String itinerario = request.getParameter("itinerario");
+		String paramHorario = request.getParameter("horario");
+		LocalDate horario = LocalDate.parse(paramHorario , DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		
 		
 		if(vooIdTela != null && !"".equals(vooIdTela)){

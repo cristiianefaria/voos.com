@@ -34,10 +34,6 @@ public class Voo extends Entidade {
 		return horario;
 	}
 
-	public Itinerario getItinerario() {
-		return itinerario;
-	}
-
 	public long getCodigoAeronave() {
 		return aeronave.getId();
 	}
@@ -57,11 +53,14 @@ public class Voo extends Entidade {
 	public String getDescricaoAeronave(){
 		return aeronave.getDescricao();
 	}
-	
-	public Aeronave getAeronave(){
-		return new Aeronave(this.aeronave);
+
+	public Itinerario getItinerario() {
+		return itinerario;
+	}
+
+	public Aeronave getAeronave() {
+		return aeronave;
 	}
 	
 	
-
 }

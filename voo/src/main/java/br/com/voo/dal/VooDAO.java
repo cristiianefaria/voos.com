@@ -16,9 +16,13 @@ import br.com.voo.util.FactoryConexao;
 public class VooDAO {
 	
 	Connection cnn;
+	AeronaveDAO aeronaveDAO;
+	ItinerarioDAO itinerarioDAO;
 	
 	public VooDAO(){
 		cnn = FactoryConexao.getConnection();
+		aeronaveDAO = new AeronaveDAO();
+		itinerarioDAO = new ItinerarioDAO();
 	}
 	
 	public boolean incluir(Voo voo) throws SQLException{
@@ -38,13 +42,14 @@ public class VooDAO {
 	
 	public boolean alterar(Voo voo) throws SQLException{
 		String sql = "UPDATE voo set horario = ?, codigo_itinerario = ?,"
-				+ " codigo_aeronave = ? WHERE codigo = ?";
+				+ " codigo_aeronave = ?, removido = ?, WHERE codigo = ?";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setDate(1, Date.valueOf(voo.getHorario()));
 		ps.setLong(2, voo.getCodigoItinerario());
 		ps.setLong(3, voo.getCodigoAeronave());
-		ps.setLong(4, voo.getId());
+		ps.setBoolean(4, voo.getRemovida());
+		ps.setLong(5, voo.getId());
 		
 		
 		ps.execute();
@@ -55,7 +60,7 @@ public class VooDAO {
 	
 	public List<Voo> listar() throws SQLException {
 	
-		String sql = "SELECT * FROM voo";
+		String sql = "SELECT * FROM voo WHERE removido = false";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
@@ -63,8 +68,8 @@ public class VooDAO {
 		while(rs.next()){
 			Voo voo = new Voo(rs.getLong("codigo"),
 					rs.getDate("horario").toLocalDate(),
-					new Itinerario(rs.getLong("codigo_itinerario")),
-					new Aeronave(rs.getLong("codigo_aeronave")));
+					itinerarioDAO.consultar(rs.getLong("codigo_itinerario")),
+					aeronaveDAO.consultar(new Aeronave(rs.getLong("codigo_aeronave"))));
 			voos.add(voo);
 		}
 		rs.close();
@@ -73,21 +78,21 @@ public class VooDAO {
 		return voos;
 	}
 	
-	public boolean remover(Voo voo) throws SQLException {
-		String sql = "DELETE FROM voo WHERE codigo = ?";
+	public boolean remover(Voo voo) throws SQLException{
+		String sql = "UPDATE voo set removido = ?, WHERE codigo = ?";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
+		ps.setBoolean(1, voo.getRemovida());
+		ps.setLong(2, voo.getId());
 		
-		ps.setLong(1, voo.getId());
 		ps.execute();
 		
 		ps.close();
-		
 		return true;
 	}
 
 	public Voo consultar(Voo voo) throws SQLException {
-		String sql = "SELECT * FROM voo WHERE codigo = ?";
+		String sql = "SELECT * FROM voo WHERE codigo = ? and removido = false";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setLong(1, voo.getId());
@@ -98,8 +103,8 @@ public class VooDAO {
 		if(rs.next()){
 			retorno = new Voo(rs.getLong("codigo"),
 					rs.getDate("horario").toLocalDate(),
-					new Itinerario(rs.getLong("codigo_itinerario")),
-					new Aeronave(rs.getLong("codigo_aeronave")));
+					itinerarioDAO.consultar(rs.getLong("codigo_itinerario")),
+					aeronaveDAO.consultar(new Aeronave(rs.getLong("codigo_aeronave"))));
 		}
 		rs.close();
 		ps.close();
