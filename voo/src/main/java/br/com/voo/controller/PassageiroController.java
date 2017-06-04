@@ -1,6 +1,7 @@
 package br.com.voo.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import br.com.voo.dal.PassageiroDAO;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Pessoa;
+import br.com.voo.util.Data;
 import br.com.voo.util.ValidarPessoa;
 import net.bytebuddy.description.type.TypeDescription.Generic.Visitor.Validator;
 
@@ -65,6 +67,7 @@ public class PassageiroController extends HttpServlet {
 		case "excluir":
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
 			passageiroBS.excluir(new Long(codigoExclusao));
+			passageiros = passageiroBS.listar("");
 		default:
 			break;
 		}
@@ -80,8 +83,9 @@ public class PassageiroController extends HttpServlet {
 
 		String botao = request.getParameter("botao");
 		PassageiroBS bs = new PassageiroBS();
-		
-		if (botao.equals("Salvar Passageiro")) {
+		String nome = "";
+
+		if (botao.equals("Cadastrar Passageiro")) {
 
 			Long codigo = new Long(0);
 			Passageiro passageiro = new Passageiro(ObterPessoa(request));
@@ -93,15 +97,14 @@ public class PassageiroController extends HttpServlet {
 
 			passageiro.setId(codigo);
 			bs.salvar(passageiro);
-			
-		}
-		if (botao.equals("")) {
 
-			
+		}
+		if (botao.equals("Pesquisar")) {
+			nome = request.getParameter("pesquisa");
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
-		request.setAttribute("passageiros", bs.listar(""));
+		request.setAttribute("passageiros", bs.listar(nome));
 		view.forward(request, response);
 
 	}
@@ -112,20 +115,23 @@ public class PassageiroController extends HttpServlet {
 		String cpf = request.getParameter("cpf") != null ? request.getParameter("cpf") : "";
 		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj") : "";
 		String endereco = request.getParameter("endereco");
-		SimpleDateFormat dataS = new SimpleDateFormat("dd-MM-yyyy");
-		Date dataNascimento = new Date();
 
+		String data = request.getParameter("dataNascimento");
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		try {
-			dataNascimento = dataS.parse(request.getParameter("dataNascimento"));
-		} catch (ParseException e) {
+			Date dataNacimento = format.parse(data);
+
+			EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
+			String telefone = request.getParameter("telefone");
+			String email = request.getParameter("email");
+
+			return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNacimento, estadoCivil, telefone, email);
+		
+		} catch (Exception e) {
 			e.printStackTrace();
+            return null;
 		}
-
-		EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
-		String telefone = request.getParameter("telefone");
-		String email = request.getParameter("email");
-
-		return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNascimento, estadoCivil, telefone, email);
 	}
 
 }

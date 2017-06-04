@@ -5,16 +5,26 @@ import java.util.Date;
 
 public class Data extends Date {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Date data;
 	private int dia;
 	private int mes;
 	private int ano;
+	
 
 	private Data() {
-
+       super();
 	}
 	public Data(Date data) {
+		super();
 		this.data = data;
+	}
+	public Data(String data, String formato) {
+		super();
+		pegarData(data, formato);
 	}
 
 	public int calcularIdade() {
@@ -54,4 +64,25 @@ public class Data extends Date {
 
 		return novaData;
 	}
+	public void pegarData(String data, String formato){
+		
+		
+		Data d = new Data();
+		if(formato.equals("yyyy-MM-dd")){
+			String[] dataArray = data.split("-");
+			
+			d.dia = Integer.parseInt(dataArray[2]);
+			d.mes = Integer.parseInt(dataArray[1]);
+			d.ano = Integer.parseInt(dataArray[0]); 
+		}
+		this.data = d;
+		
+	}
+	
+	public Date getData(){
+		
+		return this.data;
+	}
+	
+	
 }

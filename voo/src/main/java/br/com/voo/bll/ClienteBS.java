@@ -36,16 +36,16 @@ public class ClienteBS {
 	private void ValidarCliente(Cliente _cliente) throws Exception {
 		
 		if(_cliente.getPercentDesconto()> 100)
-			throw new Exception("Informe um percentual de desconto válido!");
+			throw new Exception("Informe um percentual de desconto vï¿½lido!");
 		
 	}
 
 	private void ValidarPessoa(Pessoa pessoa) throws Exception {
 
-		ValidarPessoa validacao = new ValidarPessoa();
+		ValidarPessoa validacao = new ValidarPessoa(pessoa);
 
-		if (!validacao.validarPessoa(pessoa).isEmpty())
-			throw new Exception("Erros encontrados " + validacao.validarPessoa(pessoa));
+		if (!validacao.validarPessoa().isEmpty())
+			throw new Exception("Erros encontrados " + validacao.validarPessoa());
 
 	}
 

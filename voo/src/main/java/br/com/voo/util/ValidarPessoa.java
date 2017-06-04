@@ -10,32 +10,45 @@ import br.com.voo.model.Pessoa;
 public class ValidarPessoa {
 
 	private PessoaDAO dao;
+	private Pessoa pessoa;
 
-	public ValidarPessoa() {
+	public ValidarPessoa(Pessoa pessoa) {
 		dao = new PessoaDAO();
+		this.pessoa = pessoa;
 	}
 
 	private Map<String, String> erros;
 
-	public Map<String, String> validarPessoa(Pessoa pessoa) throws Exception {
+	public Map<String, String> validarPessoa() throws Exception {
 
 		erros = new HashMap<>();
 		
 		if(pessoa.getCpf().getNumero().isEmpty() && pessoa.getCnpj().getNumero().isEmpty()){
 			erros.put("cpfCnpjVazio", "Um número de CPF ou CNPJ deve ser informado!");
+			return erros;
 		}
 		
+		Pessoa pessoaDB = !pessoa.getCpf().equals("") ? dao.consultar(pessoa.getCpf()) 
+				                                              : dao.consultar(pessoa.getCnpj());
+		
+		boolean t = pessoaDB.getId() != pessoa.getId();
+		
 		if (!pessoa.getCpf().getNumero().isEmpty()) {
+			
 			if (!pessoa.getCpf().isCpf())
 				erros.put("cpf", "CPF inválido!");
-			else if (dao.consultar(pessoa.getCpf()).getId() > 0 && pessoa.getId() == 0) {
+			else if (pessoaDB.getCpf() == pessoa.getCpf() && pessoaDB.isRemovido() == false) {
 				erros.put("cpfExistente", "O numero de CPF:" + pessoa.getCpf().getNumero() + "já existe no sistema!");
 			}
 		}
+		
+		
+		
 		if (!pessoa.getCnpj().getNumero().isEmpty() && pessoa.getId() == 0) {
+			
 			if (!pessoa.getCnpj().isCnpj())
-				erros.put("cnpj", "CNPJ inv�lido!");
-			else if (dao.consultar(pessoa.getCnpj()).getId() > 0) {
+				erros.put("cnpj", "CNPJ inválido!");
+			else if (pessoaDB.getCnpj() == pessoa.getCnpj() && !pessoaDB.isRemovido()) {
 				erros.put("cnpjExistente",
 						"O numero de CNPJ:" + pessoa.getCnpj().getNumero() + " já existe no sistema!");
 			}

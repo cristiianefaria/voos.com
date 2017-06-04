@@ -28,16 +28,18 @@ public class PessoaDAO {
 		try {
 			PreparedStatement ps = conexao
 					.prepareStatement("INSERT INTO public.pessoa(" + "nome, cpf, cnpj, endereco, data_nascimeto, "
-							+ "estado_civil, removido)" + "VALUES (?, ?, ?, ?, ?, ?, ?);");
+							+ "estado_civil, removido,telefone, email)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
+			Long d = _pessoa.getDataNascimento().getTime();
 			ps.setString(1, _pessoa.getNome());
 			ps.setString(2, _pessoa.getCpf().getNumero());
 			ps.setString(3, _pessoa.getCnpj().getNumero());
 			ps.setString(4, _pessoa.getEndereco());
 			ps.setDate(5, new java.sql.Date(_pessoa.getDataNascimento().getTime()));
 			ps.setString(6, ValidarPessoa.estadoCivilDescricao(_pessoa.getEstadoCivil()));
-
 			ps.setBoolean(7, _pessoa.isRemovido());
+			ps.setString(8, _pessoa.getTelefone());
+			ps.setString(9, _pessoa.getEmail());
 
 			ps.execute();
 			return true;
@@ -48,13 +50,11 @@ public class PessoaDAO {
 
 	}
 
-	
-
 	public boolean alterar(Pessoa _pessoa, Connection conexao) throws Exception {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"UPDATE public.pessoa " + "SET nome=?, cpf=?, " + "cnpj=?, endereco=?, data_nascimeto=?, "
-							+ "estado_civil=?, removido=? " + "WHERE codigo =" + _pessoa.getId());
+							+ "estado_civil=?, removido=? ,telefone=?, email=?" + "WHERE codigo =" + _pessoa.getId());
 			ps.setString(1, _pessoa.getNome());
 			ps.setString(2, _pessoa.getCpf().getNumero());
 			ps.setString(3, _pessoa.getCnpj().getNumero());
@@ -62,6 +62,8 @@ public class PessoaDAO {
 			ps.setDate(5, new java.sql.Date(_pessoa.getDataNascimento().getTime()));
 			ps.setString(6, ValidarPessoa.estadoCivilDescricao(_pessoa.getEstadoCivil()));
 			ps.setBoolean(7, _pessoa.isRemovido());
+			ps.setString(8, _pessoa.getTelefone());
+			ps.setString(9, _pessoa.getEmail());
 
 			ps.executeUpdate();
 			return true;

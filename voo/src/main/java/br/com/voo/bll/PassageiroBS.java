@@ -27,12 +27,13 @@ public class PassageiroBS {
 		
 		try {
 			
+			validarPassageiro(_passageiro);
+			
 			if (_passageiro.getId() == 0){
 				return dao.inserir(_passageiro);
 			}else{
 				Long codigoPessoa = dao.consultar(_passageiro.getId()).getPessoa().getId();
 				_passageiro.getPessoa().setId(codigoPessoa);
-				validarPassageiro(_passageiro);
 				return dao.alterar(_passageiro);
 			}
 
@@ -45,9 +46,9 @@ public class PassageiroBS {
 
 	private void validarPassageiro(Passageiro passageiro) throws Exception {
 
-		if (idade(passageiro.getPessoa().getDataNascimento()) <= idadeMaxima && passageiro.getResponsavel() == null) {
-			throw new Exception("É nescessário informar o responsável!");
-		}
+		//if (idade(passageiro.getPessoa().getDataNascimento()) <= idadeMaxima && passageiro.getResponsavel() == null) {
+			//throw new Exception("É nescessário informar o responsável!");
+		//}
 		
 		validarPessoa(passageiro.getPessoa());
 
@@ -63,10 +64,10 @@ public class PassageiroBS {
 
 	private void validarPessoa(Pessoa pessoa) throws Exception {
 
-		ValidarPessoa validacao = new ValidarPessoa();
+		ValidarPessoa validacao = new ValidarPessoa(pessoa);
 
-		if (!validacao.validarPessoa(pessoa).isEmpty())
-			throw new Exception("Erros encontrados " + validacao.validarPessoa(pessoa));
+		if (!validacao.validarPessoa().isEmpty())
+			throw new Exception("Erros encontrados " + validacao.validarPessoa());
 
 	}
 

@@ -23,18 +23,20 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="bloco">
+				   <form action="Passageiro" method="POST">
 					<div class="row">
 						<div class="col-md-6"></div>
 						<div class="col-md-6">
 							<div class="input-group">
-								<input type="text" class="form-control"
+								<input type="text" id="pesquisa" name="pesquisa" class="form-control"
 									placeholder="Digite o nome..."> <span
 									class="input-group-btn">
-									<button class="btn btn-primary" type="button">Pesquisar</button>
+									<button class="btn btn-primary" value="Pesquisar" name="botao" type="submit">Pesquisar</button>
 								</span>
 							</div>
 						</div>
 					</div>
+				  </form>
 				</div>
 				<h3>Cadastro de Passageiro</h3>
 				<hr>
@@ -98,8 +100,8 @@
 						</div>
 						<div class="form-group col-md-9">
 							<label for="endereco">Endereco</label> <input type="text"
-								class="form-control" id="telefone" placeholder="endereço"
-								name="telefone"
+								class="form-control" id="endereco" placeholder="endereço"
+								name="endereco"
 								value="<c:out value="${passageiro.pessoa.endereco}"/>">
 						</div>
 						<div class="text-right">
