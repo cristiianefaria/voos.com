@@ -164,6 +164,7 @@
 									<td><c:out value="${passageiroCliente.pessoa.cnpj.numero}" /></td>
 									<td><c:out value="${passageiroCliente.pessoa.email}" /></td>
 									<td><c:out value="${passageiroCliente.pessoa.telefone}" /></td>
+
 									<c:if test="${isPassageiro == true}">
 										<td>
 											<a class="btn btn-warning"
@@ -184,6 +185,7 @@
 											<a class="btn btn-success"
 											href="Passageiro?acao=excluirCliente&codigo=<c:out value="${passageiroCliente.id}"/>">Remover</a>
 										</td>
+
 								    </c:if>
 								</tr>
 							</c:forEach>
