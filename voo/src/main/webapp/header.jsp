@@ -15,13 +15,13 @@
 <script src="app/lib/moment/moment.min.js"></script>
 <script src="app/lib/moment/pt-br.js"></script>
 
-
 <!-- DateTimePicker -->
 <link  rel="stylesheet" href="app/lib/datetimepicker/bootstrap-datetimepicker.min.css">
 <script src="app/lib/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 <!-- CSS -->
 <link  rel="stylesheet" href="app/css/style.css">
+
 
 
 
@@ -38,7 +38,6 @@
 			<li><a href="#">Fazer Checkin</a></li>
 			<li><a href="Voo?acao=listar">Voo</a></li>
 			<li><a href="Aeronave?acao=listar">Aeronave</a></li>
-
 			<li><a href="Itinerario?acao=listar">Itinerário</a></li>
 			<li><a href="Passageiro?acao=listarPassageiro">Passageiro</a></li>
 
