@@ -19,7 +19,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html"><img src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
+			<a class="navbar-brand" href="index.jsp"><img src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="index.jsp">Home</a></li>

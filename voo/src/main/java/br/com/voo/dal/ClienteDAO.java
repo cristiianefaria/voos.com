@@ -59,7 +59,7 @@ public class ClienteDAO {
 		case clienteFinal:
 			descricao = "Cliente Final";
 			break;
-		case Fornecedor:
+		case Parceiro:
 			descricao = "Fornecedor";
 		default:
 			break;
@@ -71,7 +71,7 @@ public class ClienteDAO {
 		try {
 
 			String sql = "select * from cliente c1 " + "inner join pessoa p1 " + "on c1.codigo_pessoa = p1.codigo "
-					+ "where c1.nome like '%" + nome + "%' and p1.removido != true";
+					+ "where p1.nome like '%" + nome + "%' and p1.removido != true";
 
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -162,7 +162,7 @@ public class ClienteDAO {
 		TipoCliente tipo = TipoCliente.clienteFinal;
 
 		if (tipoCliente.equals("Fornecedor"))
-			tipo = TipoCliente.Fornecedor;
+			tipo = TipoCliente.Parceiro;
 
 		return tipo;
 	}

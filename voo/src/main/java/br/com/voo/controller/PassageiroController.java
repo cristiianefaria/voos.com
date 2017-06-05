@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
 
 import br.com.voo.bll.PassageiroBS;
+import br.com.voo.bll.PessoaBS;
 import br.com.voo.dal.PassageiroDAO;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
@@ -44,11 +45,13 @@ public class PassageiroController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String acao = request.getParameter("comando");
+		String acao = request.getParameter("acao");
 		List<Passageiro> passageiros = new ArrayList<Passageiro>();
 
 		switch (acao) {
 		case "listar":
+			
+			request.setAttribute("teste", false);
 
 			passageiros = passageiroBS.listar("");
 			break;
@@ -82,13 +85,15 @@ public class PassageiroController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String botao = request.getParameter("botao");
-		PassageiroBS bs = new PassageiroBS();
+
 		String nome = "";
 
 		if (botao.equals("Cadastrar Passageiro")) {
 
 			Long codigo = new Long(0);
-			Passageiro passageiro = new Passageiro(ObterPessoa(request));
+
+			PessoaBS pessoaBs = new PessoaBS(request, idPessoa);
+			Passageiro passageiro = new Passageiro(pessoaBs.obterPessoa());
 			String codigoParam = request.getParameter("codigo");
 
 			if (codigoParam == null || !"".equals(codigoParam)) {
@@ -96,7 +101,7 @@ public class PassageiroController extends HttpServlet {
 			}
 
 			passageiro.setId(codigo);
-			bs.salvar(passageiro);
+			passageiroBS.salvar(passageiro);
 
 		}
 		if (botao.equals("Pesquisar")) {
@@ -104,34 +109,9 @@ public class PassageiroController extends HttpServlet {
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
-		request.setAttribute("passageiros", bs.listar(nome));
+		request.setAttribute("passageiros", passageiroBS.listar(nome));
 		view.forward(request, response);
 
-	}
-
-	private Pessoa ObterPessoa(HttpServletRequest request) {
-
-		String nome = request.getParameter("nome");
-		String cpf = request.getParameter("cpf") != null ? request.getParameter("cpf") : "";
-		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj") : "";
-		String endereco = request.getParameter("endereco");
-
-		String data = request.getParameter("dataNascimento");
-
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			Date dataNacimento = format.parse(data);
-
-			EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
-			String telefone = request.getParameter("telefone");
-			String email = request.getParameter("email");
-
-			return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNacimento, estadoCivil, telefone, email);
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-            return null;
-		}
 	}
 
 }
