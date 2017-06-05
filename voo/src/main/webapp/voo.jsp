@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -48,8 +48,13 @@
 						</div>
 						<div class="col-md-4">
 							<div class="form-group">
-								<label for="horario">Hora do voo</label> <input
-									class="form-control" type="date" name="horario" id="horario">
+								<label for="horario">Horário</label>
+								<div class='input-group date' id='horario'>
+									<input  type='text' class="form-control" />
+									<span class="input-group-addon">
+										<span><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
+									</span>
+								</div>
 							</div>
 						</div>
 						<div class="col-md-4">
@@ -122,7 +127,7 @@
 		</div>
 
 
-
+	<script src="app/js/voo.js"></script>
 	<jsp:include page="footer.jsp" />
 </body>
 </html>

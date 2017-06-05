@@ -8,12 +8,22 @@
 <link  rel="stylesheet" href="app/lib/bootstrap/bootstrap.min.css">
 <script src="app/lib/bootstrap/bootstrap.min.js"></script>
 
+<!-- Font Awesome -->
+<link rel="stylesheet" href="app/lib/fontawesome/fontawesome.min.css">
+
+<!-- Moment -->
+<script src="app/lib/moment/moment.min.js"></script>
+<script src="app/lib/moment/pt-br.js"></script>
+
+
+<!-- DateTimePicker -->
+<link  rel="stylesheet" href="app/lib/datetimepicker/bootstrap-datetimepicker.min.css">
+<script src="app/lib/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 <!-- CSS -->
 <link  rel="stylesheet" href="app/css/style.css">
 
-<!-- Font Awesome -->
-<link rel="stylesheet" href="app/lib/font-awesome/font-awesome.min.css">
+
 
 
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -28,7 +38,7 @@
 			<li><a href="#">Fazer Checkin</a></li>
 			<li><a href="Voo?acao=listar">Voo</a></li>
 			<li><a href="Aeronave?acao=listar">Aeronave</a></li>
-			<li><a href="Itinerario?acao=listar">Itinerário</a></li>
+			<li><a href="Itinerario?acao=listar">Itinerï¿½rio</a></li>
 			<li><a href="Passageiro?acao=listar">Passageiro</a></li>
 		</ul>
 	</div>
