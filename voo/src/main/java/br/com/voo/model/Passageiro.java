@@ -2,7 +2,7 @@ package br.com.voo.model;
 
 public class Passageiro extends Entidade {
 
-	Pessoa pessoa;
+	private Pessoa pessoa;
 	private boolean removido;
 	private Contato contato;
 	
@@ -13,7 +13,14 @@ public class Passageiro extends Entidade {
 		this.pessoa = pessoa;
 		this.removido = false;
 	}
-	public Passageiro() {
+	public Passageiro(Builder build) {
+		super();
+		this.removido = false;
+		this.pessoa = build.getPessoa();
+		this.contato = build.getContato();
+	}
+	public Passageiro(){
+		
 	}
 
 	public Pessoa getPessoa() {

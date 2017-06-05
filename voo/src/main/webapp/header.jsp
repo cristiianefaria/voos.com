@@ -29,7 +29,7 @@
 			<li><a href="Voo?acao=listar">Voo</a></li>
 			<li><a href="Aeronave?acao=listar">Aeronave</a></li>
 			<li><a href="Itinerario?acao=listar">Itinerário</a></li>
-			<li><a href="Passageiro?acao=listar">Passageiro</a></li>
+			<li><a href="Passageiro?acao=listarPassageiro">Passageiro</a></li>
 		</ul>
 	</div>
 </nav>

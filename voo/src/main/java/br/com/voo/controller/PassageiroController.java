@@ -17,9 +17,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
 
+import br.com.voo.bll.ClienteBS;
 import br.com.voo.bll.PassageiroBS;
 import br.com.voo.bll.PessoaBS;
 import br.com.voo.dal.PassageiroDAO;
+import br.com.voo.model.Builder;
+import br.com.voo.model.Cliente;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Pessoa;
@@ -33,41 +36,49 @@ public class PassageiroController extends HttpServlet {
 
 	private final String PAGINA = "/passageiro.jsp";
 	private PassageiroBS passageiroBS;
+	private ClienteBS clienteBS;
 
 	private Long idPessoa;
+	private String acao;
 
 	public PassageiroController() {
 		super();
 		passageiroBS = new PassageiroBS();
+		clienteBS = new ClienteBS();
 		idPessoa = new Long(0);
 
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String acao = request.getParameter("acao");
+		acao = request.getParameter("acao");
 		List<Passageiro> passageiros = new ArrayList<Passageiro>();
+		List<Cliente> clientes = new ArrayList<Cliente>();
 
 		switch (acao) {
-		case "listar":
-			
-			request.setAttribute("teste", false);
-
+		case "listarPassageiro":
+			request.setAttribute("isPassageiro", true);
 			passageiros = passageiroBS.listar("");
+			request.setAttribute("passageirosClientes", passageiros);
+			break;
+		case "listarCliente":
+			request.setAttribute("isCliente", true);
+			request.setAttribute("isPassageiro", false);
+			clientes = clienteBS.listar("");
 			break;
 
 		case "inserir":
 
 			break;
-		case "editar":
+		case "editarPassageiro":
 
 			int codigoEdicao = Integer.parseInt(request.getParameter("codigo"));
 			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicao));
 			idPessoa = passageiro.getPessoa().getId();
-			request.setAttribute("passageiro", passageiro);
+			request.setAttribute("passageiroCliente", passageiro);
 
 			break;
-		case "excluir":
+		case "excluirPassageiro":
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
 			passageiroBS.excluir(new Long(codigoExclusao));
 			passageiros = passageiroBS.listar("");
@@ -75,7 +86,7 @@ public class PassageiroController extends HttpServlet {
 			break;
 		}
 
-		request.setAttribute("passageiros", passageiros);
+		
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
 		view.forward(request, response);
 
@@ -87,23 +98,43 @@ public class PassageiroController extends HttpServlet {
 		String botao = request.getParameter("botao");
 
 		String nome = "";
+		PessoaBS pessoaBs = new PessoaBS(request, idPessoa);
+		String desconto = request.getParameter("percentDesconto");
+
+		String codigoParam = request.getParameter("codigo");
+
+		Long codigo = new Long(0);
+		if (codigoParam == null || !"".equals(codigoParam)) {
+			codigo = Long.parseLong(codigoParam);
+		}
+
+		Builder build = new Builder();
+		build.setPessoa(pessoaBs.obterPessoa());
 
 		if (botao.equals("Cadastrar Passageiro")) {
 
-			Long codigo = new Long(0);
-
-			PessoaBS pessoaBs = new PessoaBS(request, idPessoa);
-			Passageiro passageiro = new Passageiro(pessoaBs.obterPessoa());
-			String codigoParam = request.getParameter("codigo");
-
-			if (codigoParam == null || !"".equals(codigoParam)) {
-				codigo = Long.parseLong(codigoParam);
-			}
-
-			passageiro.setId(codigo);
+			Passageiro passageiro = build.buildPassageiro();
 			passageiroBS.salvar(passageiro);
 
 		}
+		if (botao.equals("Cadastrar Cliente")) {
+
+			String senha = request.getParameter("senha");
+			String tipocliente = request.getParameter("tipoCliente");
+			Double percentDesconto = new Double(0);
+			if (desconto == null || !"".equals(desconto)) {
+				percentDesconto = Double.parseDouble(desconto);
+			}
+
+			build.setPercentDesconto(percentDesconto);
+			build.setSenha(senha);
+			build.setTipoCliente(tipocliente);
+
+			Cliente cliente = build.buildCliente();
+			clienteBS.salvar(cliente);
+
+		}
+
 		if (botao.equals("Pesquisar")) {
 			nome = request.getParameter("pesquisa");
 		}
