@@ -1,5 +1,6 @@
 package br.com.voo.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.voo.dal.ClienteDAO;
@@ -18,9 +19,10 @@ public class ClienteBS {
 
 	public ClienteBS() {
 		super();
+		dao = new ClienteDAO();
 	}
 	
-	public boolean salvar(Cliente _cliente) throws Exception {
+	public boolean salvar(Cliente _cliente){
 		try {
 			
 			ValidarPessoa(_cliente.getPessoa());
@@ -29,14 +31,15 @@ public class ClienteBS {
 			return dao.inserir(_cliente);
 
 		} catch (Exception e) {
-			throw new Exception(e.getMessage());
+			e.printStackTrace();
+			return false;
 		}
 	}
 
 	private void ValidarCliente(Cliente _cliente) throws Exception {
 		
 		if(_cliente.getPercentDesconto()> 100)
-			throw new Exception("Informe um percentual de desconto v�lido!");
+			throw new Exception("Informe um percentual de desconto válido!");
 		
 	}
 
@@ -49,15 +52,32 @@ public class ClienteBS {
 
 	}
 
-	public List<Cliente> listar(String nome) throws Exception {
-		return dao.listar(nome);
+	public List<Cliente> listar(String nome){
+		try {
+			List<Cliente> listaCliente = dao.listar(nome);
+			return listaCliente.size() > 0 ? listaCliente : new ArrayList<Cliente>(); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<Cliente>();
+		}
+		
 	}
 
 	public boolean excluir(Long codigo) throws Exception {
 		return dao.exluir(codigo);
 	}
-	public Cliente consultar(Long id) throws Exception{
-		return dao.consultar(id);
+	public Cliente consultar(Long id){
+		try {
+			
+			Cliente cliente = dao.consultar(id);
+			return cliente != null ? cliente : new Cliente();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			return new Cliente();
+		}
+		
 	}
 
 }

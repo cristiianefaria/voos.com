@@ -26,6 +26,9 @@ public class PessoaDAO {
 
 	public boolean salvar(Pessoa _pessoa, Connection conexao) throws Exception {
 		try {
+			
+			
+			
 			PreparedStatement ps = conexao
 					.prepareStatement("INSERT INTO public.pessoa(" + "nome, cpf, cnpj, endereco, data_nascimeto, "
 							+ "estado_civil, removido,telefone, email)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");

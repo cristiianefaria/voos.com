@@ -18,12 +18,12 @@ import br.com.voo.util.ValidarPessoa;
 public class PassageiroDAO {
 
 	private Connection conexao;
-	private PessoaDAO pessoa;
+	private PessoaDAO pessoaDAO;
 	private ContatoDAO contato;
 
 	public PassageiroDAO() {
 		conexao = FactoryConexao.getConnection();
-		pessoa = new PessoaDAO();
+		pessoaDAO = new PessoaDAO();
 		contato = new ContatoDAO();
 	}
 
@@ -32,7 +32,7 @@ public class PassageiroDAO {
 		try {
 			
 			conexao.setAutoCommit(false);
-			if (pessoa.alterar(_passageiro.getPessoa(), conexao)) {
+			if (pessoaDAO.alterar(_passageiro.getPessoa(), conexao)) {
 
 				PreparedStatement ps = conexao.prepareStatement("UPDATE public.passageiro "
 						+ "set responsavel=?, removido=? WHERE codigo = " + _passageiro.getId());
@@ -66,8 +66,8 @@ public class PassageiroDAO {
 
 			conexao.setAutoCommit(false);
 
-			if (pessoa.salvar(_passageiro.getPessoa(), conexao)) {
-				long codigoPessoa = pessoa
+			if (pessoaDAO.salvar(_passageiro.getPessoa(), conexao)) {
+				long codigoPessoa = pessoaDAO
 						.consultar(_passageiro.getPessoa().getCpf(), _passageiro.getPessoa().getCnpj(), conexao)
 						.getId();
 

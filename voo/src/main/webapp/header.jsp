@@ -29,7 +29,7 @@
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.html"><img src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
+			<a class="navbar-brand" href="index.jsp"><img src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="index.jsp">Home</a></li>
@@ -38,8 +38,10 @@
 			<li><a href="#">Fazer Checkin</a></li>
 			<li><a href="Voo?acao=listar">Voo</a></li>
 			<li><a href="Aeronave?acao=listar">Aeronave</a></li>
-			<li><a href="Itinerario?acao=listar">Itinerï¿½rio</a></li>
-			<li><a href="Passageiro?acao=listar">Passageiro</a></li>
+
+			<li><a href="Itinerario?acao=listar">Itinerário</a></li>
+			<li><a href="Passageiro?acao=listarPassageiro">Passageiro</a></li>
+
 		</ul>
 	</div>
 </nav>

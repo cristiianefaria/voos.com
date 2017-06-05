@@ -16,7 +16,7 @@ public class ContatoDAO {
 		
 	}
 	
-	public boolean ineserir(Contato contato, Connection conexao) throws Exception{
+	public boolean inserir(Contato contato, Connection conexao) throws Exception{
 		
 		try {
 			conexao.setAutoCommit(false);
