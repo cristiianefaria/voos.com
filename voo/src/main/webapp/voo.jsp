@@ -15,94 +15,114 @@
 		<h1>Voo</h1>
 		<ul class="breadcrumb">
 			<li><a href="index.jsp">home</a></li>
-			<li><a href="Voo?acao=listar">Voo</a></li>
+			<li>voo</li>
 		</ul>
 	</div>
 
 	<div class="container">
-		<div class="bloco">
-			<div id="listagem">
-				<h2>Listagem dos Voos</h2>
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>ID</th>
-							<th>Horario</th>
-							<th>Origem</th>
-							<th>Destino</th>
-							<th>Aeronave</th>
-							<th colspan="2"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${voos}" var="voo">
-							<tr>
-								<td><c:out value="${voo.id}"></c:out></td>
-								<td>
-									<fmt:parseDate value="${voo.horario}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
-									<fmt:formatDate pattern="dd/MM/yyyy" value="${parsedDate}" type="date" />
-								</td>
-								<td><c:out value="${voo.itinerario.origem}"></c:out></td>
-								<td><c:out value="${voo.itinerario.destino}"></c:out></td>
-								<td><c:out value="${voo.aeronave.descricao}"></c:out></td>
-								<td><a class="btn btn-warning"
-									href="/Voo?acao=alterar&id=<c:out value="${voo.id}"></c:out>">Alterar</a>
-								</td>
-								<td><a class="btn btn-danger"
-									href="/Voo?acao=remover&id=<c:out value="${voo.id}"></c:out>">Remover</a>
-								</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="bloco">
+					<div class="row">
+						<div class="col-md-6"></div>
+						<div class="col-md-6">
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="Digite o código do voo...">
+								<span class="input-group-btn">
+									<button class="btn btn-primary" type="button">Pesquisar</button>
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h3>Cadastro de Voo</h3>
+				<hr>
+				<div class="bloco">
+					<form method="POST" action="/Voo">
+						<div class="row hide">
+							<div class="form-group col-md-12">
+								<label for="id"></label> <input class="form-control" type="text"
+									name="id" id="id">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="horario">Hora do voo</label> <input
+									class="form-control" type="date" name="horario" id="horario">
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="sel1">Selecione o itinerário:</label> <select
+									name="itinerario" id="itinerario" class="form-control">
+									<c:forEach items="${itinerarios}" var="itinerario">
+										<option value="<c:out value="${itinerario.id}"></c:out>"><c:out
+												value="${itinerario.origem}"></c:out> -
+											<c:out value="${itinerario.destino}"></c:out></option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="sel1">Selecione a aeronave:</label> <select
+									class="form-control" name="aeronave" id="aeronave">
+									<c:forEach items="${aeronaves}" var="aeronave">
+										<option value="<c:out value="${aeronave.id}"></c:out>"><c:out
+												value="${aeronave.descricao}"></c:out></option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="text-right">
+							<input type="submit" class="btn btn-success" value="SALVAR" />
+						</div>
+					</form>
+				</div>
+				<h3>Lista de Voos</h3>
+				<hr>
+				<div id="listagem">
+					<div class="bloco">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th class="col-md-1">Código</th>
+									<th class="col-md-3">Horário</th>
+									<th class="col-md-2">Origem</th>
+									<th class="col-md-2">Destino</th>
+									<th class="col-md-3">Aeronave</th>
+									<th class="col-md-2" colspan="2"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach items="${voos}" var="voo">
+									<tr>
+										<td><c:out value="${voo.id}"></c:out></td>
+										<td>
+											<fmt:parseDate value="${voo.horario}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
+											<fmt:formatDate pattern="dd/MM/yyyy" value="${parsedDate}" type="date" />
+										</td>
+										<td><c:out value="${voo.itinerario.origem}"></c:out></td>
+										<td><c:out value="${voo.itinerario.destino}"></c:out></td>
+										<td><c:out value="${voo.aeronave.descricao}"></c:out></td>
+										<td><a class="btn btn-warning"
+											href="/Voo?acao=alterar&id=<c:out value="${voo.id}"></c:out>">Alterar</a>
+										</td>
+										<td><a class="btn btn-danger"
+											href="/Voo?acao=remover&id=<c:out value="${voo.id}"></c:out>">Remover</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div></div>
 			</div>
 		</div>
-		<div class="bloco">
-			<h2>Cadastro de Voo</h2>
-			<form method="POST" action="/Voo">
-				<div class="row hide">
-					<div class="form-group col-md-12">
-						<label for="id"></label> <input class="form-control" type="text"
-							name="id" id="id">
-					</div>
-				</div>
 
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="horario">Hora do voo</label> <input
-							class="form-control" type="date" name="horario" id="horario" pattern="dd/MM/yyyy">
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="sel1">Selecione o itinerário:</label> <select
-							name="itinerario" id="itinerario" class="form-control">
-							<c:forEach items="${itinerarios}" var="itinerario">
-								<option value="<c:out value="${itinerario.id}"></c:out>"><c:out
-										value="${itinerario.origem}"></c:out> -
-									<c:out value="${itinerario.destino}"></c:out></option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
 
-				<div class="col-md-4">
-					<div class="form-group">
-						<label for="sel1">Selecione a aeronave:</label> <select
-							class="form-control" name="aeronave" id="aeronave">
-							<c:forEach items="${aeronaves}" var="aeronave">
-								<option value="<c:out value="${aeronave.id}"></c:out>"><c:out
-										value="${aeronave.descricao}"></c:out></option>
-							</c:forEach>
-						</select>
-					</div>
-				</div>
-				<div class="text-right">
-					<input type="submit" class="btn btn-success" value="SALVAR" />
-				</div>
-			</form>
-</div>
-		</div>
-		<jsp:include page="footer.jsp" />
+
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

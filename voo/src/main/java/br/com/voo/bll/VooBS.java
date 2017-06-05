@@ -39,8 +39,10 @@ public class VooBS {
 	}
 
 	public boolean remover(Voo voo) throws SQLException {
-		if ((voo.getId() != null) && (voo.getId() != 0)) 
-				dao.remover(voo);
+		if ((voo.getId() != null) && (voo.getId() != 0)){ 
+			voo.setRemovida(true);
+			dao.remover(voo);
+		}
 			
 		return true;
 	}

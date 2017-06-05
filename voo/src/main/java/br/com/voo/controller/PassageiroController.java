@@ -1,11 +1,13 @@
 package br.com.voo.controller;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import br.com.voo.dal.PassageiroDAO;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Pessoa;
+import br.com.voo.util.Data;
 import br.com.voo.util.ValidarPessoa;
 import net.bytebuddy.description.type.TypeDescription.Generic.Visitor.Validator;
 
@@ -28,11 +31,15 @@ public class PassageiroController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final String PAGINA = "/passageiro.jsp";
-	private PassageiroBS bs;
+	private PassageiroBS passageiroBS;
+
+	private Long idPessoa;
 
 	public PassageiroController() {
 		super();
-		bs = new PassageiroBS();
+		passageiroBS = new PassageiroBS();
+		idPessoa = new Long(0);
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,23 +50,24 @@ public class PassageiroController extends HttpServlet {
 		switch (acao) {
 		case "listar":
 
-			passageiros = bs.listar("");
+			passageiros = passageiroBS.listar("");
 			break;
 
 		case "inserir":
 
-			
 			break;
 		case "editar":
 
 			int codigoEdicao = Integer.parseInt(request.getParameter("codigo"));
-			Passageiro passageiro = bs.consultar(new Long(codigoEdicao));
+			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicao));
+			idPessoa = passageiro.getPessoa().getId();
 			request.setAttribute("passageiro", passageiro);
 
 			break;
 		case "excluir":
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
-			bs.excluir(new Long(codigoExclusao));
+			passageiroBS.excluir(new Long(codigoExclusao));
+			passageiros = passageiroBS.listar("");
 		default:
 			break;
 		}
@@ -72,41 +80,58 @@ public class PassageiroController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
+		String botao = request.getParameter("botao");
 		PassageiroBS bs = new PassageiroBS();
-		String nome = request.getParameter("nome");
-		String cpf = request.getParameter("cpf") != null ? request.getParameter("cpf") : "";
-		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj"): "";
-		String endereco = request.getParameter("endereco");
-		
-		
-		SimpleDateFormat dataS = new SimpleDateFormat("dd-MM-yyyy");
-		Date dataNascimento = new Date();
-		try {
-			dataNascimento = dataS.parse(request.getParameter("dataNascimento"));
-		} catch (ParseException e) {
-			e.printStackTrace();
+		String nome = "";
+
+		if (botao.equals("Cadastrar Passageiro")) {
+
+			Long codigo = new Long(0);
+			Passageiro passageiro = new Passageiro(ObterPessoa(request));
+			String codigoParam = request.getParameter("codigo");
+
+			if (codigoParam == null || !"".equals(codigoParam)) {
+				codigo = Long.parseLong(codigoParam);
+			}
+
+			passageiro.setId(codigo);
+			bs.salvar(passageiro);
+
 		}
-		
-		EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
-		String telefone = request.getParameter("telefone");
-		String email = request.getParameter("email");
-		
-		Pessoa pessoa = new Pessoa(nome, cpf, cnpj, 
-				                         endereco, dataNascimento, estadoCivil, 
-				                                                     telefone, email);
-		
-		long codigo = request.getParameter("codigo") != null ?Long.parseLong(request.getParameter("codigo")) : 0;
-		
-		Passageiro passageiro = new Passageiro(pessoa);
-		passageiro.setId(codigo);
-		bs.salvar(passageiro);
-		
-		
+		if (botao.equals("Pesquisar")) {
+			nome = request.getParameter("pesquisa");
+		}
+
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
-		request.setAttribute("passageiros", bs.listar(""));
+		request.setAttribute("passageiros", bs.listar(nome));
 		view.forward(request, response);
 
+	}
+
+	private Pessoa ObterPessoa(HttpServletRequest request) {
+
+		String nome = request.getParameter("nome");
+		String cpf = request.getParameter("cpf") != null ? request.getParameter("cpf") : "";
+		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj") : "";
+		String endereco = request.getParameter("endereco");
+
+		String data = request.getParameter("dataNascimento");
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date dataNacimento = format.parse(data);
+
+			EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
+			String telefone = request.getParameter("telefone");
+			String email = request.getParameter("email");
+
+			return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNacimento, estadoCivil, telefone, email);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+            return null;
+		}
 	}
 
 }

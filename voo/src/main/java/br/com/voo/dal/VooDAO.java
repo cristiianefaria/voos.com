@@ -42,7 +42,7 @@ public class VooDAO {
 	
 	public boolean alterar(Voo voo) throws SQLException{
 		String sql = "UPDATE voo set horario = ?, codigo_itinerario = ?,"
-				+ " codigo_aeronave = ?, removido = ?, WHERE codigo = ?";
+				+ " codigo_aeronave = ?, removido = ? WHERE codigo = ?";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setDate(1, Date.valueOf(voo.getHorario()));
@@ -79,7 +79,7 @@ public class VooDAO {
 	}
 	
 	public boolean remover(Voo voo) throws SQLException{
-		String sql = "UPDATE voo set removido = ?, WHERE codigo = ?";
+		String sql = "UPDATE voo set removido = ? WHERE codigo = ?";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setBoolean(1, voo.getRemovida());
