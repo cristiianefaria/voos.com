@@ -1,15 +1,14 @@
 package br.com.voo.dal;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
 import br.com.voo.model.Aeronave;
-import br.com.voo.model.Itinerario;
 import br.com.voo.model.Voo;
 import br.com.voo.util.FactoryConexao;
 
@@ -30,7 +29,7 @@ public class VooDAO {
 				+ "codigo_aeronave) VALUES(?,?,?)";
 	
 		PreparedStatement ps = cnn.prepareStatement(sql);
-		ps.setDate(1, Date.valueOf(voo.getHorario()));
+		ps.setTimestamp(1, Timestamp.valueOf(voo.getHorario()));
 		ps.setLong(2, voo.getCodigoItinerario());
 		ps.setLong(3, voo.getCodigoAeronave());
 		
@@ -45,7 +44,7 @@ public class VooDAO {
 				+ " codigo_aeronave = ?, removido = ? WHERE codigo = ?";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
-		ps.setDate(1, Date.valueOf(voo.getHorario()));
+		ps.setTimestamp(1, Timestamp.valueOf(voo.getHorario()));
 		ps.setLong(2, voo.getCodigoItinerario());
 		ps.setLong(3, voo.getCodigoAeronave());
 		ps.setBoolean(4, voo.getRemovida());
@@ -67,7 +66,7 @@ public class VooDAO {
 		List<Voo> voos = new ArrayList<Voo>();
 		while(rs.next()){
 			Voo voo = new Voo(rs.getLong("codigo"),
-					rs.getDate("horario").toLocalDate(),
+					rs.getTimestamp("horario").toLocalDateTime(),
 					itinerarioDAO.consultar(rs.getLong("codigo_itinerario")),
 					aeronaveDAO.consultar(new Aeronave(rs.getLong("codigo_aeronave"))));
 			voos.add(voo);
@@ -102,7 +101,7 @@ public class VooDAO {
 		
 		if(rs.next()){
 			retorno = new Voo(rs.getLong("codigo"),
-					rs.getDate("horario").toLocalDate(),
+					rs.getTimestamp("horario").toLocalDateTime(),
 					itinerarioDAO.consultar(rs.getLong("codigo_itinerario")),
 					aeronaveDAO.consultar(new Aeronave(rs.getLong("codigo_aeronave"))));
 		}

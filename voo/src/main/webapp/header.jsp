@@ -15,16 +15,12 @@
 <script src="app/lib/moment/moment.min.js"></script>
 <script src="app/lib/moment/pt-br.js"></script>
 
-
 <!-- DateTimePicker -->
 <link  rel="stylesheet" href="app/lib/datetimepicker/bootstrap-datetimepicker.min.css">
 <script src="app/lib/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 <!-- CSS -->
 <link  rel="stylesheet" href="app/css/style.css">
-
-
-
 
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
