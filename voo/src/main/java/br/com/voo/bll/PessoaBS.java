@@ -20,28 +20,9 @@ public class PessoaBS {
 		this.idPessoa = idPessoa;
 	}
 	
-	public Pessoa obterPessoa(){
+	
+	private String validaCampos(String parameter) {
 		
-		String nome = request.getParameter("nome");
-		String cpf = request.getParameter("cpf") != null ? request.getParameter("cpf") : "";
-		String cnpj = request.getParameter("cnpj") != null ? request.getParameter("cnpj") : "";
-		String endereco = request.getParameter("endereco");
-
-		String data = request.getParameter("dataNascimento");
-
-		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		try {
-			Date dataNacimento = format.parse(data);
-
-			EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
-			String telefone = request.getParameter("telefone");
-			String email = request.getParameter("email");
-
-			return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNacimento, estadoCivil, telefone, email);
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-            return null;
-		}
+		return parameter != null ? parameter : "";
 	}
 }

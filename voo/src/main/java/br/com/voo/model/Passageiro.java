@@ -13,7 +13,7 @@ public class Passageiro extends Entidade {
 		this.pessoa = pessoa;
 		this.removido = false;
 	}
-	public Passageiro(Builder build) {
+	public Passageiro(BuilderPessoaCliente build) {
 		super();
 		this.removido = false;
 		this.pessoa = build.getPessoa();

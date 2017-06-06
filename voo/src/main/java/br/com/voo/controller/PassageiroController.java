@@ -21,7 +21,7 @@ import br.com.voo.bll.ClienteBS;
 import br.com.voo.bll.PassageiroBS;
 import br.com.voo.bll.PessoaBS;
 import br.com.voo.dal.PassageiroDAO;
-import br.com.voo.model.Builder;
+import br.com.voo.model.BuilderPessoaCliente;
 import br.com.voo.model.Cliente;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
@@ -39,6 +39,7 @@ public class PassageiroController extends HttpServlet {
 	private ClienteBS clienteBS;
 
 	private Long idPessoa;
+	private Long idCliente;
 	private String acao;
 
 	public PassageiroController() {
@@ -46,6 +47,7 @@ public class PassageiroController extends HttpServlet {
 		passageiroBS = new PassageiroBS();
 		clienteBS = new ClienteBS();
 		idPessoa = new Long(0);
+		idCliente = new Long(0);
 
 	}
 
@@ -61,23 +63,34 @@ public class PassageiroController extends HttpServlet {
 			passageiros = passageiroBS.listar("");
 			request.setAttribute("passageirosClientes", passageiros);
 			break;
+
 		case "listarCliente":
-			request.setAttribute("isCliente", true);
 			request.setAttribute("isPassageiro", false);
 			clientes = clienteBS.listar("");
 			break;
 
-		case "inserir":
+		case "inserirPassageiro":
 
 			break;
-		case "editarPassageiro":
 
-			int codigoEdicao = Integer.parseInt(request.getParameter("codigo"));
-			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicao));
+		case "inserirCliente":
+
+			break;
+
+		case "editarPassageiro":
+			int codigoEdicaoPassageiro = Integer.parseInt(request.getParameter("codigoPassageiro"));
+			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicaoPassageiro));
 			idPessoa = passageiro.getPessoa().getId();
 			request.setAttribute("passageiroCliente", passageiro);
-
 			break;
+
+		case "editarCliente":
+			int codigoEdicaoCliente = Integer.parseInt(request.getParameter("codigoCliente"));
+			Cliente cliente = clienteBS.consultar(new Long(codigoEdicaoCliente));
+			idCliente = cliente.getPessoa().getId();
+			request.setAttribute("passageiroCliente", cliente);
+			break;
+
 		case "excluirPassageiro":
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
 			passageiroBS.excluir(new Long(codigoExclusao));
@@ -86,63 +99,87 @@ public class PassageiroController extends HttpServlet {
 			break;
 		}
 
-		
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
 		view.forward(request, response);
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		String botao = request.getParameter("botao");
-
 		String nome = "";
 		PessoaBS pessoaBs = new PessoaBS(request, idPessoa);
-		String desconto = request.getParameter("percentDesconto");
+		String desconto = validaCampos(request.getParameter("percentDesconto"));
+		String codigoParam = validaCampos(request.getParameter("codigo"));
+		String senha = validaCampos(request.getParameter("senha"));
+		String tipocliente = validaCampos(request.getParameter("tipoCliente"));
 
-		String codigoParam = request.getParameter("codigo");
-
-		Long codigo = new Long(0);
-		if (codigoParam == null || !"".equals(codigoParam)) {
-			codigo = Long.parseLong(codigoParam);
-		}
-
-		Builder build = new Builder();
-		build.setPessoa(pessoaBs.obterPessoa());
+		BuilderPessoaCliente build = new BuilderPessoaCliente(obterPessoa(request))
+				                        .setPercentDesconto(desconto)
+				                        .setSenha(senha)
+				                        .setTipoCliente(tipocliente)
+				                        .setIdBuilder(codigoParam);
 
 		if (botao.equals("Cadastrar Passageiro")) {
 
 			Passageiro passageiro = build.buildPassageiro();
 			passageiroBS.salvar(passageiro);
+			request.setAttribute("passageiros", passageiroBS.listar(nome));
 
 		}
 		if (botao.equals("Cadastrar Cliente")) {
-
-			String senha = request.getParameter("senha");
-			String tipocliente = request.getParameter("tipoCliente");
-			Double percentDesconto = new Double(0);
-			if (desconto == null || !"".equals(desconto)) {
-				percentDesconto = Double.parseDouble(desconto);
-			}
-
-			build.setPercentDesconto(percentDesconto);
-			build.setSenha(senha);
-			build.setTipoCliente(tipocliente);
 
 			Cliente cliente = build.buildCliente();
 			clienteBS.salvar(cliente);
 
 		}
 
-		if (botao.equals("Pesquisar")) {
-			nome = request.getParameter("pesquisa");
+		if (botao.equals("Pesquisar Passageiro")) {
+			nome = request.getParameter("pesquisaPassageiro");
+			request.setAttribute("passageiroCliente", passageiroBS.listar(nome));
+		}
+
+		if (botao.equals("Pesquisar Cliente")) {
+			nome = request.getParameter("pesquisaCliente");
+			request.setAttribute("passageiroCliente", passageiroBS.listar(nome));
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
-		request.setAttribute("passageiros", passageiroBS.listar(nome));
+
 		view.forward(request, response);
 
+	}
+
+	private String validaCampos(String parametro) {
+		return parametro != null ? parametro : "";
+	}
+
+	public Pessoa obterPessoa(HttpServletRequest request) {
+
+		String nome = validaCampos(request.getParameter("nome"));
+		String cpf = validaCampos(request.getParameter("cpf"));
+		String cnpj = validaCampos(request.getParameter("cnpj"));
+		String endereco = validaCampos(request.getParameter("endereco"));
+
+		String data = validaCampos(request.getParameter("dataNascimento"));
+
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			Date dataNacimento = new Date();
+			if (!data.equals("")) {
+				dataNacimento = format.parse(data);
+			}
+
+			EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
+			String telefone = request.getParameter("telefone");
+			String email = request.getParameter("email");
+
+			return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNacimento, estadoCivil, telefone, email);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
