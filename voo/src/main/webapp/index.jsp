@@ -6,14 +6,17 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-
+<title>VOOS.COM</title>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<jsp:include page="importHome.jsp" />
 	<div class="espacoTopo"></div>
 
+	<div class="banner-bg">
+		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
+			<source src="app/assets/srix.mp4" type="video/mp4" type="video/mp4">
+		</video>
+	</div>
 
 	<!--features-->
 	<div id="features" class="features">
@@ -97,5 +100,6 @@
 	<!---->
 
 	<jsp:include page="footer.jsp" />
+	<script src="app/js/carousel.js"></script>
 </body>
 </html>

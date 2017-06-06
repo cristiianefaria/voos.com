@@ -1,5 +1,38 @@
 @CHARSET "UTF-8";
 
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+.jumbotron{
+	margin: 20px auto 0;
+	width: 80%;
+	min-height: 400px;
+	background-color: rgba(129, 190, 247, 0.18);
+}
+.banner-bg{
+	position:relative;
+}
+
+h3 {
+	color: #000099;
+	font-size: 2.8em;
+	font-weight: 600;
+	margin-bottom: 1em;
+}
+
+.espacoTopo {
+	margin-top: 50px;
+}
+
+hr {
+	height: 4px;
+	width: 30%;
+	text-align: left;
+	margin: 0 auto 0 0;
+}
+
+
 .page-header {
 	padding: 20px;
 	background-color: #81BEF7;
@@ -27,16 +60,6 @@ ul.breadcrumb {
 
 .features {
 	padding: 3% 0;
-	
-}
-
-.feature-text h3 {
-	color: #393939;
-	font-size: 2.5em;
-	font-family: 'Raleway', sans-serif;
-	padding-bottom: 0.5em;
-	margin-bottom: 10px;
-	font-weight: 500;
 }
 
 .feature-text  p {
@@ -85,16 +108,8 @@ ul.breadcrumb {
 
 .get-started h4 {
 	font-size: 1.5em;
-	font-family: 'Raleway', sans-serif;
 	margin-bottom: 1em;
 	font-weight: 600;
-}
-
-.get-started h3 {
-	font-size: 2.8em;
-	font-weight: 600;
-	margin-bottom: 1em;
-	font-family: 'Raleway', sans-serif;
 }
 
 .get-started a {
@@ -129,20 +144,6 @@ ul.breadcrumb {
 	color: #ccc;
 }
 
-h3 {
-	color: #000099;
-}
-
-.espacoTopo {
-	margin-top: 50px;
-}
-
-hr {
-	height: 4px;
-	width: 30%;
-	text-align: left;
-	margin: 0 auto 0 0;
-}
 
 .navbar-default {
 	background-color: #000099;
