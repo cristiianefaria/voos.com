@@ -9,7 +9,7 @@ public class Cliente extends Entidade {
 	private TipoCliente tipoCliente;
 	private boolean removido;
 
-	public Cliente(Builder build) {
+	public Cliente(BuilderPessoaCliente build) {
 		
 		this.pessoa = build.getPessoa();
 		this.milhagem = build.getMilhagem();

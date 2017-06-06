@@ -2,12 +2,9 @@
 <link rel="icon" type="image/png" href="app/images/favicon.png" />
 
 <!--webfont-->
-<link
-	href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900'
-	rel='stylesheet' type='text/css'>
-<link
-	href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900'
-	rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900' rel='stylesheet' type='text/css'>
+
 
 <!-- Jquery -->
 <script src="app/lib/jquery/jquery-3.2.1.min.js"></script>
@@ -30,6 +27,10 @@
 
 <!-- CSS -->
 <link rel="stylesheet" href="app/css/style.css">
+
+<!-- Carousel -->
+<link href="app/css/owl.carousel.css" rel="stylesheet">
+<script src="app/js/owl.carousel.js"></script>
 
 <!-- Carousel -->
 <link href="app/css/owl.carousel.css" rel="stylesheet">

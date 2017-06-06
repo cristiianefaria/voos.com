@@ -28,10 +28,10 @@
 							<div class="col-md-6"></div>
 							<div class="col-md-6">
 								<div class="input-group">
-									<input type="text" id="pesquisa" name="pesquisa"
+									<input type="text" id="pesquisaPassageiro" name="pesquisaPassageiro"
 										class="form-control" placeholder="Digite o nome..."> <span
 										class="input-group-btn">
-										<button class="btn btn-primary" value="Pesquisar" name="botao"
+										<button class="btn btn-primary" value="Pesquisar Passageiro" name="botao"
 											type="submit">Pesquisar</button>
 									</span>
 								</div>
@@ -164,11 +164,28 @@
 									<td><c:out value="${passageiroCliente.pessoa.cnpj.numero}" /></td>
 									<td><c:out value="${passageiroCliente.pessoa.email}" /></td>
 									<td><c:out value="${passageiroCliente.pessoa.telefone}" /></td>
-									<c:if test="isPassageiro">
-									<td><a class="btn btn-warning"
-										href="Passageiro?acao=editarPassageiro&codigo=<c:out value="${passageiroCliente.id}"/>">Alterar</a></td>
-									<td><a class="btn btn-success"
-										href="Passageiro?acao=excluirPassageiro&codigo=<c:out value="${passageiroCliente.id}"/>">Remover</a></td>
+
+									<c:if test="${isPassageiro == true}">
+										<td>
+											<a class="btn btn-warning"
+											href="Passageiro?acao=editarPassageiro&codigo=<c:out value="${passageiroCliente.id}"/>">Alterar</a>
+										</td>
+										<td>
+											<a class="btn btn-success"
+											href="Passageiro?acao=excluirPassageiro&codigo=<c:out value="${passageiroCliente.id}"/>">Remover</a>
+										</td>
+								    </c:if>
+								    
+								    <c:if test="${isPassageiro == false}">
+										<td>
+											<a class="btn btn-warning"
+											href="Passageiro?acao=editarCliente&codigo=<c:out value="${passageiroCliente.id}"/>">Alterar</a>
+										</td>
+										<td>
+											<a class="btn btn-success"
+											href="Passageiro?acao=excluirCliente&codigo=<c:out value="${passageiroCliente.id}"/>">Remover</a>
+										</td>
+
 								    </c:if>
 								</tr>
 							</c:forEach>
