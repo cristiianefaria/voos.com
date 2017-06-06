@@ -50,9 +50,6 @@
 	    <version>3.1.0</version>
 	</dependency>
 
-
-
-	    
     <dependency>
 	    <groupId>taglibs</groupId>
 	    <artifactId>standard</artifactId>
@@ -64,7 +61,6 @@
 	    <artifactId>jstl</artifactId>
 	    <version>1.2</version>
 	</dependency>
-	    
   </dependencies>
 
   <build>
@@ -77,6 +73,25 @@
 	          <source>1.8</source>
 	          <target>1.8</target>
 	        </configuration>
+	      </plugin>
+	      <plugin>
+	      	<groupId>org.liquibase</groupId>
+	      	<artifactId>liquibase-maven-plugin</artifactId>
+      		<version>3.5.3</version>
+			<executions>
+				<execution>
+					<phase>install</phase>
+				</execution>
+			</executions>
+      		<configuration>
+      			<changeLogFile>
+      				${basedir}/src/main/resource/liquibase/master.xml
+      			</changeLogFile>
+      			<driver>org.Postgresql.Driver</driver>
+      			<url>jdbc:postgresql://localhost:5432/voodev</url>
+      			<username>postgres</username>
+      			<password>123456</password>
+      		</configuration>
 	      </plugin>
   	</plugins>
   
