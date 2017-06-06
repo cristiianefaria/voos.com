@@ -5,11 +5,12 @@
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900' rel='stylesheet' type='text/css'>
 
+
 <!-- Jquery -->
 <script src="app/lib/jquery/jquery-3.2.1.min.js"></script>
 
 <!-- Bootstrap -->
-<link  rel="stylesheet" href="app/lib/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="app/lib/bootstrap/bootstrap.min.css">
 <script src="app/lib/bootstrap/bootstrap.min.js"></script>
 
 <!-- Font Awesome -->
@@ -20,22 +21,41 @@
 <script src="app/lib/moment/pt-br.js"></script>
 
 <!-- DateTimePicker -->
-<link  rel="stylesheet" href="app/lib/datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet"
+	href="app/lib/datetimepicker/bootstrap-datetimepicker.min.css">
 <script src="app/lib/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 <!-- CSS -->
-<link  rel="stylesheet" href="app/css/style.css">
+<link rel="stylesheet" href="app/css/style.css">
 
 <!-- Carousel -->
 <link href="app/css/owl.carousel.css" rel="stylesheet">
 <script src="app/js/owl.carousel.js"></script>
 
+<!-- Carousel -->
+<link href="app/css/owl.carousel.css" rel="stylesheet">
+<script src="app/js/owl.carousel.js"></script>
 
+<div class="nav-top">
+	<div class="container">
+		<div class="linha">
+			<div class="col-xs-12">
+				<ul>
+					<li><a href="login.jsp"><i class="fa fa-user"
+							aria-hidden="true"></i>Acessar conta</a></li>
+					<li><a href="login.jsp"><i class="fa fa-user-plus"
+							aria-hidden="true"></i>Cadastrar</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
 
 <nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.jsp"><img src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
+			<a class="navbar-brand" href="index.jsp"><img
+				src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="index.jsp">Home</a></li>
