@@ -35,28 +35,25 @@
 <link href="app/css/owl.carousel.css" rel="stylesheet">
 <script src="app/js/owl.carousel.js"></script>
 
-<div class="nav-top">
-	<div class="container">
-		<div class="linha">
-			<div class="col-xs-12">
-				<ul>
-					<li><a href="login.jsp"><i class="fa fa-user"
-							aria-hidden="true"></i>Acessar conta</a></li>
-					<li><a href="login.jsp"><i class="fa fa-user-plus"
-							aria-hidden="true"></i>Cadastrar</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-</div>
 
-<nav class="navbar navbar-default navbar-fixed-top">
+
+<nav class="navbar navbar-default">
 	<div class="container-fluid">
+
+		<div  id="acesso" class="row">
+			<ul class="nav nav-pills pull-right">
+				<li><a href="login.jsp"><i class="fa fa-user"
+						aria-hidden="true"></i>&nbsp;Acessar conta</a></li>
+				<li><a href="login.jsp"><i class="fa fa-user-plus"
+						aria-hidden="true"></i>&nbsp;Cadastrar</a></li>
+			</ul>
+		</div>
 		<div class="navbar-header">
 			<a class="navbar-brand" href="index.jsp"><img
 				src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
+
 			<li><a href="index.jsp">Home</a></li>
 			<li><a href="#">Efetuar Reserva</a></li>
 			<li><a href="#">Comprar Passagem</a></li>
