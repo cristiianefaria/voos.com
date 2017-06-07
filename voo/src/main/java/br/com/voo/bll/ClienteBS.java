@@ -64,8 +64,15 @@ public class ClienteBS {
 		
 	}
 
-	public boolean excluir(Long codigo) throws Exception {
-		return dao.exluir(codigo);
+	public boolean excluir(Long codigo) {
+		try {
+			return dao.exluir(codigo);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	public Cliente consultar(Long id){
 		try {

@@ -32,14 +32,16 @@ public class PassageiroController extends HttpServlet {
 	private PassageiroBS passageiroBS;
 	private ClienteBS clienteBS;
 
-	private Long idPessoa;
+	private Long idPassageiro;
 	private Long idCliente;
+	private Long idPessoa;
 	private String acao;
 	
 	public PassageiroController() {
 		super();
 		passageiroBS = new PassageiroBS();
 		clienteBS = new ClienteBS();
+		idPassageiro = new Long(0);
 		idPessoa = new Long(0);
 		idCliente = new Long(0);
 
@@ -60,28 +62,40 @@ public class PassageiroController extends HttpServlet {
 
 		case "listarCliente":
 			request.setAttribute("isPassageiro", false);
-			//clientes = clienteBS.listar("");
+		   clienteBS.listar("").forEach(c-> passageirosClientes.add(c));
 			
 			break;
 			
 		case "editarPassageiro":
-			int codigoEdicaoPassageiro = Integer.parseInt(request.getParameter("codigoPassageiro"));
+			int codigoEdicaoPassageiro = Integer.parseInt(request.getParameter("codigo"));
 			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicaoPassageiro));
+			idPassageiro = passageiro.getId();
 			idPessoa = passageiro.getPessoa().getId();
 			request.setAttribute("passageiroCliente", passageiro);
 			break;
 
 		case "editarCliente":
-			int codigoEdicaoCliente = Integer.parseInt(request.getParameter("codigoCliente"));
+			int codigoEdicaoCliente = Integer.parseInt(request.getParameter("codigo"));
 			Cliente cliente = clienteBS.consultar(new Long(codigoEdicaoCliente));
-			idCliente = cliente.getPessoa().getId();
+			idCliente = cliente.getId();
+			idPessoa = cliente.getPessoa().getId();
 			request.setAttribute("passageiroCliente", cliente);
 			break;
 
 		case "excluirPassageiro":
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
 			passageiroBS.excluir(new Long(codigoExclusao));
-			//passageiros = passageiroBS.listar("");
+			request.setAttribute("isPassageiro", true);
+			passageiroBS.listar("").forEach(c-> passageirosClientes.add(c));
+			
+			break;
+		
+		case "excluirCliente":
+			int codigoExclusaoCliente = Integer.parseInt(request.getParameter("codigo"));
+			clienteBS.excluir(new Long(codigoExclusaoCliente));
+			request.setAttribute("isPassageiro", false);
+			passageiroBS.listar("").forEach(c-> passageirosClientes.add(c));
+			break;
 		default:
 			break;
 		}
@@ -96,7 +110,7 @@ public class PassageiroController extends HttpServlet {
 
 		String botao = request.getParameter("botao");
 		String nome = "";
-		PessoaBS pessoaBs = new PessoaBS(request, idPessoa);
+		PessoaBS pessoaBs = new PessoaBS(request, idPassageiro);
 		String desconto = validaCampos(request.getParameter("percentDesconto"));
 		String codigoParam = validaCampos(request.getParameter("codigo"));
 		String senha = validaCampos(request.getParameter("senha"));
