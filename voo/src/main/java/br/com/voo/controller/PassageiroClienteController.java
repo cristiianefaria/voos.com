@@ -25,33 +25,32 @@ import br.com.voo.model.Pessoa;
 import br.com.voo.util.ValidarPessoa;
 
 @WebServlet(name = "/Passageiro", urlPatterns = "/Passageiro")
-public class PassageiroController extends HttpServlet {
+public class PassageiroClienteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private final String PAGINA = "/passageiro.jsp";
 	private PassageiroBS passageiroBS;
 	private ClienteBS clienteBS;
 
-	private Long idPassageiro;
-	private Long idCliente;
+	private Long idPassageiroCliente;
 	private Long idPessoa;
 	private String acao;
+	private boolean isErro;
 	
-	public PassageiroController() {
+	public PassageiroClienteController() {
 		super();
 		passageiroBS = new PassageiroBS();
 		clienteBS = new ClienteBS();
-		idPassageiro = new Long(0);
+		idPassageiroCliente = new Long(0);
 		idPessoa = new Long(0);
-		idCliente = new Long(0);
-
+		
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		acao = request.getParameter("acao");
 		List<Entidade> passageirosClientes = new ArrayList<Entidade>();
-        
+        request.setAttribute("isErro", false);
 		
 		
 		switch (acao) {
@@ -69,16 +68,18 @@ public class PassageiroController extends HttpServlet {
 		case "editarPassageiro":
 			int codigoEdicaoPassageiro = Integer.parseInt(request.getParameter("codigo"));
 			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicaoPassageiro));
-			idPassageiro = passageiro.getId();
+			idPassageiroCliente = passageiro.getId();
 			idPessoa = passageiro.getPessoa().getId();
+			request.setAttribute("isPassageiro", true);
 			request.setAttribute("passageiroCliente", passageiro);
 			break;
 
 		case "editarCliente":
 			int codigoEdicaoCliente = Integer.parseInt(request.getParameter("codigo"));
 			Cliente cliente = clienteBS.consultar(new Long(codigoEdicaoCliente));
-			idCliente = cliente.getId();
+			idPassageiroCliente = cliente.getId();
 			idPessoa = cliente.getPessoa().getId();
+			request.setAttribute("isPassageiro", false);
 			request.setAttribute("passageiroCliente", cliente);
 			break;
 
@@ -94,7 +95,7 @@ public class PassageiroController extends HttpServlet {
 			int codigoExclusaoCliente = Integer.parseInt(request.getParameter("codigo"));
 			clienteBS.excluir(new Long(codigoExclusaoCliente));
 			request.setAttribute("isPassageiro", false);
-			passageiroBS.listar("").forEach(c-> passageirosClientes.add(c));
+			clienteBS.listar("").forEach(c-> passageirosClientes.add(c));
 			break;
 		default:
 			break;
@@ -110,7 +111,6 @@ public class PassageiroController extends HttpServlet {
 
 		String botao = request.getParameter("botao");
 		String nome = "";
-		PessoaBS pessoaBs = new PessoaBS(request, idPassageiro);
 		String desconto = validaCampos(request.getParameter("percentDesconto"));
 		String codigoParam = validaCampos(request.getParameter("codigo"));
 		String senha = validaCampos(request.getParameter("senha"));
@@ -120,18 +120,30 @@ public class PassageiroController extends HttpServlet {
 										 .setPercentDesconto(desconto)
 				                         .setSenha(senha)
 				                         .setTipoCliente(tipocliente)
-				                         .setIdBuilder(codigoParam);
+				                         .setIdBuilder(idPassageiroCliente);
 
 		if (botao.equals("Cadastrar Passageiro")) {
 			Passageiro passageiro = build.buildPassageiro();
-			passageiroBS.salvar(passageiro);
+			try {
+				passageiroBS.salvar(passageiro);
+			} catch (Exception e) {
+				request.setAttribute("isErro", true);
+				request.setAttribute("mensagem", e.getMessage());
+			}
+			
 			request.setAttribute("passageirosClientes", passageiroBS.listar(nome));
 			request.setAttribute("isPassageiro", true);
 		}
 
 		if (botao.equals("Cadastrar Cliente")) {
 			Cliente cliente = build.buildCliente();
-			clienteBS.salvar(cliente);
+			try {
+				clienteBS.salvar(cliente);
+			} catch (Exception e) {
+				request.setAttribute("isErro", true);
+				request.setAttribute("mensagem", e.getMessage());
+			}
+			
 			request.setAttribute("passageirosClientes", clienteBS.listar(nome));
 			request.setAttribute("isPassageiro", false);
 		}

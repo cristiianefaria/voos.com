@@ -111,7 +111,7 @@ public class ClienteDAO {
 
 			Cliente cliente = null;
 			if (rs.next()) {
-				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+				Pessoa p = new Pessoa(rs.getLong("codigo_pessoa"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"));

@@ -57,6 +57,7 @@
 			<li><a href="Aeronave?acao=listar">Aeronave</a></li>
 			<li><a href="Itinerario?acao=listar">Itinerário</a></li>
 			<li><a href="Passageiro?acao=listarPassageiro">Passageiro</a></li>
+			<li><a href="Passageiro?acao=listarCliente">Cliente</a></li>
 
 		</ul>
 	</div>

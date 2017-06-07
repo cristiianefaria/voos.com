@@ -12,10 +12,20 @@
 	<jsp:include page="header.jsp" />
 
 	<div class="page-header">
+	    <c:if test="${isPassageiro == true}">
 		<h1>Passageiro</h1>
+		 </c:if>
+		 <c:if test="${isPassageiro == false}">
+		<h1>Cliente</h1>
+		 </c:if>
 		<ul class="breadcrumb">
 			<li><a href="index.jsp">home</a></li>
+			<c:if test="${isPassageiro == true}">
 			<li>passageiro</li>
+			</c:if>
+			<c:if test="${isPassageiro == false}">
+			<li>cliente</li>
+			</c:if>
 		</ul>
 	</div>
 
@@ -51,7 +61,12 @@
 						</div>
 					</form>
 				</div>
+				<c:if test="${isPassageiro == true}">
 				<h3>Cadastro de Passageiro</h3>
+				</c:if>
+				<c:if test="${isPassageiro == false}">
+				<h3>Cadastro de Cliente</h3>
+				</c:if>
 				<hr>
 				<div class="bloco">
 					<form action="Passageiro" method="POST">
@@ -118,22 +133,22 @@
 								value="<c:out value="${passageiroCliente.pessoa.endereco}"/>">
 						</div>
 						
-						<c:if test="isCliente">
+						<c:if test="${isPassageiro == false}">
 						
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-4">
 								<label for="percentDesconto">Desconto</label> <input type="text"
 									class="form-control" id="percentDesconto"
 									placeholder="desconto" name="percentDesconto"
 									value="<c:out value="${passageiroCliente.percentDesconto}"/>">
 							</div>
 
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-4">
 								<label for="senha">Senha</label> <input type="password"
 									class="form-control" id="senha" placeholder="senha"
 									name="senha" value="<c:out value="${passageiroCliente.senha}"/>">
 							</div>
 
-							<div class="form-group col-md-3">
+							<div class="form-group col-md-4">
 								<label>Tipo Cliente</label> <select class="form-control"
 									id="tipoCliente" name="estadoCivil"
 									value="<c:out value="${passageiroCliente.tipoCliente}"/>">
@@ -142,16 +157,33 @@
 								</select>
 							</div>
 						</c:if>
-
+						<c:if test="${isErro == true}">
+                        <input value="${mensagem}" width="200">
+                        </c:if>
+                       
+                        <c:if test="${isPassageiro == true}">
 						<div class="text-right">
 							<input class="btn btn-success" type="submit"
 								value="Cadastrar Passageiro" name="botao">
 						</div>
+						</c:if>
+						
+						
+						<c:if test="${isPassageiro == false}">
+						<div class="text-right">
+							<input class="btn btn-success" type="submit"
+								value="Cadastrar Cliente" name="botao">
+						</div>
+						</c:if>
 
 					</form>
 				</div>
-
+                <c:if test="${isPassageiro == true}">
 				<h3>Lista de Passageiros</h3>
+				</c:if>
+				<c:if test="${isPassageiro == false}">
+				<h3>Lista de Cientes</h3>
+				</c:if>
 				<hr>
 				<div class="bloco">
 					<table class="table table-striped">

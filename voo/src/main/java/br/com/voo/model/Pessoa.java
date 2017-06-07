@@ -56,6 +56,8 @@ public class Pessoa extends Entidade {
 
 	public Pessoa() {
 		super();
+		this.cpf = new Cpf();
+		this.cnpj = new Cnpj();
 	}
 
 	public String getNome() {

@@ -49,13 +49,8 @@ public class BuilderPessoaCliente extends Entidade {
 		return contato;
 	}
 
-	public BuilderPessoaCliente setIdBuilder(String id){
+	public BuilderPessoaCliente setIdBuilder(Long codigo){
 		
-		Long codigo = new Long(0);
-		if(!"".equals(id) && id != null){
-			
-			codigo = new Long(Long.parseLong(id));
-		}
 		this.id = codigo;
 		
 		return this;

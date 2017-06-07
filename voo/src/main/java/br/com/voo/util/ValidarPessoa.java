@@ -22,33 +22,41 @@ public class ValidarPessoa {
 	public Map<String, String> validarPessoa() throws Exception {
 
 		erros = new HashMap<>();
-		
-		if(pessoa.getCpf().getNumero().isEmpty() && pessoa.getCnpj().getNumero().isEmpty()){
+
+		if (pessoa.getCpf().getNumero().isEmpty() && pessoa.getCnpj().getNumero().isEmpty()) {
 			erros.put("cpfCnpjVazio", "Um número de CPF ou CNPJ deve ser informado!");
 			return erros;
 		}
-		
-		Pessoa pessoaDB = !pessoa.getCpf().equals("") ? dao.consultar(pessoa.getCpf()) 
-				                                              : dao.consultar(pessoa.getCnpj());
-		
+
+		System.out.println(pessoa.getId());
+
+		Pessoa pessoaDB = !pessoa.getCpf().equals("") ? dao.consultar(pessoa.getCpf())
+				: dao.consultar(pessoa.getCnpj());
+
+		if (pessoaDB == null)
+			pessoaDB = new Pessoa();
+
 		boolean t = pessoaDB.getId() != pessoa.getId();
-		
+
 		if (!pessoa.getCpf().getNumero().isEmpty()) {
-			
-			if (!pessoa.getCpf().isCpf())
+
+			if (!pessoa.getCpf().isCpf()) {
 				erros.put("cpf", "CPF inválido!");
-			else if (pessoaDB.getCpf() == pessoa.getCpf() && pessoaDB.isRemovido() == false) {
-				erros.put("cpfExistente", "O numero de CPF:" + pessoa.getCpf().getNumero() + "já existe no sistema!");
 			}
+
+			if (pessoaDB.getCpf().getNumero().equals(pessoa.getCpf().getNumero())) {
+				if (pessoa.getId() == 0)
+					erros.put("cpfExistente",
+							"O numero de CPF:" + pessoa.getCpf().getNumero() + "já existe no sistema!");
+			}
+
 		}
-		
-		
-		
-		if (!pessoa.getCnpj().getNumero().isEmpty() && pessoa.getId() == 0) {
-			
+
+		if (!pessoa.getCnpj().getNumero().isEmpty()) {
+
 			if (!pessoa.getCnpj().isCnpj())
 				erros.put("cnpj", "CNPJ inválido!");
-			else if (pessoaDB.getCnpj() == pessoa.getCnpj() && !pessoaDB.isRemovido()) {
+			if (pessoaDB.getCnpj().getNumero() == pessoa.getCnpj().getNumero() && pessoa.getId() == 0) {
 				erros.put("cnpjExistente",
 						"O numero de CNPJ:" + pessoa.getCnpj().getNumero() + " já existe no sistema!");
 			}
@@ -85,6 +93,7 @@ public class ValidarPessoa {
 
 		return descricao;
 	}
+
 	public static EstadoCivil estadoCivilDescricao(String descricao) {
 
 		EstadoCivil estadoCivil = EstadoCivil.Solteiro;

@@ -12,6 +12,7 @@ public class Cliente extends Entidade {
 	public Cliente(BuilderPessoaCliente build) {
 		
 		this.pessoa = build.getPessoa();
+		this.id = build.id;
 		this.milhagem = build.getMilhagem();
 		this.senha = build.getSenha();
 		this.percentDesconto = build.getPercentDesconto();

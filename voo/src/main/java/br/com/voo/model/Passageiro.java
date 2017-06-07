@@ -16,6 +16,7 @@ public class Passageiro extends Entidade {
 	public Passageiro(BuilderPessoaCliente build) {
 		super();
 		this.removido = false;
+		this.id = build.id;
 		this.pessoa = build.getPessoa();
 		this.contato = build.getContato();
 	}
