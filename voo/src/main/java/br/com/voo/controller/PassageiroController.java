@@ -1,7 +1,9 @@
 package br.com.voo.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,14 +16,12 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.voo.bll.ClienteBS;
 import br.com.voo.bll.PassageiroBS;
 import br.com.voo.bll.PessoaBS;
-<<<<<<< HEAD
-import br.com.voo.model.Builder;
-=======
-import br.com.voo.dal.PassageiroDAO;
 import br.com.voo.model.BuilderPessoaCliente;
->>>>>>> 0a5732a03e5dfdbea10a79d968eabfbf76ee0dda
 import br.com.voo.model.Cliente;
+import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
+import br.com.voo.model.Pessoa;
+import br.com.voo.util.ValidarPessoa;
 
 @WebServlet(name = "/Passageiro", urlPatterns = "/Passageiro")
 public class PassageiroController extends HttpServlet {
