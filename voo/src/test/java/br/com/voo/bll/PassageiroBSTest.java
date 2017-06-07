@@ -70,9 +70,9 @@ public class PassageiroBSTest {
 			Mockito.when(dao.inserir(_passageiro)).thenReturn(true);
 
 			boolean resultado = bs.salvar(_passageiro);
-			assertEquals(false, resultado);
+			assertEquals(true, resultado);
 		} catch (Exception e) {
-			assertThat(e).hasMessage("ï¿½ nescessï¿½rio informar o responsï¿½vel!");
+			assertThat(e).hasMessage("é necessario informar o responsavel!");
 		}
 	}
 

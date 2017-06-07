@@ -70,7 +70,7 @@ public class PoltronaBSTest {
 			
 			bs.salvar(poltrona);
 		}catch(Exception e) {
-			assertThat(e).hasMessage("Poltrona enviada para ser salva está null");
+			assertThat(e).hasMessage("Poltrona enviada para ser salva esta null");
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class PoltronaBSTest {
 			when(dao.alterar(null)).thenReturn(false);
 			bs.salvar(poltrona);
 		}catch(Exception e) {
-			assertThat(e).hasMessage("Poltrona enviada para ser salva está null");
+			assertThat(e).hasMessage("Poltrona enviada para ser salva esta null");
 		}
 	}
 	
@@ -92,7 +92,7 @@ public class PoltronaBSTest {
 			when(dao.alterar(Mockito.any())).thenReturn(true);
 			bs.excluir(poltrona);
 		}catch(Exception e) {
-			assertThat(e).hasMessage("Poltrona enviada para exclusão esta null");
+			assertThat(e).hasMessage("Poltrona enviada para exclusao esta null");
 		}
 	}
 	

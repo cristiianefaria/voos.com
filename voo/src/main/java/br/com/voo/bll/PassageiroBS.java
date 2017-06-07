@@ -47,7 +47,7 @@ public class PassageiroBS {
 	private void validarPassageiro(Passageiro passageiro) throws Exception {
 
 		//if (idade(passageiro.getPessoa().getDataNascimento()) <= idadeMaxima && passageiro.getResponsavel() == null) {
-			//throw new Exception("É nescessário informar o responsável!");
+			//throw new Exception("É nescessário informar o responsavel!");
 		//}
 		
 		validarPessoa(passageiro.getPessoa());
