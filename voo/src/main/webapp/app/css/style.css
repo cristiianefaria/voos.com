@@ -1,28 +1,20 @@
 @CHARSET "UTF-8";
 
-body {
-	font-family: 'Raleway', sans-serif;
-}
+
 
 .telaLogin {
 	width: 100%;
-	height: 500px;
-	background-image: url("app/images/background.jpg");
+	height: 550px;
 	text-align: center;
 }
 
 .formularioLogin {
 	width: 30%;
 	margin: auto;
-	background: rgba(0, 0, 0, 0.2);
+	background: rgba(0, 0, 153, 0.2);
 	padding: 30px;
 }
 
-
-
-.header {
-    background:#ff9900;
-}
 
 .banner-bg {
 	position: relative;
@@ -144,7 +136,7 @@ ul.breadcrumb {
 }
 
 .footer {
-	background: #050e12;
+	background: #191970;
 	padding: 2em 0;
 	text-align: center;
 }
@@ -158,9 +150,36 @@ ul.breadcrumb {
 	color: #ccc;
 }
 
+.nav-top {
+	width: 100%;
+	height: 40px;
+	background: # 000; cor branca;
+	text-transform: maiúsculas;
+	text-align: center;
+	position: fixed;
+	overflow: hidden;
+}
+
+.nav-top a {
+	color: white;
+}
+
+.nav-top a: hover {
+	text-decoration: underline;
+}
+
+.nav-top div.row {
+	padding: 10px 0;
+}
+
 .navbar-default {
 	background-color: #000099;
 	border-color: #81bef7;
+}
+
+#acesso{
+	whidth:100%;
+	background-color: #191970;
 }
 
 .navbar-default .navbar-brand {

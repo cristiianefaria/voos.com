@@ -1,13 +1,10 @@
 package br.com.voo.controller;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,21 +12,17 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.html.HTMLDocument.HTMLReader.ParagraphAction;
 
 import br.com.voo.bll.ClienteBS;
 import br.com.voo.bll.PassageiroBS;
 import br.com.voo.bll.PessoaBS;
-import br.com.voo.dal.PassageiroDAO;
 import br.com.voo.model.BuilderPessoaCliente;
 import br.com.voo.model.Cliente;
 import br.com.voo.model.Entidade;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Pessoa;
-import br.com.voo.util.Data;
 import br.com.voo.util.ValidarPessoa;
-import net.bytebuddy.description.type.TypeDescription.Generic.Visitor.Validator;
 
 @WebServlet(name = "/Passageiro", urlPatterns = "/Passageiro")
 public class PassageiroController extends HttpServlet {

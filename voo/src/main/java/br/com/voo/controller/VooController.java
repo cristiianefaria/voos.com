@@ -2,7 +2,7 @@ package br.com.voo.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -101,7 +101,7 @@ public class VooController extends HttpServlet {
 		String aeronave = request.getParameter("aeronave");
 		String itinerario = request.getParameter("itinerario");
 		String paramHorario = request.getParameter("horario");
-		LocalDate horario = LocalDate.parse(paramHorario , DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		LocalDateTime horario = LocalDateTime.parse(paramHorario , DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 		
 		
 		if(vooIdTela != null && !"".equals(vooIdTela)){
