@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -28,11 +28,23 @@
 							<div class="col-md-6"></div>
 							<div class="col-md-6">
 								<div class="input-group">
-									<input type="text" id="pesquisaPassageiro" name="pesquisaPassageiro"
+									<input type="text" id="pesquisar" name="pesquisar"
 										class="form-control" placeholder="Digite o nome..."> <span
 										class="input-group-btn">
-										<button class="btn btn-primary" value="Pesquisar Passageiro" name="botao"
-											type="submit">Pesquisar</button>
+										<c:if test="${isPassageiro == false}">
+											<button class="btn btn-primary" 
+												value="Pesquisar Cliente" 
+												name="botao"
+												type="submit">Pesquisar
+											</button>
+									     </c:if>
+									     <c:if test="${isPassageiro == true}">
+											<button class="btn btn-primary" 
+												value="Pesquisar Passageiro" 
+												name="botao"
+											 	type="submit">Pesquisar
+											</button>
+										</c:if>
 									</span>
 								</div>
 							</div>

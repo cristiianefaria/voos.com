@@ -13,6 +13,8 @@ public class BuilderPessoaCliente extends Entidade {
 	public BuilderPessoaCliente(Pessoa pessoa) {
 		this.removido = false;
 		this.pessoa = new Pessoa(pessoa);
+		milhagem = 0;
+		percentDesconto = new Double(0);
 	}
 	
 	public TipoCliente getTipoCliente() {
@@ -50,8 +52,9 @@ public class BuilderPessoaCliente extends Entidade {
 	public BuilderPessoaCliente setIdBuilder(String id){
 		
 		Long codigo = new Long(0);
-		if(!id.equals("")|| id != null){
-			codigo = Long.parseLong(id);
+		if(!"".equals(id) && id != null){
+			
+			codigo = new Long(Long.parseLong(id));
 		}
 		this.id = codigo;
 		

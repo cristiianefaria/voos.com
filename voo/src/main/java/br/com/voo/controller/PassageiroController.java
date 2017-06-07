@@ -23,6 +23,7 @@ import br.com.voo.bll.PessoaBS;
 import br.com.voo.dal.PassageiroDAO;
 import br.com.voo.model.BuilderPessoaCliente;
 import br.com.voo.model.Cliente;
+import br.com.voo.model.Entidade;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Pessoa;
@@ -41,7 +42,7 @@ public class PassageiroController extends HttpServlet {
 	private Long idPessoa;
 	private Long idCliente;
 	private String acao;
-
+	
 	public PassageiroController() {
 		super();
 		passageiroBS = new PassageiroBS();
@@ -54,29 +55,22 @@ public class PassageiroController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		acao = request.getParameter("acao");
-		List<Passageiro> passageiros = new ArrayList<Passageiro>();
-		List<Cliente> clientes = new ArrayList<Cliente>();
-
+		List<Entidade> passageirosClientes = new ArrayList<Entidade>();
+        
+		
+		
 		switch (acao) {
 		case "listarPassageiro":
 			request.setAttribute("isPassageiro", true);
-			passageiros = passageiroBS.listar("");
-			request.setAttribute("passageirosClientes", passageiros);
+			passageiroBS.listar("").forEach(e -> passageirosClientes.add(e));
 			break;
 
 		case "listarCliente":
 			request.setAttribute("isPassageiro", false);
-			clientes = clienteBS.listar("");
+			//clientes = clienteBS.listar("");
+			
 			break;
-
-		case "inserirPassageiro":
-
-			break;
-
-		case "inserirCliente":
-
-			break;
-
+			
 		case "editarPassageiro":
 			int codigoEdicaoPassageiro = Integer.parseInt(request.getParameter("codigoPassageiro"));
 			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicaoPassageiro));
@@ -94,11 +88,12 @@ public class PassageiroController extends HttpServlet {
 		case "excluirPassageiro":
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
 			passageiroBS.excluir(new Long(codigoExclusao));
-			passageiros = passageiroBS.listar("");
+			//passageiros = passageiroBS.listar("");
 		default:
 			break;
 		}
-
+		
+		request.setAttribute("passageirosClientes", passageirosClientes);
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
 		view.forward(request, response);
 	}
@@ -115,33 +110,36 @@ public class PassageiroController extends HttpServlet {
 		String tipocliente = validaCampos(request.getParameter("tipoCliente"));
 
 		BuilderPessoaCliente build = new BuilderPessoaCliente(obterPessoa(request))
-				                        .setPercentDesconto(desconto)
-				                        .setSenha(senha)
-				                        .setTipoCliente(tipocliente)
-				                        .setIdBuilder(codigoParam);
+										 .setPercentDesconto(desconto)
+				                         .setSenha(senha)
+				                         .setTipoCliente(tipocliente)
+				                         .setIdBuilder(codigoParam);
 
 		if (botao.equals("Cadastrar Passageiro")) {
-
 			Passageiro passageiro = build.buildPassageiro();
 			passageiroBS.salvar(passageiro);
-			request.setAttribute("passageiros", passageiroBS.listar(nome));
-
+			request.setAttribute("passageirosClientes", passageiroBS.listar(nome));
+			request.setAttribute("isPassageiro", true);
 		}
-		if (botao.equals("Cadastrar Cliente")) {
 
+		if (botao.equals("Cadastrar Cliente")) {
 			Cliente cliente = build.buildCliente();
 			clienteBS.salvar(cliente);
-
+			request.setAttribute("passageirosClientes", clienteBS.listar(nome));
+			request.setAttribute("isPassageiro", false);
 		}
 
+		nome = request.getParameter("pesquisar");
+
 		if (botao.equals("Pesquisar Passageiro")) {
-			nome = request.getParameter("pesquisaPassageiro");
-			request.setAttribute("passageiroCliente", passageiroBS.listar(nome));
+			List<Passageiro> list = passageiroBS.listar(nome);
+			request.setAttribute("passageirosClientes", passageiroBS.listar(nome));
+			request.setAttribute("isPassageiro", true);
 		}
 
 		if (botao.equals("Pesquisar Cliente")) {
-			nome = request.getParameter("pesquisaCliente");
-			request.setAttribute("passageiroCliente", passageiroBS.listar(nome));
+			request.setAttribute("passageirosClientes", clienteBS.listar(nome));
+			request.setAttribute("isPassageiro", false);
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
@@ -170,7 +168,11 @@ public class PassageiroController extends HttpServlet {
 				dataNacimento = format.parse(data);
 			}
 
-			EstadoCivil estadoCivil = ValidarPessoa.estadoCivilDescricao(request.getParameter("estadoCivil"));
+			String estadoCivilParam = validaCampos(request.getParameter("estadoCivil"));
+
+			EstadoCivil estadoCivil = EstadoCivil.Solteiro;
+			if (!estadoCivilParam.equals("") || estadoCivilParam != null)
+				estadoCivil = ValidarPessoa.estadoCivilDescricao(estadoCivilParam);
 			String telefone = request.getParameter("telefone");
 			String email = request.getParameter("email");
 
