@@ -1,6 +1,7 @@
 package br.com.voo.controller;
 
 import java.io.IOException;
+import java.lang.annotation.Retention;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -118,7 +119,6 @@ public class PassageiroClienteController extends HttpServlet {
 
 		BuilderPessoaCliente build = new BuilderPessoaCliente(obterPessoa(request))
 										 .setPercentDesconto(desconto)
-				                         .setSenha(senha)
 				                         .setTipoCliente(tipocliente)
 				                         .setIdBuilder(idPassageiroCliente);
 
@@ -194,8 +194,9 @@ public class PassageiroClienteController extends HttpServlet {
 				estadoCivil = ValidarPessoa.estadoCivilDescricao(estadoCivilParam);
 			String telefone = request.getParameter("telefone");
 			String email = request.getParameter("email");
+			String senha = request.getParameter("senha");
 
-			return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNacimento, estadoCivil, telefone, email);
+			return new Pessoa(idPessoa, nome, cpf, cnpj, endereco, dataNacimento, estadoCivil, telefone, email, senha);
 
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -42,13 +42,12 @@ public class ClienteBSTest {
 		Pessoa p = new Pessoa("Thiago", "02165072190", 
 				             "24036864000121", 
 				            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-				            _data, EstadoCivil.Casado,"99999999","thiago@gmail");
+				            _data, EstadoCivil.Casado,"99999999","thiago@gmail","1234");
 		
 
 		_cliente = new Cliente(p);
 		_cliente.setMilhagem(200);
 		_cliente.setPercentDesconto(10.0);
-		_cliente.setSenha("1234");
 		_cliente.setTipoCliente(TipoCliente.clienteFinal);		
 	}
 	@Test
@@ -69,7 +68,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado,"99999999","thiago@gmail");
+		            _data, EstadoCivil.Casado,"99999999","thiago@gmail","1234");
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
@@ -86,7 +85,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            null, EstadoCivil.Casado,"99999999","thiago@gmail");
+		            null, EstadoCivil.Casado,"99999999","thiago@gmail","1234");
 
 			_cliente.setPessoa(p);
 			_cliente.setPessoa(p);
@@ -115,7 +114,7 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "021650721390", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado,"99999999","thiago@gmail");
+		            _data, EstadoCivil.Casado,"99999999","thiago@gmail","1234");
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
@@ -132,13 +131,13 @@ public class ClienteBSTest {
 			Pessoa p = new Pessoa("thiago", "02165072190", 
 		             "24036864000121", 
 		            "Rua cp 33 quadra 77 lote 11 conjunto primavera", 
-		            _data, EstadoCivil.Casado,"99999999","thiago@gmail");
+		            _data, EstadoCivil.Casado,"99999999","thiago@gmail","123");
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
 			assertEquals(true, resultado);
 			
 		} catch (Exception e) {
-			assertThat(e).hasMessage("Erros encontrados "+"{cnpj=CNPJ inv�lido!}");
+			assertThat(e).hasMessage("Erros encontrados "+"{cnpj=CNPJ inváçlido!}");
 		}
 		
 	}
