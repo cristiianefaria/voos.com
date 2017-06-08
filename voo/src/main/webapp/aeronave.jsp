@@ -11,7 +11,7 @@
 <body>
 	<jsp:include page="header.jsp" />
 	<div class="page-header">
-		<h1>Voo</h1>
+		<h1>Aeronave</h1>
 		<ul class="breadcrumb">
 			<li><a href="index.jsp">home</a></li>
 			<li>aeronave</li>

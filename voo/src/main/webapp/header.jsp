@@ -36,7 +36,7 @@
 	<div class="container-fluid">
 
 		<div  id="acesso" class="row">
-			<ul class="nav nav-pills pull-right">
+			<ul class="nav nav-pills pull-right acc">
 				<li><a href="login.jsp"><i class="fa fa-user"
 						aria-hidden="true"></i>&nbsp;Acessar conta</a></li>
 				<li><a href="login.jsp"><i class="fa fa-user-plus"
