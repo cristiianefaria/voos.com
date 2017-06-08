@@ -66,11 +66,6 @@ public class BuilderPessoaCliente extends Entidade {
 		return this;
 	}
 
-	public BuilderPessoaCliente setSenha(String senha) {
-		this.senha = senha;
-		return this;
-	}
-
 	public BuilderPessoaCliente setPercentDesconto(Double percentDesconto) {
 
 		this.percentDesconto = percentDesconto;

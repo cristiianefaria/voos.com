@@ -26,7 +26,7 @@ public class ClienteDAO {
 		try {
 
 			PreparedStatement ps = conexao.prepareStatement("INSERT INTO public.cliente " + "(codigo_pessoa, milhagem, "
-					+ "senha, percent_desconto, tipo_cliente, removido) " + "VALUES (?, ?, ?, ?, ?, ?);");
+					+ "percent_desconto, tipo_cliente, removido) " + "VALUES (?, ?, ?, ?, ?);");
 			conexao.setAutoCommit(false);
 			if (pessoa.salvar(_cliente.getPessoa(), conexao)) {
 				long codigoPessoa = pessoa
@@ -34,7 +34,6 @@ public class ClienteDAO {
 
 				ps.setLong(1, codigoPessoa);
 				ps.setDouble(2, _cliente.getMilhagem());
-				ps.setString(3, _cliente.getSenha());
 				ps.setDouble(4, _cliente.getPercentDesconto());
 				ps.setString(5, obterTipoClienteDescricao(_cliente.getTipoCliente()));
 				ps.setBoolean(6, _cliente.isRemovido());
@@ -82,14 +81,13 @@ public class ClienteDAO {
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
-						rs.getString("email"));
+						rs.getString("email"), rs.getString("senha"));
 
 				cliente = new Cliente(p);
 				cliente = new Cliente(p);
 				cliente.setId(rs.getLong("codigo"));
 				cliente.setMilhagem(rs.getInt("milhagem"));
 				cliente.setPercentDesconto(rs.getDouble("percent_desconto"));
-				cliente.setSenha(rs.getString("senha"));
 				cliente.setTipoCliente(obterTipoCliente(rs.getString("tipo_cliente")));
 				cliente.setRemovido(rs.getBoolean("removido"));
 				lista.add(cliente);
@@ -114,13 +112,12 @@ public class ClienteDAO {
 				Pessoa p = new Pessoa(rs.getLong("codigo_pessoa"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimeto"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
-						rs.getString("email"));
+						rs.getString("email"), rs.getString("senha"));
 
 				cliente = new Cliente(p);
 				cliente.setId(rs.getLong("codigo"));
 				cliente.setMilhagem(rs.getInt("milhagem"));
 				cliente.setPercentDesconto(rs.getDouble("percent_desconto"));
-				cliente.setSenha(rs.getString("senha"));
 				cliente.setTipoCliente(obterTipoCliente(rs.getString("tipo_cliente")));
 				cliente.setRemovido(rs.getBoolean("removido"));
 			}
@@ -137,11 +134,10 @@ public class ClienteDAO {
 			conexao.setAutoCommit(false);
 			if (pessoa.alterar(_cliente.getPessoa(), conexao)) {
 				PreparedStatement ps = conexao
-						.prepareStatement("UPDATE public.cliente " + "SET milhagem=?, senha=?, percent_desconto=?, "
+						.prepareStatement("UPDATE public.cliente " + "SET milhagem=?, percent_desconto=?, "
 								+ "tipo_cliente=?, removido = ?" + "WHERE codigo = " + _cliente.getId());
 
 				ps.setInt(1, _cliente.getMilhagem());
-				ps.setString(2, _cliente.getSenha());
 				ps.setDouble(3, _cliente.getPercentDesconto());
 				ps.setString(4, obterTipoClienteDescricao(_cliente.getTipoCliente()));
 				ps.setBoolean(5, _cliente.isRemovido());

@@ -28,7 +28,6 @@ public class ValidarPessoa {
 			return erros;
 		}
 
-		System.out.println(pessoa.getId());
 
 		Pessoa pessoaDB = !pessoa.getCpf().equals("") ? dao.consultar(pessoa.getCpf())
 				: dao.consultar(pessoa.getCnpj());
@@ -36,7 +35,6 @@ public class ValidarPessoa {
 		if (pessoaDB == null)
 			pessoaDB = new Pessoa();
 
-		boolean t = pessoaDB.getId() != pessoa.getId();
 
 		if (!pessoa.getCpf().getNumero().isEmpty()) {
 

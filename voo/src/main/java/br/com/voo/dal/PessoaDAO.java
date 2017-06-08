@@ -31,7 +31,7 @@ public class PessoaDAO {
 			
 			PreparedStatement ps = conexao
 					.prepareStatement("INSERT INTO public.pessoa(" + "nome, cpf, cnpj, endereco, data_nascimeto, "
-							+ "estado_civil, removido,telefone, email)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);");
+							+ "estado_civil, removido,telefone, email,senha)" + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?);");
 
 			Long d = _pessoa.getDataNascimento().getTime();
 			ps.setString(1, _pessoa.getNome());
@@ -43,6 +43,7 @@ public class PessoaDAO {
 			ps.setBoolean(7, _pessoa.isRemovido());
 			ps.setString(8, _pessoa.getTelefone());
 			ps.setString(9, _pessoa.getEmail());
+			ps.setString(10, _pessoa.getSenha());
 
 			ps.execute();
 			return true;
@@ -57,7 +58,8 @@ public class PessoaDAO {
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
 					"UPDATE public.pessoa " + "SET nome=?, cpf=?, " + "cnpj=?, endereco=?, data_nascimeto=?, "
-							+ "estado_civil=?, removido=? ,telefone=?, email=?" + "WHERE codigo =" + _pessoa.getId());
+							+ "estado_civil=?, removido=? ,telefone=?, email=? ,senha=?" + "WHERE codigo =" + _pessoa.getId());
+			
 			ps.setString(1, _pessoa.getNome());
 			ps.setString(2, _pessoa.getCpf().getNumero());
 			ps.setString(3, _pessoa.getCnpj().getNumero());
@@ -67,6 +69,7 @@ public class PessoaDAO {
 			ps.setBoolean(7, _pessoa.isRemovido());
 			ps.setString(8, _pessoa.getTelefone());
 			ps.setString(9, _pessoa.getEmail());
+			ps.setString(10, _pessoa.getSenha());
 
 			ps.executeUpdate();
 			return true;
@@ -104,7 +107,7 @@ public class PessoaDAO {
 				pessoa = new Pessoa(rs.getLong("codigo"), rs.getString("nome"), rs.getString("cpf"),
 						rs.getString("cnpj"), rs.getString("endereco"), rs.getDate("data_nascimeto"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")),
-						rs.getString("telefone"), rs.getString("email"));
+						rs.getString("telefone"), rs.getString("email"), rs.getString("senha"));
 			}
 
 			return pessoa != null ? pessoa : new Pessoa();
