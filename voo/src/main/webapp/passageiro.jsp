@@ -100,18 +100,7 @@
 									value="<fmt:formatDate pattern="MM/dd/yyyy" value="${passageiroCliente.pessoa.dataNascimento}" />">
 							</p>
 						</div>
-						
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="datepicker">Data de Nascimento</label>
-								<div class='input-group date' id='dataNascimento'>
-									<input  type='text' class="form-control" />
-									<span class="input-group-addon">
-										<span><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
-									</span>
-								</div>
-							</div>
-						</div>
+				
 
 						<div class="form-group col-md-3">
 							<label for="cpf">CPF</label> <input type="text"
