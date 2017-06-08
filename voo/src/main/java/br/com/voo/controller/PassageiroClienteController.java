@@ -36,6 +36,7 @@ public class PassageiroClienteController extends HttpServlet {
 	private Long idPessoa;
 	private String acao;
 	private boolean isErro;
+	private boolean isEditar;
 	
 	public PassageiroClienteController() {
 		super();
@@ -51,7 +52,7 @@ public class PassageiroClienteController extends HttpServlet {
 		acao = request.getParameter("acao");
 		List<Entidade> passageirosClientes = new ArrayList<Entidade>();
         request.setAttribute("isErro", false);
-		
+        request.setAttribute("isEditar", false);
 		
 		switch (acao) {
 		case "listarPassageiro":
@@ -75,6 +76,7 @@ public class PassageiroClienteController extends HttpServlet {
 			break;
 
 		case "editarCliente":
+			
 			int codigoEdicaoCliente = Integer.parseInt(request.getParameter("codigo"));
 			Cliente cliente = clienteBS.consultar(new Long(codigoEdicaoCliente));
 			idPassageiroCliente = cliente.getId();
