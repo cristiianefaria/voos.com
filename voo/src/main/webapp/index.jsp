@@ -10,18 +10,80 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	
+
 	<div class="banner">
-	<div class="banner-video">
-		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
-			<source src="app/assets/srix.mp4" type="video/mp4" type="video/mp4">
-		</video>
+		<div class="banner-video">
+			<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg"
+				width="100%" loop>
+				<source src="app/assets/srix.mp4" type="video/mp4" type="video/mp4">
+			</video>
+		</div>
+		 
+		<div class="bannerPassagem">
+			<div class="reservation">
+				<form method="POST" action="">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="sel1">Origem:</label> <select
+									name="itinerarioOrigem" id="itinerarioOrigem"
+									class="form-control">
+									<c:forEach items="${itinerarios}" var="itinerarioOrigem">
+										<option value="<c:out value="${itinerarioOrigem.id}"></c:out>"><c:out
+												value="${itinerarioOrigem.origem}"></c:out>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="sel2">Destino:</label> <select
+									name="itinerarioDestino" id="itinerarioDestino"
+									class="form-control">
+									<c:forEach items="${itinerarios}" var="itinerarioDestino">
+										<option
+											value="<c:out value="${itinerarioDestino.id}"></c:out>">
+											<c:out value="${itinerarioDestino.destino}"></c:out></option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="horario">Ida</label>
+								<div class='input-group date' id='horario'>
+									<input type='text' class="form-control" /> <span
+										class="input-group-addon"> <span><i
+											class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group">
+								<label for="horario">Volta</label>
+								<div class='input-group date' id='horario'>
+									<input type='text' class="form-control" /> <span
+										class="input-group-addon"> <span><i
+											class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="text-right">
+							<input type="submit" class="btn btn-primary"
+								value="Buscar Passagem" />
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
-		<div class="reservation">teste</div>
-		
-		
-	</div>
-	
+
 
 	<!--features-->
 	<div id="features" class="features">
@@ -104,9 +166,10 @@
 	</div>
 	<!---->
 
-	
+
+
+	<script src="app/js/voo.js"></script>
 	<script src="app/js/carousel.js"></script>
-	<script src="app/js/totop.js"></script>
 	<jsp:include page="footer.jsp" />
 </body>
 </html>

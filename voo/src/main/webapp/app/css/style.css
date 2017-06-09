@@ -23,7 +23,7 @@ body {
 
 h3 {
 	color: #000099;
-	font-size: 2.8em;
+	font-size: 1.8em;
 	font-weight: 600;
 	margin-bottom: 1em;
 }
@@ -168,7 +168,7 @@ ul.breadcrumb {
 }
 
 .nav>li>a:hover {
-	color:#000099;
+	color: #000099;
 }
 
 .navbar-default .navbar-brand {
@@ -246,38 +246,16 @@ ul.breadcrumb {
 	}
 }
 
-.reservation{
-	padding: 16px 10px 32px 0;
+.bannerPassagem {
+	position: absolute;
+	top:33%;
+	width: 60%;
+	margin: 0 auto;
+	left: 20%;
+}
+
+.reservation {
+	padding: 30px;
 	background: rgba(255, 255, 255, 0.27);
 }
-.reservation ul {
-	padding: 0;
-	margin: 0;
-}
-.reservation ul li{
-	float: left;
-	list-style:none;
-}
-#toTop {
-	display: none;
-	text-decoration: none;
-	position: fixed;
-	bottom: 14px;
-	right: 3%;
-	overflow: hidden;
-	width: 40px;
-	height: 40px;
-	border: none;
-	text-indent: 100%;
-	background: url("../images/to-top1.png") no-repeat 0px 0px;
-}
-#toTopHover {
-	width: 40px;
-	height: 40px;
-	display: block;
-	overflow: hidden;
-	float: right;
-	opacity: 0;
-	-moz-opacity: 0;
-	filter: alpha(opacity=0);
-}
+
