@@ -10,13 +10,18 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<div class="espacoTopo"></div>
-
-	<div class="banner-bg">
+	
+	<div class="banner">
+	<div class="banner-video">
 		<video autoplay="autoplay" muted="muted" poster="wall_icons/my.jpg" width="100%"  loop>
 			<source src="app/assets/srix.mp4" type="video/mp4" type="video/mp4">
 		</video>
 	</div>
+		<div class="reservation">teste</div>
+		
+		
+	</div>
+	
 
 	<!--features-->
 	<div id="features" class="features">
@@ -99,7 +104,9 @@
 	</div>
 	<!---->
 
-	<jsp:include page="footer.jsp" />
+	
 	<script src="app/js/carousel.js"></script>
+	<script src="app/js/totop.js"></script>
+	<jsp:include page="footer.jsp" />
 </body>
 </html>

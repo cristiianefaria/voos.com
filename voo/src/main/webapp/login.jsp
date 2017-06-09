@@ -13,7 +13,7 @@
 	<div class="conteiner-fluid">
 
 		<div class="telaLogin">
-
+			<div class="espacoTopo"></div>
 			<div class="formularioLogin">
 				<img src="app/images/logomarca2.png">
 				<h4>Acesse sua conta</h4>
@@ -25,8 +25,8 @@
 							placeholder="SENHA" required="required">
 
 						<p>
-							<a href="#"> Faça seu cadastro </a><span>|</span> <a href="#"> Esqueceu a
-								senha?</a>
+							<a href="#"> Faça seu cadastro </a><span>|</span> <a href="#">
+								Esqueceu a senha?</a>
 						</p>
 
 					</div>
