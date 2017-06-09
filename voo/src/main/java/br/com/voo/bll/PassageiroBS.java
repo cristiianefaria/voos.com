@@ -27,7 +27,7 @@ public class PassageiroBS {
 		
 		try {
 			
-			validarPessoa(_passageiro.getPessoa());
+			//validarPessoa(_passageiro.getPessoa());
 			
 			if (_passageiro.getId() == 0){
 				return dao.inserir(_passageiro);
