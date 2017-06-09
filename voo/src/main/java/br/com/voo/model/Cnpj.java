@@ -13,6 +13,12 @@ public class Cnpj extends Documento{
 
 	
 
+	public Cnpj() {
+		this.numero = "";
+	}
+
+
+
 	public String getNumero() {
 		return numero;
 	}

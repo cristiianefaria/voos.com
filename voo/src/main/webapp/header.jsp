@@ -5,11 +5,12 @@
 <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900' rel='stylesheet' type='text/css'>
 
+
 <!-- Jquery -->
 <script src="app/lib/jquery/jquery-3.2.1.min.js"></script>
 
 <!-- Bootstrap -->
-<link  rel="stylesheet" href="app/lib/bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="app/lib/bootstrap/bootstrap.min.css">
 <script src="app/lib/bootstrap/bootstrap.min.js"></script>
 
 <!-- Font Awesome -->
@@ -20,24 +21,34 @@
 <script src="app/lib/moment/pt-br.js"></script>
 
 <!-- DateTimePicker -->
-<link  rel="stylesheet" href="app/lib/datetimepicker/bootstrap-datetimepicker.min.css">
+<link rel="stylesheet"
+	href="app/lib/datetimepicker/bootstrap-datetimepicker.min.css">
 <script src="app/lib/datetimepicker/bootstrap-datetimepicker.min.js"></script>
 
 <!-- CSS -->
-<link  rel="stylesheet" href="app/css/style.css">
+<link rel="stylesheet" href="app/css/style.css">
 
 <!-- Carousel -->
 <link href="app/css/owl.carousel.css" rel="stylesheet">
 <script src="app/js/owl.carousel.js"></script>
 
-
-
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default">
 	<div class="container-fluid">
+
+		<div  id="acesso" class="row">
+			<ul class="nav nav-pills pull-right acc">
+				<li><a href="login.jsp"><i class="fa fa-user"
+						aria-hidden="true"></i>&nbsp;Acessar conta</a></li>
+				<li><a href="login.jsp"><i class="fa fa-user-plus"
+						aria-hidden="true"></i>&nbsp;Cadastrar</a></li>
+			</ul>
+		</div>
 		<div class="navbar-header">
-			<a class="navbar-brand" href="index.jsp"><img src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
+			<a class="navbar-brand" href="index.jsp"><img
+				src="app/images/logomarca2.png" height="30px" alt="Voos.com"></a>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
+
 			<li><a href="index.jsp">Home</a></li>
 			<li><a href="#">Efetuar Reserva</a></li>
 			<li><a href="#">Comprar Passagem</a></li>
@@ -46,6 +57,7 @@
 			<li><a href="Aeronave?acao=listar">Aeronave</a></li>
 			<li><a href="Itinerario?acao=listar">Itinerário</a></li>
 			<li><a href="Passageiro?acao=listarPassageiro">Passageiro</a></li>
+			<li><a href="Passageiro?acao=listarCliente">Cliente</a></li>
 
 		</ul>
 	</div>

@@ -4,16 +4,15 @@ public class Cliente extends Entidade {
 
 	private Pessoa pessoa;
 	private int milhagem;
-	private String senha;
 	private Double percentDesconto;
 	private TipoCliente tipoCliente;
 	private boolean removido;
 
-	public Cliente(Builder build) {
+	public Cliente(BuilderPessoaCliente build) {
 		
 		this.pessoa = build.getPessoa();
+		this.id = build.id;
 		this.milhagem = build.getMilhagem();
-		this.senha = build.getSenha();
 		this.percentDesconto = build.getPercentDesconto();
 		this.tipoCliente = build.getTipoCliente();
 		this.removido = build.isRemovido();
@@ -43,13 +42,9 @@ public class Cliente extends Entidade {
 		this.milhagem = milhagem;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
+	
 
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
+
 
 	public Double getPercentDesconto() {
 		return percentDesconto;

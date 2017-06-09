@@ -31,7 +31,7 @@ public class PoltronaBS {
 					retorno = dao.alterar(poltrona);
 				}
 			}else {
-				throw new Exception("Poltrona enviada para ser salva está null");
+				throw new Exception("Poltrona enviada para ser salva esta null");
 			}
 			
 			return retorno;
@@ -46,8 +46,12 @@ public class PoltronaBS {
 	}
 
 	public boolean excluir(Poltrona poltrona)throws Exception{
-		poltrona.setRemovida(true);
-		return this.salvar(poltrona);
+		if (poltrona != null){
+			poltrona.setRemovida(true);
+			return this.salvar(poltrona);
+		}else {
+			throw new Exception("Poltrona enviada para exclusao esta null");
+		}
 	}
 
 	public Poltrona consultar(Poltrona poltrona) throws SQLException {

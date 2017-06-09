@@ -12,6 +12,10 @@ public class Cpf extends Documento {
 		Validar(numero);
 	}
 
+	public Cpf() {
+		this.numero = "";
+	}
+
 	public String getNumero() {
 		return numero;
 	}

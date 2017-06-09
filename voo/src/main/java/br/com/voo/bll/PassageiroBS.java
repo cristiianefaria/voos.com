@@ -23,11 +23,11 @@ public class PassageiroBS {
 		this.dao = new PassageiroDAO();
 	}
 
-	public boolean salvar(Passageiro _passageiro) {
+	public boolean salvar(Passageiro _passageiro) throws Exception {
 		
 		try {
 			
-			validarPassageiro(_passageiro);
+			validarPessoa(_passageiro.getPessoa());
 			
 			if (_passageiro.getId() == 0){
 				return dao.inserir(_passageiro);
@@ -38,21 +38,12 @@ public class PassageiroBS {
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			throw new Exception(e.getMessage());
 		}
 
 	}
 
-	private void validarPassageiro(Passageiro passageiro) throws Exception {
 
-		//if (idade(passageiro.getPessoa().getDataNascimento()) <= idadeMaxima && passageiro.getResponsavel() == null) {
-			//throw new Exception("É nescessário informar o responsável!");
-		//}
-		
-		validarPessoa(passageiro.getPessoa());
-
-	}
 
 	private int idade(Date dataNascimento) {
 

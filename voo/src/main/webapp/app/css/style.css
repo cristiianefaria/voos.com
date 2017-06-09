@@ -1,17 +1,24 @@
 @CHARSET "UTF-8";
 
 body {
-	font-family: 'Raleway', sans-serif;
+	font-family: sans-serif;
 }
 
-.jumbotron{
-	margin: 20px auto 0;
-	width: 80%;
-	min-height: 400px;
-	background-color: rgba(129, 190, 247, 0.18);
+.telaLogin {
+	width: 100%;
+	height: 550px;
+	text-align: center;
 }
-.banner-bg{
-	position:relative;
+
+.formularioLogin {
+	width: 30%;
+	margin: auto;
+	background: rgba(0, 0, 153, 0.2);
+	padding: 30px;
+}
+
+.banner-bg {
+	position: relative;
 }
 
 h3 {
@@ -23,6 +30,7 @@ h3 {
 
 .espacoTopo {
 	margin-top: 50px;
+	padding-top: 20px;
 }
 
 hr {
@@ -32,7 +40,6 @@ hr {
 	margin: 0 auto 0 0;
 }
 
-
 .page-header {
 	padding: 20px;
 	background-color: #81BEF7;
@@ -40,6 +47,7 @@ hr {
 	color: white;
 	font-size: 24px;
 	height: 150px;
+	margin-top: 0;
 }
 
 ul.breadcrumb {
@@ -130,7 +138,7 @@ ul.breadcrumb {
 }
 
 .footer {
-	background: #050e12;
+	background: #191970;
 	padding: 2em 0;
 	text-align: center;
 }
@@ -144,10 +152,23 @@ ul.breadcrumb {
 	color: #ccc;
 }
 
-
 .navbar-default {
 	background-color: #000099;
 	border-color: #81bef7;
+	margin-bottom: 0;
+}
+
+#acesso {
+	whidth: 100%;
+	background-color: #191970;
+}
+
+.nav>li>a {
+	color: #d9edf7;
+}
+
+.nav>li>a:hover {
+	color:#000099;
 }
 
 .navbar-default .navbar-brand {

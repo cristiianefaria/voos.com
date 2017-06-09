@@ -22,17 +22,23 @@ public class ClienteBS {
 		dao = new ClienteDAO();
 	}
 	
-	public boolean salvar(Cliente _cliente){
+	public boolean salvar(Cliente _cliente) throws Exception{
 		try {
 			
 			ValidarPessoa(_cliente.getPessoa());
 			ValidarCliente(_cliente);
 			
-			return dao.inserir(_cliente);
+			if(_cliente.getId() == 0){
+				return dao.inserir(_cliente);
+			}
+			else{
+				return dao.alterar(_cliente);
+			}
+			
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			return false;
+			throw new Exception(e.getMessage());
+			
 		}
 	}
 
@@ -55,8 +61,7 @@ public class ClienteBS {
 	public List<Cliente> listar(String nome){
 		try {
 			List<Cliente> listaCliente = dao.listar(nome);
-			return listaCliente.size() > 0 ? listaCliente : new ArrayList<Cliente>(); 
-			
+			return listaCliente.size() > 0 ? listaCliente : new ArrayList<Cliente>(); 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ArrayList<Cliente>();
@@ -64,8 +69,15 @@ public class ClienteBS {
 		
 	}
 
-	public boolean excluir(Long codigo) throws Exception {
-		return dao.exluir(codigo);
+	public boolean excluir(Long codigo) {
+		try {
+			return dao.exluir(codigo);
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 	public Cliente consultar(Long id){
 		try {
