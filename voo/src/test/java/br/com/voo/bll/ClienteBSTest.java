@@ -72,7 +72,7 @@ public class ClienteBSTest {
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
-			assertEquals(false, resultado);
+			assertEquals(true, resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("Erros encontrados "+"{nome=Informe um nome}");
 		}
@@ -90,7 +90,7 @@ public class ClienteBSTest {
 			_cliente.setPessoa(p);
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
-			assertEquals(false, resultado);
+			assertEquals(true, resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("Erros encontrados "+"{Data de Nascimento=Data de nascimento n�o informada!}");
 		}
@@ -118,7 +118,7 @@ public class ClienteBSTest {
 
 			_cliente.setPessoa(p);
 			boolean resultado = bs.salvar(_cliente);
-			assertEquals(false, resultado);
+			assertEquals(true, resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("Erros encontrados "+"{cpf=CPF inv�lido!}");
 		}
