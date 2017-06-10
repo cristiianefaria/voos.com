@@ -22,6 +22,12 @@ public class Voo extends Entidade {
 		this.itinerario = itinerario;
 		this.aeronave = new Aeronave(aeronave);
 	}
+	public Voo(Voo voo){
+		super(voo.getId());
+		this.horario = voo.getHorario();
+		this.itinerario = voo.getItinerario();
+		this.aeronave = voo.getAeronave();
+	}
 	
 	public Voo(Long id,LocalDateTime horario, Itinerario itinerario, Aeronave aeronave) {
 		super(id);

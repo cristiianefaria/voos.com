@@ -1,5 +1,8 @@
 package br.com.voo.bll;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import br.com.voo.dal.PassagemDAO;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Passagem;
@@ -21,31 +24,25 @@ public class PassagemBS {
 
 	}
 
-	public void inserirPassagem(Passagem passagem) {
-
+	public void AlterarPassagem(Passagem passagem){
 		try {
-			if (passagem.getId() == 0) {
-				dao.incluirPassagem(passagem);
-			}
-			else{
-				dao.alterarPassagem(passagem);
-			}
+			dao.alterarPassagem(passagem);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
 
-	}
-	public void isnserirPassagens(Voo voo){
+	public List<Passagem> listarPassagens(Voo voo) {
 		
-		for (Poltrona poltrona : voo.getAeronave().getPoltronas()) {
+		try {
 			
-			Double valorPassagem =  voo.getItinerario().getValor()+ poltrona.getValor();
-			Passagem passagem  = new Passagem(new Passageiro(),
-					                  new Passageiro(),"","",false,valorPassagem,voo);
-			inserirPassagem(passagem);
+			return dao.listarPassagens(voo);
 			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<Passagem>();
 		}
-		
 	}
+
 }

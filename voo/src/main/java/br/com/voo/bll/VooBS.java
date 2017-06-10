@@ -47,7 +47,13 @@ public class VooBS {
 		return true;
 	}
 
-	public Voo consultar(Voo voo) throws SQLException {
+	public Voo consultar(Voo voo) {
+		try {
 			return dao.consultar(voo);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Voo();
+		}
+			
 	}
 }

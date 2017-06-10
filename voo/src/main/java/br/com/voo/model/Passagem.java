@@ -11,8 +11,11 @@ public class Passagem extends Entidade {
 	private Poltrona poltrona;
 	private boolean statusCheckIn;
 	private Double valor;
+	
+	public static final String SituacaoEmberto = "Em Aberto";
+	public static final String SituacaoAlocado = "Alocada";
 
-	public Passagem(Passageiro passageiro, Passageiro respossavel, String sitiacao, String hashCheckIn,
+	public Passagem(Long codigo, Passageiro passageiro, Passageiro respossavel, String sitiacao, String hashCheckIn,
 			boolean statusCheckIn, Double valor, Voo voo) {
 		super();
 		this.passageiro = passageiro;
@@ -22,10 +25,11 @@ public class Passagem extends Entidade {
 		this.voo = voo;
 		this.statusCheckIn = statusCheckIn;
 		this.valor = new Double(valor);
+		this.id = codigo;
 	}
-
+    
 	public Passagem() {
-       super();
+		super();
 	}
 
 	public Passageiro getPassageiro() {
@@ -91,6 +95,7 @@ public class Passagem extends Entidade {
 	public void setVoo(Voo voo) {
 		this.voo = voo;
 	}
+
 	public Poltrona getPoltrona() {
 		return poltrona;
 	}

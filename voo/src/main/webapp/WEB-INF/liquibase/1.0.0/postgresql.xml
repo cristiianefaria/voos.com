@@ -164,5 +164,11 @@
   	<dropColumn tableName="passagem" columnName="codigo_acompanhante"/>
 	<addForeignKeyConstraint constraintName="fk_codigo_responsavel" referencedTableName="passageiro" referencedColumnNames="codigo"  baseTableName="passagem" baseColumnNames="codigo_responsavel"/>
   </changeSet>
-  
+
+  <changeSet id="012" author="Thiago">
+    <modifyDataType tableName="pessoa" columnName="email" newDataType="java.sql.types.VARCHAR(200)"/>
+  </changeSet>
+    
 </databaseChangeLog>
+
+

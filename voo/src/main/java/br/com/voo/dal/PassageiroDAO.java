@@ -103,7 +103,7 @@ public class PassageiroDAO {
 			while (rs.next()) {
 				Passageiro passageiro = new Passageiro();
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
-						rs.getString("endereco"), rs.getDate("data_nascimeto"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"), rs.getString("senha"));
 				passageiro.setId(rs.getLong("codigo"));

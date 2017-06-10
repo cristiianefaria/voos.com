@@ -1,39 +1,62 @@
 package br.com.voo.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class PassagemController
- */
+import br.com.voo.bll.PassagemBS;
+import br.com.voo.bll.VooBS;
+import br.com.voo.model.Passagem;
+import br.com.voo.model.Voo;
+
+
 public class PassagemController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+  
+	private PassagemBS bs;
+	private String acao;
+	VooBS vooBs;
+	
+	
+	
     public PassagemController() {
         super();
-        // TODO Auto-generated constructor stub
+        bs = new PassagemBS();
+        vooBs = new VooBS();
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		acao = request.getParameter("acao");
+		List<Passagem> passagens = new ArrayList<Passagem>();
+		
+		switch (acao) {
+		case "listarPassagens":
+			
+			Long id = Long.parseLong(request.getParameter("id"));
+			Voo voo = vooBs.consultar(new Voo(id));	
+			passagens = bs.listarPassagens(voo);
+			
+			request.setAttribute("passagens", passagens);
+			
+			
+			break;
+
+		default:
+			break;
+		}
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+
 	}
 
 }

@@ -34,9 +34,9 @@ public class ClienteDAO {
 
 				ps.setLong(1, codigoPessoa);
 				ps.setDouble(2, _cliente.getMilhagem());
-				ps.setDouble(4, _cliente.getPercentDesconto());
-				ps.setString(5, obterTipoClienteDescricao(_cliente.getTipoCliente()));
-				ps.setBoolean(6, _cliente.isRemovido());
+				ps.setDouble(3, _cliente.getPercentDesconto());
+				ps.setString(4, obterTipoClienteDescricao(_cliente.getTipoCliente()));
+				ps.setBoolean(5, _cliente.isRemovido());
 
 				ps.execute();
 				conexao.commit();
@@ -79,7 +79,7 @@ public class ClienteDAO {
 			while (rs.next()) {
 
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
-						rs.getString("endereco"), rs.getDate("data_nascimeto"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"), rs.getString("senha"));
 
@@ -110,7 +110,7 @@ public class ClienteDAO {
 			Cliente cliente = null;
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getLong("codigo_pessoa"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
-						rs.getString("endereco"), rs.getDate("data_nascimeto"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"), rs.getString("senha"));
 
