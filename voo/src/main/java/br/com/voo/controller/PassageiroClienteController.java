@@ -75,7 +75,7 @@ public class PassageiroClienteController extends HttpServlet {
 			request.setAttribute("isPassageiro", true);
 			request.setAttribute("passageiroCliente", passageiro);
 			break;
-
+			
 		case "editarCliente":
 			
 			int codigoEdicaoCliente = Integer.parseInt(request.getParameter("codigo"));
@@ -84,6 +84,16 @@ public class PassageiroClienteController extends HttpServlet {
 			idPessoa = cliente.getPessoa().getId();
 			request.setAttribute("isPassageiro", false);
 			request.setAttribute("passageiroCliente", cliente);
+			break;
+			
+		case "meusDados":
+			
+			int codigo = Integer.parseInt(request.getParameter("codigo"));
+			Cliente dadosDoCliente = clienteBS.consultar(new Long(codigo));
+			idPassageiroCliente = dadosDoCliente.getId();
+			idPessoa = dadosDoCliente.getPessoa().getId();
+			request.setAttribute("isPassageiro", false);
+			request.setAttribute("passageiroCliente", dadosDoCliente);
 			break;
 
 		case "excluirPassageiro":
@@ -164,7 +174,6 @@ public class PassageiroClienteController extends HttpServlet {
 		}
 
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
-
 		view.forward(request, response);
 
 	}

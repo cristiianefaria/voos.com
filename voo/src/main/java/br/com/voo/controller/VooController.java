@@ -90,48 +90,60 @@ public class VooController extends HttpServlet {
 		List<Voo> voos = new ArrayList<Voo>();
 		List<Aeronave> aeronaves = new ArrayList<Aeronave>();
 		List<Itinerario> itinerarios = new ArrayList<Itinerario>();
+		String botao = request.getParameter("botao");
 		
 		Long idVoo = new Long(0);
 		Long idAeronave = new Long(0);
 		Long idItinerario = new Long(0);
 		
-		String vooIdTela = request.getParameter("id");
-		String aeronave = request.getParameter("aeronave");
-		String itinerario = request.getParameter("itinerario");
-		String paramHorario = request.getParameter("horario");
-		LocalDateTime horario = LocalDateTime.parse(paramHorario , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-		
-		
-		if(vooIdTela != null && !"".equals(vooIdTela)){
-			idVoo = Long.parseLong(vooIdTela);
-		}
-		if(aeronave != null && !"".equals(aeronave)){
-			idAeronave = Long.parseLong(aeronave);
-		}
-		if(itinerario != null && !"".equals(itinerario)){
-			idItinerario = Long.parseLong(itinerario);
-		}
-		
-		
-		try {
-			vooBS.salvar(
-				new Voo(
-					idVoo,
-					horario,
-					new Itinerario(idItinerario),
-					new Aeronave(idAeronave)));
+		if(botao.equals("SALVAR")){
+			String vooIdTela = request.getParameter("id");
+			String aeronave = request.getParameter("aeronave");
+			String itinerario = request.getParameter("itinerario");
+			String paramHorario = request.getParameter("horario");
+			LocalDateTime horario = LocalDateTime.parse(paramHorario , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 			
-			voos = vooBS.listar();
-			aeronaves = aeronaveBS.listar();
-			itinerarios = itinerarioBS.listar();
-		} catch (SQLException e) {
-			e.printStackTrace();
+			
+			if(vooIdTela != null && !"".equals(vooIdTela)){
+				idVoo = Long.parseLong(vooIdTela);
+			}
+			if(aeronave != null && !"".equals(aeronave)){
+				idAeronave = Long.parseLong(aeronave);
+			}
+			if(itinerario != null && !"".equals(itinerario)){
+				idItinerario = Long.parseLong(itinerario);
+			}
+			
+			
+			try {
+				vooBS.salvar(
+					new Voo(
+						idVoo,
+						horario,
+						new Itinerario(idItinerario),
+						new Aeronave(idAeronave)));
+				
+				voos = vooBS.listar();
+				aeronaves = aeronaveBS.listar();
+				itinerarios = itinerarioBS.listar();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			
+			request.setAttribute("aeronaves", aeronaves);
+			request.setAttribute("itinerarios", itinerarios);
+			request.setAttribute("voos", voos);
+		}else if(botao.equals("Buscar Passagem")){
+			
+			try {
+				String itinerario = request.getParameter("itinerario");
+				request.setAttribute("voo", vooBS.listar());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
 		}
-		
-		
-		request.setAttribute("aeronaves", aeronaves);
-		request.setAttribute("itinerarios", itinerarios);
-		request.setAttribute("voos", voos);
 		RequestDispatcher view = request.getRequestDispatcher(TELA);
 		view.forward(request, response);
 	}

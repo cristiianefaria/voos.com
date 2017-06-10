@@ -21,29 +21,18 @@
 		 
 		<div class="bannerPassagem">
 			<div class="reservation">
-				<form method="POST" action="">
+				<form method="POST" action="Voo">
 						<div class="row">
-							<div class="col-md-2">
+							<div class="col-md-4">
 								<div class="form-group">
-									<label for="sel1">Origem:</label> <select
-										name="itinerarioOrigem" id="itinerarioOrigem"
-										class="form-control">
-										<c:forEach items="${itinerarios}" var="itinerarioOrigem">
-											<option value="<c:out value="${itinerarioOrigem.id}"></c:out>"><c:out
-													value="${itinerarioOrigem.origem}"></c:out>
-										</c:forEach>
-									</select>
-								</div>
-							</div>
-							<div class="col-md-2">
-								<div class="form-group">
-									<label for="sel2">Destino:</label> <select
-										name="itinerarioDestino" id="itinerarioDestino"
-										class="form-control">
-										<c:forEach items="${itinerarios}" var="itinerarioDestino">
-											<option
-												value="<c:out value="${itinerarioDestino.id}"></c:out>">
-												<c:out value="${itinerarioDestino.destino}"></c:out></option>
+									<label for="sel1">Selecione o itinerário:</label> <select
+										name="itinerario" id="itinerario" class="form-control">
+										<c:forEach items="${itinerarios}" var="itinerario">
+											<option value="<c:out value="${itinerario.id}"></c:out>" 
+												${itinerario.id == voo.itinerario.id ? 'selected="selected"' : ''}>
+												<c:out value="${itinerario.origem}"></c:out> -
+												<c:out value="${itinerario.destino}"></c:out>
+											</option>
 										</c:forEach>
 									</select>
 								</div>
@@ -52,8 +41,8 @@
 								<div class="form-group">
 									<label for="horario">Ida</label>
 									<div class='input-group date' id='horarioIda'>
-										<input type='text' class="form-control" /> <span
-											class="input-group-addon"> <span><i
+										<input name="horario" type='text' class="form-control" value='<time:format pattern="dd/MM/yyyy" value="${voo.horario}" />' />
+										<span class="input-group-addon"> <span><i
 												class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
 										</span>
 									</div>
@@ -73,7 +62,7 @@
 						</div>
 						<div class="row">
 							<div class="col-xs-2 col-xs-offset-10 col-xl-2 col-xl-offset-10">
-								<input type="submit" class="btn btn-primary"
+								<input name="botao" type="submit" class="btn btn-primary"
 									value="Buscar Passagem" />
 							</div>
 						</div>
@@ -130,7 +119,7 @@
 		<div class="container">
 			<div class="screen-text text-center">
 				<h3>Lugares Mais Visitados</h3>
-				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+				<p>Conheça os principais pontos turisticos do Brasil e do Mundo.</p>
 			</div>
 
 			<div id="owl-demo" class="owl-carousel">

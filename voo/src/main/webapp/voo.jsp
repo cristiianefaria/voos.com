@@ -85,7 +85,7 @@
 							</div>
 						</div>
 						<div class="text-right">
-							<input type="submit" class="btn btn-success" value="SALVAR" />
+							<input name="botao" type="submit" class="btn btn-success" value="SALVAR" />
 						</div>
 					</form>
 				</div>

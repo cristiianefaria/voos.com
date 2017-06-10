@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	
-    $("#horario").datetimepicker({
+    $("#dataNascimento").datetimepicker({
+    	format: "DD/MM/YYYY",
         icons: {
             time: "fa fa-clock-o",
             date: "fa fa-calendar",
@@ -11,5 +12,9 @@ $(document).ready(function(){
         },
         locale: 'pt-br'
     });	
+    
+    if($("div.alert").html() == ""){
+    	$("div.alert").addClass("hide");
+    }
 	
 })
