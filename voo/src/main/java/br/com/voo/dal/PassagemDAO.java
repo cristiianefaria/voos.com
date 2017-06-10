@@ -23,7 +23,7 @@ public class PassagemDAO {
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			ps.setLong(1, x);
+			//ps.setLong(1, x);
 			
 			ps.execute();
 			ps.close();

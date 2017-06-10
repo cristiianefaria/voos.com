@@ -93,6 +93,9 @@
 	      			<url>jdbc:postgresql://localhost:5432/voocom</url>
 	      			<username>postgres</username>
 	      			<password>123456</password>
+	      			<httpConnector>
+          	     		<port>8080</port>
+        			</httpConnector>
 	      		</configuration>
 	      		<dependencies>
 	      			 <dependency>
