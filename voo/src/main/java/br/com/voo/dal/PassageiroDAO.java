@@ -4,12 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.omg.CORBA._PolicyStub;
-
-import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Pessoa;
 import br.com.voo.util.FactoryConexao;
@@ -127,7 +123,6 @@ public class PassageiroDAO {
 	public boolean excluir(long id) throws Exception {
 		try {
 			Passageiro passageiro = consultar(id);
-			passageiro.getPessoa().setRemovido(true);
 
 			passageiro.setRemovido(true);
 
