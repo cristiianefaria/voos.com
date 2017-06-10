@@ -5,9 +5,11 @@ public class Passagem extends Entidade {
 	private Passageiro passageiro;
 	private Passageiro responsavel;
 	private Voo voo;
-
 	private String situacao;
 	private String hashCheckIn;
+	private Poltrona poltrona;
+	
+
 	private boolean statusCheckIn;
 	private Double valor;
 
@@ -90,6 +92,12 @@ public class Passagem extends Entidade {
 	public void setVoo(Voo voo) {
 		this.voo = voo;
 	}
- 
-	
+	public Poltrona getPoltrona() {
+		return poltrona;
+	}
+
+	public void setPoltrona(Poltrona poltrona) {
+		this.poltrona = poltrona;
+	}
+
 }

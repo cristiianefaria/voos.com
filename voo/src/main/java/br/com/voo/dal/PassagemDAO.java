@@ -14,7 +14,7 @@ public class PassagemDAO {
 		conexao = FactoryConexao.getConnection();
 	}
 
-	public boolean incluirPassagem() throws Exception {
+	public boolean incluirPassagem(Passagem passagem) throws Exception {
 		try {
 
 			String sql = "INSERT INTO public.passagem("
@@ -23,7 +23,7 @@ public class PassagemDAO {
 					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			//ps.setLong(1, x);
+			ps.setLong(1, passagem.get);
 			
 			ps.execute();
 			ps.close();
