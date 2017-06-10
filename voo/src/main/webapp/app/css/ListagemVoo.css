@@ -1,0 +1,63 @@
+.icone-aviao{
+    background-color: #03aef9;
+    padding: 5px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 15px;
+
+}
+
+.cidade{
+    font-weight: bold;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: initial;
+}
+
+.horario{
+    background-color: #ddd; 
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icone-flecha{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: initial;
+}
+.passagem{
+    box-shadow: 8px 8px 8px grey;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.passagem:hover{
+    box-shadow: 10px 10px 20px grey;
+    transition-duration: 0.5s;
+}
+
+.dados{
+    background-color: rgba(176, 179, 183, 0.3);
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    
+}
+
+.valor{
+    text-align: center;
+    background-color: rgba(176, 179, 183, 0.3);
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.botao-comprar{
+    text-align: center;
+    margin: 1px;
+}
+

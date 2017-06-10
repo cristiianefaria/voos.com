@@ -32,9 +32,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="alert alert-danger">
-					<c:out value="${mensagem}" />
-				</div>
+				<div class="alert alert-danger"><c:out value="${mensagem}" /></div>
 			</div>
 		</div>
 		<div class="panel panel-default">
@@ -84,13 +82,16 @@
 								value="<c:out value="${passageiroCliente.pessoa.nome}"/>">
 						</div>
 
-						<div class="form-group col-md-3">
-							<label for="datepicker">Data de Nascimento</label>
-							<p>
-								<input type="date" id="dataNascimento" name="dataNascimento"
-									class="form-control"
-									value="<fmt:formatDate pattern="dd/MM/yyyy" value="${passageiroCliente.pessoa.dataNascimento}" />">
-							</p>
+						<div class="col-md-4">
+							<div class="form-group">
+								<label for="horario">Horário</label>
+								<div class='input-group date' id='dataNascimento'>
+									<input name="horario" type='text' class="form-control" value='<time:format pattern="dd/MM/yyyy HH:mm" value="${voo.horario}" />' />
+									<span class="input-group-addon">
+										<span><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
+									</span>
+								</div>
+							</div>
 						</div>
 						<div class="form-group col-md-3">
 							<label for="cpf">CPF</label> <input type="text"
@@ -177,12 +178,14 @@
 
 					</form>
 				</div>
-				<c:if test="${isPassageiro == true}">
-					<h3>Lista de Passageiros</h3>
-				</c:if>
-				<c:if test="${isPassageiro == false}">
-					<h3>Lista de Cientes</h3>
-				</c:if>
+				<div class="row">
+					<c:if test="${isPassageiro == true}">
+						<h3>Lista de Passageiros</h3>
+					</c:if>
+					<c:if test="${isPassageiro == false}">
+						<h3>Lista de Clientes</h3>
+					</c:if>
+				</div>
 				<hr>
 				<div class="bloco">
 					<table class="table table-striped">
@@ -234,5 +237,6 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="app/js/passageiro.js"></script>
 </body>
 </html>

@@ -10,7 +10,7 @@
 </head>
 <body>
 	<jsp:include page="header.jsp" />
-	<div class="conteiner-fluid">
+	<div class="container-fluid">
 
 		<div class="telaLogin">
 			<div class="espacoTopo"></div>
