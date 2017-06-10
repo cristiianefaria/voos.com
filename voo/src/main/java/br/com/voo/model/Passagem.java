@@ -6,7 +6,9 @@ public class Passagem extends Entidade {
 	private Passageiro responsavel;
 	private Voo voo;
 	private String situacao;
+	private String statusChekIn;
 	private String hashCheckIn;
+	private Poltrona poltrona;
 	private boolean statusCheckIn;
 	private Double valor;
 
@@ -19,11 +21,11 @@ public class Passagem extends Entidade {
 		this.hashCheckIn = hashCheckIn;
 		this.voo = voo;
 		this.statusCheckIn = statusCheckIn;
-		this.valor = valor;
+		this.valor = new Double(valor);
 	}
 
 	public Passagem() {
-
+       super();
 	}
 
 	public Passageiro getPassageiro() {
@@ -89,5 +91,20 @@ public class Passagem extends Entidade {
 	public void setVoo(Voo voo) {
 		this.voo = voo;
 	}
-	
+	public Poltrona getPoltrona() {
+		return poltrona;
+	}
+
+	public void setPoltrona(Poltrona poltrona) {
+		this.poltrona = poltrona;
+	}
+
+	public String getStatusChekIn() {
+		return statusChekIn;
+	}
+
+	public void setStatusChekIn(String statusChekIn) {
+		this.statusChekIn = statusChekIn;
+	}
+
 }
