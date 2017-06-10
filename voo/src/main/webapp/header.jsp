@@ -51,7 +51,7 @@
 
 			<li><a href="index.jsp">Home</a></li>
 			<li><a href="#">Efetuar Reserva</a></li>
-			<li><a href="#">Comprar Passagem</a></li>
+			<li><a href="Voo?acao=comprarPassagem">Comprar Passagem</a></li>
 			<li><a href="#">Fazer Checkin</a></li>
 			<li><a href="Voo?acao=listar">Voo</a></li>
 			<li><a href="Aeronave?acao=listar">Aeronave</a></li>
