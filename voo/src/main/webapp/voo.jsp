@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib uri="http://sargue.net/jsptags/time" prefix="time"%>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -50,7 +51,7 @@
 							<div class="form-group">
 								<label for="horario">Horário</label>
 								<div class='input-group date' id='horario'>
-									<input  type='text' class="form-control" />
+									<input name="horario" type='text' class="form-control" value='<time:format pattern="dd/MM/yyyy HH:mm" value="${voo.horario}" />' />
 									<span class="input-group-addon">
 										<span><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
 									</span>
@@ -105,8 +106,7 @@
 									<tr>
 										<td><c:out value="${voo.id}"></c:out></td>
 										<td>
-											<fmt:parseDate value="${voo.horario}" pattern="yyyy-MM-dd" var="parsedDate" type="date" />
-											<fmt:formatDate pattern="dd/MM/yyyy" value="${parsedDate}" type="date" />
+											<time:format pattern="dd/MM/yyyy HH:mm" value="${voo.horario}" />
 										</td>
 										<td><c:out value="${voo.itinerario.origem}"></c:out></td>
 										<td><c:out value="${voo.itinerario.destino}"></c:out></td>

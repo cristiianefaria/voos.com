@@ -74,7 +74,7 @@ public class VendaDAO {
 	
 	public boolean remover(Venda venda)throws SQLException{
 		String sql = "UPDATE compra SET "
-				+ "removido  = ? "
+				+ "removido = ? "
 				+ "WHERE codigo = ?";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);

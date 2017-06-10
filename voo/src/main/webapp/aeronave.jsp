@@ -57,6 +57,10 @@
 
 								<div class="row">
 									<div class="col-md-4 form-group">
+										<input class="btn btn-default" type="submit"
+											value="Nova Aeronave" name="botao">
+									</div>
+									<div class="col-md-4 form-group">
 										<input class="btn btn-success" type="submit"
 											value="Cadastrar Aeronave" name="botao">
 									</div>

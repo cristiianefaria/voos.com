@@ -126,6 +126,10 @@ public class AeronaveController extends HttpServlet {
 			idDaAeronave = Long.parseLong(codigoAeronaveForm);
 		}
 		
+		if(codigoAeronave != null && !"".equals(codigoAeronave)){
+			idDaAeronave = Long.parseLong(codigoAeronave);
+		}
+		
 		if(botao.equals("Cadastrar Aeronave")){
 			aeronave = new Aeronave(idDaAeronave,descricao, poltronas);
 
@@ -137,6 +141,7 @@ public class AeronaveController extends HttpServlet {
 			}
 			
 		}else if(botao.equals("Cadastrar Poltronas")){
+			
 			aeronave = new Aeronave(idDaAeronave);
 			String classePoltrona = request.getParameter("poltrona_classe");
 			String detalhesPoltrona = request.getParameter("poltrona_detalhes");
@@ -160,16 +165,23 @@ public class AeronaveController extends HttpServlet {
 				poltronaBS.cadastrarPoltronasNaAeronave(poltrona,qtdDePoltronas);
 				aeronaves = aeronaveBS.listar();
 				aeronave = aeronaveBS.consultar(aeronave);
+				request.setAttribute("aeronave", aeronave);
 			}catch(SQLException e){
 				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			
+		}else{
+			try {
+				aeronaves = aeronaveBS.listar();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		request.setAttribute("aeronaves", aeronaves);
-		request.setAttribute("aeronave", aeronave);
+		
 		RequestDispatcher view = request.getRequestDispatcher(TELA);
 		view.forward(request, response);
 	}

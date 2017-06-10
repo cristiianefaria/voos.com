@@ -22,7 +22,7 @@ public class FactoryConexao {
 //	                String user = "postgres";
 //	                String password = "123456";
 	                
-	                String url = "jdbc:postgresql://localhost:5432/voodev";
+	                String url = "jdbc:postgresql://localhost:5432/voocom";
 	                String user = "postgres";
 	                String password = "123456";
 

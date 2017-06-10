@@ -68,7 +68,7 @@ public class VooController extends HttpServlet {
 				Long id = Long.parseLong(request.getParameter("id"));
 				
 				
-				request.setAttribute("aeronave", vooBS.consultar(new Voo(id)));
+				request.setAttribute("voo", vooBS.consultar(new Voo(id)));
 				
 				voos = vooBS.listar();
 				aeronaves = aeronaveBS.listar();
@@ -101,7 +101,7 @@ public class VooController extends HttpServlet {
 		String aeronave = request.getParameter("aeronave");
 		String itinerario = request.getParameter("itinerario");
 		String paramHorario = request.getParameter("horario");
-		LocalDateTime horario = LocalDateTime.parse(paramHorario , DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		LocalDateTime horario = LocalDateTime.parse(paramHorario , DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
 		
 		
 		if(vooIdTela != null && !"".equals(vooIdTela)){
