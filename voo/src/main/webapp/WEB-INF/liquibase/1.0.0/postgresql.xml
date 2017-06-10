@@ -143,4 +143,26 @@
     </createTable>
   </changeSet>
   
+  <changeSet id="010" author="Bruno">
+  	<dropForeignKeyConstraint baseTableName="passagem" constraintName="fk_codigo_pessoa"/>
+  	<dropColumn tableName="passagem" columnName="codigo_pessoa"/>
+  	<addColumn tableName="passagem">
+  		<column name="codigo_passageiro" type="java.sql.types.INTEGER">
+  			<constraints foreignKeyName="fk_codigo_passageiro"  references="passageiro(codigo)"/>
+  		</column>
+  	</addColumn>
+  	<addColumn tableName="passagem">
+  		<column name="codigo_acompanhante" type="java.sql.types.INTEGER">
+  			<constraints foreignKeyName="fk_codigo_acompanhante"  references="passageiro(codigo)"/>
+  		</column>
+  	</addColumn>
+  </changeSet>
+  
+   <changeSet id="011" author="Bruno">
+  	<dropForeignKeyConstraint baseTableName="passagem" constraintName="fk_codigo_acompanhante"/>
+  	<dropForeignKeyConstraint baseTableName="passagem" constraintName="fk_codigo_responsavel"/>
+  	<dropColumn tableName="passagem" columnName="codigo_acompanhante"/>
+	<addForeignKeyConstraint constraintName="fk_codigo_responsavel" referencedTableName="passageiro" referencedColumnNames="codigo"  baseTableName="passagem" baseColumnNames="codigo_responsavel"/>
+  </changeSet>
+  
 </databaseChangeLog>

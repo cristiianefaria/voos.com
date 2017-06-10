@@ -63,9 +63,11 @@
 								<label for="sel1">Selecione o itinerário:</label> <select
 									name="itinerario" id="itinerario" class="form-control">
 									<c:forEach items="${itinerarios}" var="itinerario">
-										<option value="<c:out value="${itinerario.id}"></c:out>"><c:out
-												value="${itinerario.origem}"></c:out> -
-											<c:out value="${itinerario.destino}"></c:out></option>
+										<option value="<c:out value="${itinerario.id}"></c:out>" 
+											${itinerario.id == voo.itinerario.id ? 'selected="selected"' : ''}>
+											<c:out value="${itinerario.origem}"></c:out> -
+											<c:out value="${itinerario.destino}"></c:out>
+										</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -75,8 +77,9 @@
 								<label for="sel1">Selecione a aeronave:</label> <select
 									class="form-control" name="aeronave" id="aeronave">
 									<c:forEach items="${aeronaves}" var="aeronave">
-										<option value="<c:out value="${aeronave.id}"></c:out>"><c:out
-												value="${aeronave.descricao}"></c:out></option>
+										<option value="<c:out value="${aeronave.id}"></c:out>"
+										${aeronave.id == voo.aeronave.id ? 'selected="selected"' : ''}>
+										<c:out value="${aeronave.descricao}"></c:out></option>
 									</c:forEach>
 								</select>
 							</div>

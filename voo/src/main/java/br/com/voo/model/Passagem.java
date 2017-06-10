@@ -8,8 +8,6 @@ public class Passagem extends Entidade {
 	private String situacao;
 	private String hashCheckIn;
 	private Poltrona poltrona;
-	
-
 	private boolean statusCheckIn;
 	private Double valor;
 

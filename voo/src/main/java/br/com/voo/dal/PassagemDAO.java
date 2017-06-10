@@ -17,13 +17,11 @@ public class PassagemDAO {
 	public boolean incluirPassagem(Passagem passagem) throws Exception {
 		try {
 
-			String sql = "INSERT INTO public.passagem("
-					+ "codigo_pessoa, codigo_responsavel, tipo_cliente, situacao, "
-					+ "status_checkin, hash_checkin, codigo_voo, removido) "
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+			
+			String sql = "";
 			
 			PreparedStatement ps = conexao.prepareStatement(sql);
-			ps.setLong(1, passagem.get);
+			
 			
 			ps.execute();
 			ps.close();
