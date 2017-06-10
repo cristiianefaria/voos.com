@@ -22,61 +22,61 @@
 		<div class="bannerPassagem">
 			<div class="reservation">
 				<form method="POST" action="">
-					<div class="row">
-						<div class="col-md-2">
-							<div class="form-group">
-								<label for="sel1">Origem:</label> <select
-									name="itinerarioOrigem" id="itinerarioOrigem"
-									class="form-control">
-									<c:forEach items="${itinerarios}" var="itinerarioOrigem">
-										<option value="<c:out value="${itinerarioOrigem.id}"></c:out>"><c:out
-												value="${itinerarioOrigem.origem}"></c:out>
-									</c:forEach>
-								</select>
+						<div class="row">
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="sel1">Origem:</label> <select
+										name="itinerarioOrigem" id="itinerarioOrigem"
+										class="form-control">
+										<c:forEach items="${itinerarios}" var="itinerarioOrigem">
+											<option value="<c:out value="${itinerarioOrigem.id}"></c:out>"><c:out
+													value="${itinerarioOrigem.origem}"></c:out>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-2">
-							<div class="form-group">
-								<label for="sel2">Destino:</label> <select
-									name="itinerarioDestino" id="itinerarioDestino"
-									class="form-control">
-									<c:forEach items="${itinerarios}" var="itinerarioDestino">
-										<option
-											value="<c:out value="${itinerarioDestino.id}"></c:out>">
-											<c:out value="${itinerarioDestino.destino}"></c:out></option>
-									</c:forEach>
-								</select>
+							<div class="col-md-2">
+								<div class="form-group">
+									<label for="sel2">Destino:</label> <select
+										name="itinerarioDestino" id="itinerarioDestino"
+										class="form-control">
+										<c:forEach items="${itinerarios}" var="itinerarioDestino">
+											<option
+												value="<c:out value="${itinerarioDestino.id}"></c:out>">
+												<c:out value="${itinerarioDestino.destino}"></c:out></option>
+										</c:forEach>
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="horario">Ida</label>
-								<div class='input-group date' id='horarioIda'>
-									<input type='text' class="form-control" /> <span
-										class="input-group-addon"> <span><i
-											class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
-									</span>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="horario">Ida</label>
+									<div class='input-group date' id='horarioIda'>
+										<input type='text' class="form-control" /> <span
+											class="input-group-addon"> <span><i
+												class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label for="horario">Volta</label>
+									<div class='input-group date' id='horarioVolta'>
+										<input type='text' class="form-control" /> <span
+											class="input-group-addon"> <span><i
+												class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4">
-							<div class="form-group">
-								<label for="horario">Volta</label>
-								<div class='input-group date' id='horarioVolta'>
-									<input type='text' class="form-control" /> <span
-										class="input-group-addon"> <span><i
-											class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
-									</span>
-								</div>
+						<div class="row">
+							<div class="col-xs-2 col-xs-offset-10 col-xl-2 col-xl-offset-10">
+								<input type="submit" class="btn btn-primary"
+									value="Buscar Passagem" />
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						<div class="col-md-2 col-md-offset-10 col-lg-2 col-lg-offset-10 ">
-							<input type="submit" class="btn btn-primary"
-								value="Buscar Passagem" />
-						</div>
-					</div>
 				</form>
 			</div>
 		</div>
@@ -162,9 +162,6 @@
 			</div>
 		</div>
 	</div>
-	<!---->
-
-
 
 	<script src="app/js/paginaInicial.js"></script>
 	<script src="app/js/carousel.js"></script>
