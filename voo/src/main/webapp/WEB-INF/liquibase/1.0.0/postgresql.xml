@@ -1,174 +1,214 @@
 <databaseChangeLog xmlns='http://www.liquibase.org/xml/ns/dbchangelog'
-  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-  xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xsi:schemaLocation='http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd'>
-    
-  <changeSet id="001" author="Bruno">
-    <createTable tableName="itinerario">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints primaryKey="true" primaryKeyName="pk_codigo_itinerario" />
-    	</column>
-    	<column name="origem" type="java.sql.types.VARCHAR(255)"></column>
-    	<column name="destino" type="java.sql.types.VARCHAR(255)"></column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    	<column name="valor" type="java.sql.types.DOUBLE"></column>
-    </createTable>
-  </changeSet>
-  
-  <changeSet id="002" author="Bruno">
-    <createTable tableName="aeronave">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints primaryKey="true" primaryKeyName="pk_codigo_aeronave" />
-    	</column>
-    	<column name="descricao" type="java.sql.types.VARCHAR(100)"></column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    </createTable>
-  </changeSet>
- 
-  <changeSet id="003" author="Bruno">
-    <createTable tableName="pessoa">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints primaryKey="true" primaryKeyName="pk_codigo_pessoa" />
-    	</column>
-    	<column name="nome" type="java.sql.types.VARCHAR(500)"></column>
-    	<column name="cpf" type="java.sql.types.VARCHAR(15)"></column>
-    	<column name="cnpj" type="java.sql.types.VARCHAR(20)"></column>
-   		<column name="telefone" type="java.sql.types.VARCHAR(20)"></column>
-    	<column name="email" type="java.sql.types.VARCHAR(20)"></column>
-    	<column name="senha" type="java.sql.types.VARCHAR(20)"></column>
-    	<column name="endereco" type="java.sql.types.VARCHAR(200)"></column>
-    	<column name="data_nascimento" type="java.sql.types.DATE"></column>
-    	<column name="estado_civil" type="java.sql.types.VARCHAR(10)"></column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    </createTable>
-  </changeSet>
-  
-  <changeSet id="004" author="Bruno">
-    <createTable tableName="poltrona">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-   			<constraints primaryKey="true" primaryKeyName="pk_codigo_poltrona" />
-   		</column>
-    	<column name="descricao" type="java.sql.types.VARCHAR(500)"></column>
-    	<column name="valor" type="java.sql.types.DOUBLE"></column>
-    	<column name="classe" type="java.sql.types.VARCHAR(50)"></column>
-    	<column name="detalhes" type="java.sql.types.VARCHAR(200)"></column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    	<column name="codigo_aeronave" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_aeronave" references="aeronave(codigo)"/>
-    	</column>
-    </createTable>
-  </changeSet>
-  
-  <changeSet id="005" author="Bruno">
-    <createTable tableName="voo">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints primaryKey="true" primaryKeyName="pk_codigo_voo" />
-    	</column>
-    	<column name="horario" type="java.sql.types.TIMESTAMP"></column>
-    	<column name="codigo_itinerario" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_itinerario" references="itinerario(codigo)"/>
-    	</column>	
-    	<column name="codigo_aeronave" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_aeronave" references="aeronave(codigo)"/>
-    	</column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    </createTable>
-  </changeSet>
- 
- <changeSet id="006" author="Bruno">
-    <createTable tableName="passageiro">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints  primaryKey="true" primaryKeyName="pk_codigo_passageiro"/>
-    	</column>
-    	<column name="codigo_pessoa" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_pessoa" references="pessoa(codigo)"/>
-    	</column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    </createTable>
-  </changeSet>
-  
-  <changeSet id="007" author="Bruno">
-    <createTable tableName="cliente">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints primaryKey="true" primaryKeyName="pk_codigo_cliente"/>
-    	</column>
-    	<column name="codigo_pessoa" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_pessoa"  references="pessoa(codigo)"/>
-    	</column>
-    	<column name="milhagem" type="java.sql.types.INTEGER"></column>
-    	<column name="percent_desconto" type="java.sql.types.INTEGER"></column>
-    	<column name="tipo_cliente" type="java.sql.types.VARCHAR"></column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    </createTable>
-  </changeSet>
-  
-   <changeSet id="008" author="Bruno">
-    <createTable tableName="passagem">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints primaryKey="true" primaryKeyName="pk_codigo_passagem"/>
-    	</column>
-    	<column name="codigo_pessoa" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_pessoa"  references="pessoa(codigo)"/>
-    	</column>
-    	<column name="codigo_responsavel" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_responsavel" references="pessoa(codigo)"/>
-    	</column>
-    	<column name="tipo_cliente" type="java.sql.types.VARCHAR"></column>
-   		<column name="situacao" type="java.sql.types.VARCHAR"></column>
-   		<column name="status_checkin" type="java.sql.types.VARCHAR"></column>
-   		<column name="hash_checkin" type="java.sql.types.VARCHAR"></column>
-    	<column name="codigo_voo" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="true" references="voo(codigo)"/>
-    	</column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    </createTable>
-  </changeSet>
-  
-    <changeSet id="009" author="Bruno">
-    <createTable tableName="venda">
-    	<column autoIncrement="true" incrementBy="1" name="codigo" type="java.sql.types.INTEGER">
-    		<constraints primaryKey="true" primaryKeyName="pk_codigo_venda"/>
-    	</column>
-    	<column name="codigo_cliente" type="java.sql.types.INTEGER">
-    		<constraints foreignKeyName="fk_codigo_pessoa"  references="cliente(codigo)"/>
-    	</column>
-   		<column name="codigo_passagem" type="java.sql.types.INTEGER">
-   			<constraints foreignKeyName="fk_codigo_passagem"  references="passagem(codigo)"/>
-   		</column>
-   		<column name="horario" type="java.sql.types.TIMESTAMP"></column>
-   		<column name="desconto" type="java.sql.types.DOUBLE"></column>
-   		<column name="tipo_pagamento" type="java.sql.types.VARCHAR"></column>
-    	<column name="situacao" type="java.sql.types.VARCHAR"></column>
-    	<column name="removido" type="java.sql.types.BOOLEAN" defaultValue="FALSE"></column>
-    </createTable>
-  </changeSet>
-  
-  <changeSet id="010" author="Bruno">
-  	<dropForeignKeyConstraint baseTableName="passagem" constraintName="fk_codigo_pessoa"/>
-  	<dropColumn tableName="passagem" columnName="codigo_pessoa"/>
-  	<addColumn tableName="passagem">
-  		<column name="codigo_passageiro" type="java.sql.types.INTEGER">
-  			<constraints foreignKeyName="fk_codigo_passageiro"  references="passageiro(codigo)"/>
-  		</column>
-  	</addColumn>
-  	<addColumn tableName="passagem">
-  		<column name="codigo_acompanhante" type="java.sql.types.INTEGER">
-  			<constraints foreignKeyName="fk_codigo_acompanhante"  references="passageiro(codigo)"/>
-  		</column>
-  	</addColumn>
-  </changeSet>
-  
-   <changeSet id="011" author="Bruno">
-  	<dropForeignKeyConstraint baseTableName="passagem" constraintName="fk_codigo_acompanhante"/>
-  	<dropForeignKeyConstraint baseTableName="passagem" constraintName="fk_codigo_responsavel"/>
-  	<dropColumn tableName="passagem" columnName="codigo_acompanhante"/>
-	<addForeignKeyConstraint constraintName="fk_codigo_responsavel" referencedTableName="passageiro" referencedColumnNames="codigo"  baseTableName="passagem" baseColumnNames="codigo_responsavel"/>
-  </changeSet>
 
-  <changeSet id="012" author="Thiago">
-    <modifyDataType tableName="pessoa" columnName="email" newDataType="java.sql.types.VARCHAR(200)"/>
-  </changeSet>
-    
+	<changeSet id="001" author="Bruno">
+		<createTable tableName="itinerario">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_itinerario" />
+			</column>
+			<column name="origem" type="java.sql.types.VARCHAR(255)"></column>
+			<column name="destino" type="java.sql.types.VARCHAR(255)"></column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+			<column name="valor" type="java.sql.types.DOUBLE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="002" author="Bruno">
+		<createTable tableName="aeronave">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_aeronave" />
+			</column>
+			<column name="descricao" type="java.sql.types.VARCHAR(100)"></column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="003" author="Bruno">
+		<createTable tableName="pessoa">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_pessoa" />
+			</column>
+			<column name="nome" type="java.sql.types.VARCHAR(500)"></column>
+			<column name="cpf" type="java.sql.types.VARCHAR(15)"></column>
+			<column name="cnpj" type="java.sql.types.VARCHAR(20)"></column>
+			<column name="telefone" type="java.sql.types.VARCHAR(20)"></column>
+			<column name="email" type="java.sql.types.VARCHAR(20)"></column>
+			<column name="senha" type="java.sql.types.VARCHAR(20)"></column>
+			<column name="endereco" type="java.sql.types.VARCHAR(200)"></column>
+			<column name="data_nascimento" type="java.sql.types.DATE"></column>
+			<column name="estado_civil" type="java.sql.types.VARCHAR(10)"></column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="004" author="Bruno">
+		<createTable tableName="poltrona">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_poltrona" />
+			</column>
+			<column name="descricao" type="java.sql.types.VARCHAR(500)"></column>
+			<column name="valor" type="java.sql.types.DOUBLE"></column>
+			<column name="classe" type="java.sql.types.VARCHAR(50)"></column>
+			<column name="detalhes" type="java.sql.types.VARCHAR(200)"></column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+			<column name="codigo_aeronave" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_aeronave"
+					references="aeronave(codigo)" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="005" author="Bruno">
+		<createTable tableName="voo">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_voo" />
+			</column>
+			<column name="horario" type="java.sql.types.TIMESTAMP"></column>
+			<column name="codigo_itinerario" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_itinerario"
+					references="itinerario(codigo)" />
+			</column>
+			<column name="codigo_aeronave" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_aeronave"
+					references="aeronave(codigo)" />
+			</column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="006" author="Bruno">
+		<createTable tableName="passageiro">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_passageiro" />
+			</column>
+			<column name="codigo_pessoa" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_pessoa"
+					references="pessoa(codigo)" />
+			</column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="007" author="Bruno">
+		<createTable tableName="cliente">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_cliente" />
+			</column>
+			<column name="codigo_pessoa" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_pessoa"
+					references="pessoa(codigo)" />
+			</column>
+			<column name="milhagem" type="java.sql.types.INTEGER"></column>
+			<column name="percent_desconto" type="java.sql.types.INTEGER"></column>
+			<column name="tipo_cliente" type="java.sql.types.VARCHAR"></column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="008" author="Bruno">
+		<createTable tableName="passagem">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_passagem" />
+			</column>
+			<column name="codigo_pessoa" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_pessoa"
+					references="pessoa(codigo)" />
+			</column>
+			<column name="codigo_responsavel" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_responsavel"
+					references="pessoa(codigo)" />
+			</column>
+			<column name="tipo_cliente" type="java.sql.types.VARCHAR"></column>
+			<column name="situacao" type="java.sql.types.VARCHAR"></column>
+			<column name="status_checkin" type="java.sql.types.VARCHAR"></column>
+			<column name="hash_checkin" type="java.sql.types.VARCHAR"></column>
+			<column name="codigo_voo" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="true" references="voo(codigo)" />
+			</column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="009" author="Bruno">
+		<createTable tableName="venda">
+			<column autoIncrement="true" incrementBy="1" name="codigo"
+				type="java.sql.types.INTEGER">
+				<constraints primaryKey="true" primaryKeyName="pk_codigo_venda" />
+			</column>
+			<column name="codigo_cliente" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_pessoa"
+					references="cliente(codigo)" />
+			</column>
+			<column name="codigo_passagem" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_passagem"
+					references="passagem(codigo)" />
+			</column>
+			<column name="horario" type="java.sql.types.TIMESTAMP"></column>
+			<column name="desconto" type="java.sql.types.DOUBLE"></column>
+			<column name="tipo_pagamento" type="java.sql.types.VARCHAR"></column>
+			<column name="situacao" type="java.sql.types.VARCHAR"></column>
+			<column name="removido" type="java.sql.types.BOOLEAN"
+				defaultValue="FALSE"></column>
+		</createTable>
+	</changeSet>
+
+	<changeSet id="010" author="Bruno">
+		<dropForeignKeyConstraint baseTableName="passagem"
+			constraintName="fk_codigo_pessoa" />
+		<dropColumn tableName="passagem" columnName="codigo_pessoa" />
+		<addColumn tableName="passagem">
+			<column name="codigo_passageiro" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_passageiro"
+					references="passageiro(codigo)" />
+			</column>
+		</addColumn>
+		<addColumn tableName="passagem">
+			<column name="codigo_acompanhante" type="java.sql.types.INTEGER">
+				<constraints foreignKeyName="fk_codigo_acompanhante"
+					references="passageiro(codigo)" />
+			</column>
+		</addColumn>
+	</changeSet>
+
+	<changeSet id="011" author="Bruno">
+		<dropForeignKeyConstraint baseTableName="passagem"
+			constraintName="fk_codigo_acompanhante" />
+		<dropForeignKeyConstraint baseTableName="passagem"
+			constraintName="fk_codigo_responsavel" />
+		<dropColumn tableName="passagem" columnName="codigo_acompanhante" />
+		<addForeignKeyConstraint constraintName="fk_codigo_responsavel"
+			referencedTableName="passageiro" referencedColumnNames="codigo"
+			baseTableName="passagem" baseColumnNames="codigo_responsavel" />
+	</changeSet>
+
+	<changeSet id="012" author="Thiago">
+		<modifyDataType tableName="pessoa" columnName="email"
+			newDataType="java.sql.types.VARCHAR(200)" />
+	</changeSet>
+	<changeSet id="013" author="Thiago">
+		<addColumn tableName="passagem">
+			<column name="codigo_poltrona" type="java.sql.types.INTEGER"></column>
+		</addColumn>
+	</changeSet>
+
 </databaseChangeLog>
 
 

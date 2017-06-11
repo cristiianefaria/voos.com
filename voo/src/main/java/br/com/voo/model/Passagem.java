@@ -11,7 +11,10 @@ public class Passagem extends Entidade {
 	private Poltrona poltrona;
 	private boolean statusCheckIn;
 	private Double valor;
+	private String tipoCliente;
 	
+
+
 	public static final String SituacaoEmberto = "Em Aberto";
 	public static final String SituacaoAlocado = "Alocada";
 
@@ -110,6 +113,13 @@ public class Passagem extends Entidade {
 
 	public void setStatusChekIn(String statusChekIn) {
 		this.statusChekIn = statusChekIn;
+	}
+	public String getTipoCliente() {
+		return tipoCliente;
+	}
+
+	public void setTipoCliente(String tipoCliente) {
+		this.tipoCliente = tipoCliente;
 	}
 
 }

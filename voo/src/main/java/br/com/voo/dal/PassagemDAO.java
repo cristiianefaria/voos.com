@@ -17,10 +17,14 @@ public class PassagemDAO {
 
 	private Connection conexao;
 	private PassageiroDAO passageiroDAO;
+	private PoltronaDAO poltronaDAO;
+	private VooDAO vooDAO;
 
 	public PassagemDAO() {
 		conexao = FactoryConexao.getConnection();
 		passageiroDAO = new PassageiroDAO();
+		poltronaDAO = new PoltronaDAO();
+		vooDAO = new VooDAO();
 	}
 
 	private boolean incluirPassagem(Passagem passagem, Connection conn) throws Exception {
@@ -56,7 +60,7 @@ public class PassagemDAO {
 			for (Poltrona poltrona : voo.getAeronave().getPoltronas()) {
 
 				Double valorPassagem = voo.getItinerario().getValor() + poltrona.getValor();
-				Passagem passagem = new Passagem(new Long(0) ,new Passageiro(), new Passageiro(), "", "", false, valorPassagem, voo);
+				Passagem passagem = new Passagem(new Long(0) ,new Passageiro(), new Passageiro(), Passagem.SituacaoEmberto, "", false, valorPassagem, voo);
 				incluirPassagem(passagem, conn);
 
 			}
@@ -95,27 +99,48 @@ public class PassagemDAO {
 		
 	}
 
-	public List<Passagem> listarPassagens(Voo voo) throws SQLException {
+	public List<Passagem> listarPassagens(Voo voo) throws Exception {
 		
-		String sql = "";
+		String sql = obterConsulta(voo);
+		
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		ResultSet rs = ps.executeQuery();
 		
 		List<Passagem> listPassagem = new ArrayList<Passagem>();
 		
 		while(rs.next()){
+			Passagem passagem = new Passagem();
 			
+			passagem.setId(rs.getLong("codigo"));
+			passagem.setHashCheckIn(rs.getString("hash_checkin"));
+			passagem.setPassageiro(passageiroDAO.consultar(rs.getLong("codigo_passageiro")));
+			passagem.setPoltrona(poltronaDAO.consultar(new Poltrona(rs.getLong("codigo_poltrona"))));
+			passagem.setSituacao(rs.getString("situacao"));
+			passagem.setRemovida(rs.getBoolean("removido"));
+			passagem.setStatusCheckIn(rs.getBoolean("hash_checkin"));
+			passagem.setVoo(vooDAO.consultar(new Voo(rs.getLong("codigo_voo"))));
+			passagem.setTipoCliente(rs.getString("tipo_cliente"));
 			
-			
+			listPassagem.add(passagem);
 			
 		}
 		return listPassagem;
 		
 	}
 
+	private String obterConsulta(Voo voo) {
+		
+		String sql = "select * from passagem where "
+				+ " removido ="+false
+				+ " and siuacao <>"+ Passagem.SituacaoAlocado;
+		
+		return sql;
+	
+	}
+
 	public Passagem consultarPassagem(Long codigoPassagem) throws Exception {
 		
-		String sql = "";
+		String sql = "select * from passagem where codigo = "+codigoPassagem+";";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		
 		ResultSet rs = ps.executeQuery();
@@ -125,9 +150,15 @@ public class PassagemDAO {
 			passagem.setId(rs.getLong("codigo"));
 			passagem.setHashCheckIn(rs.getString("hash_checkin"));
 			passagem.setPassageiro(passageiroDAO.consultar(rs.getLong("codigo_passageiro")));
+			passagem.setPoltrona(poltronaDAO.consultar(new Poltrona(rs.getLong("codigo_poltrona"))));
+			passagem.setSituacao(rs.getString("situacao"));
+			passagem.setRemovida(rs.getBoolean("removido"));
+			passagem.setStatusCheckIn(rs.getBoolean("hash_checkin"));
+			passagem.setVoo(vooDAO.consultar(new Voo(rs.getLong("codigo_voo"))));
+			passagem.setTipoCliente(rs.getString("tipo_cliente"));
 			
 		}
-		return null;
+		return passagem;
 		
 	}
 }

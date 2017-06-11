@@ -21,7 +21,7 @@ public class Passageiro extends Entidade {
 		this.contato = build.getContato();
 	}
 	public Passageiro(){
-		
+		super();
 	}
 
 	public Pessoa getPessoa() {
