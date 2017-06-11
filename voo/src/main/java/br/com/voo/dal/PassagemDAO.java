@@ -16,9 +16,11 @@ import br.com.voo.util.FactoryConexao;
 public class PassagemDAO {
 
 	private Connection conexao;
+	private PassageiroDAO passageiroDAO;
 
 	public PassagemDAO() {
 		conexao = FactoryConexao.getConnection();
+		passageiroDAO = new PassageiroDAO();
 	}
 
 	private boolean incluirPassagem(Passagem passagem, Connection conn) throws Exception {
@@ -109,6 +111,23 @@ public class PassagemDAO {
 		}
 		return listPassagem;
 		
+	}
+
+	public Passagem consultarPassagem(Long codigoPassagem) throws Exception {
+		
+		String sql = "";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		Passagem passagem = new Passagem();
+		if(rs.next()){
+			passagem.setId(rs.getLong("codigo"));
+			passagem.setHashCheckIn(rs.getString("hash_checkin"));
+			passagem.setPassageiro(passageiroDAO.consultar(rs.getLong("codigo_passageiro")));
+			
+		}
+		return null;
 		
 	}
 }

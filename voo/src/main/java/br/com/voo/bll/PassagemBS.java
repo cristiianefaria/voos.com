@@ -45,4 +45,17 @@ public class PassagemBS {
 		}
 	}
 
+	public Passagem consultaPassagem(Long codigoPassagem) {
+		try {
+		
+			return dao.consultarPassagem(codigoPassagem);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		return null;
+			
+		}
+		
+	}
+
 }
