@@ -34,10 +34,11 @@ public class VendaBS {
 		boolean retorno = false;
 		if (venda != null) {
 
-			Venda vendaValida = validaVenda(venda);
-
 			if (venda.getId().intValue() == 0) {
+				
+				validaVenda(venda);
 				retorno = dao.incluir(venda);
+				
 			} else {
 				retorno = dao.alterar(venda);
 			}
@@ -45,19 +46,20 @@ public class VendaBS {
 		return true;
 	}
 
-	private Venda validaVenda(Venda venda) {
+	private void validaVenda(Venda venda) {
 
 		Passagem passagem = bsPassagem.consultaPassagem(venda.getCodigoPassagem());
 		Data data = new Data(passagem.getPassageiro().getPessoa().getDataNascimento());
 
 		if (passagem.getPassageiro().getId() == 0)
 			erros.put("Passageiro", "É nescessário informar um passageiro!");
-		
+
 		if (data.calcularIdade() < idadeMinima && passagem.getResponsavel().getId() == 0)
 			erros.put("Responsavel", "É Nescessário informar o responsável!");
-		
 
-		return null;
+		if(!erros.isEmpty()){
+			
+		}
 
 	}
 
