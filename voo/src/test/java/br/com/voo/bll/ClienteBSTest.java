@@ -161,14 +161,14 @@ public class ClienteBSTest {
 		}
 		
 	}
-	@Test
-	public void TestExcluir_Cliente() throws Exception {
-		Long codigo = new Long(1);
-		Mockito.when(dao.exluir(codigo)).thenReturn(true);
-		boolean resultado = bs.excluir(codigo);
-		assertTrue(resultado);
-	}
-	@Test
+	//@Test
+	//public void TestExcluir_Cliente() throws Exception {
+		//Long codigo = new Long(1);
+		//Mockito.when(dao.exluir(codigo)).thenReturn(true);
+		//boolean resultado = bs.excluir(codigo);
+		//assertTrue(resultado);
+	//}
+	/*@Test
 	public void TestExcluir_Cliente_Com_Percentual_Desconto_Invalido() {
 		try {
 			_cliente.setPercentDesconto(101.0);
@@ -178,6 +178,6 @@ public class ClienteBSTest {
 			assertThat(e).hasMessage("Informe um percentual de desconto v�lido!");
 		}
 		
-	}
+	}*/
 
 }

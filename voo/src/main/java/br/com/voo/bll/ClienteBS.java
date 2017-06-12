@@ -25,7 +25,7 @@ public class ClienteBS {
 	public boolean salvar(Cliente _cliente) throws Exception{
 		try {
 			
-			ValidarPessoa(_cliente.getPessoa());
+			//ValidarPessoa(_cliente.getPessoa());
 			ValidarCliente(_cliente);
 			
 			if(_cliente.getId() == 0){
