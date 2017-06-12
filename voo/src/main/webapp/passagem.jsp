@@ -7,16 +7,16 @@
 <html lang="pt-br">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Gerenciamento de voos</title>
+<title>Passagens</title>
 </head>
 <body>
 	<jsp:include page="header.jsp" />
 
 	<div class="page-header">
-		<h1>Voo</h1>
+		<h1>Passagens</h1>
 		<ul class="breadcrumb">
 			<li><a href="index.jsp">home</a></li>
-			<li>voo</li>
+			<li>passagem</li>
 		</ul>
 	</div>
 
@@ -29,7 +29,7 @@
 						<div class="col-md-6">
 							<div class="input-group">
 								<input type="text" class="form-control"
-									placeholder="Digite o código do voo...">
+									placeholder="...">
 								<span class="input-group-btn">
 									<button class="btn btn-primary" type="button">Pesquisar</button>
 								</span>
@@ -38,28 +38,28 @@
 					</div>
 				</div>
 				
-				<h3>Voos</h3>
+				<h3>Passagens</h3>
 				<hr>
 				
-				<c:forEach items="${voos}" var="voo">
+				<c:forEach items="${passagens}" var="passagem">
 					<div class="bloco">
 							<form>
 								<div class="row passagem">
 									<div class="col-md-10 dados">
-										<input style="display: none;" type="text" value="<c:out value="${voo.id}"></c:out>" name="idPAssagem"/>
+										<input style="display: none;" type="text" value="<c:out value="${passagem.id}"></c:out>" name="idPAssagem"/>
 										<div class="row" style="heigth: 20px;">
 											<div class="col-xs-2">
 												<div class="icone-aviao">
-													<i class="fa fa-plane fa-3x" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
 												</div>
 											</div>
-											<div class="col-xs-10 horario" >
-												<h4><span class="horarioVoo"><time:format pattern="dd/MM/yyyy HH:mm" value="${voo.horario}" /></span></h4>
-											</div>
+											
 										</div>
 										<div class="row">
 											<div class="col-xs-4 col-xs-offset-2">
-												<h4 class="cidade"><c:out value="${voo.itinerario.origem}"></c:out></h4>
+												<h4 class="cidade"><c:out value="${passagem.poltrona.classe}"></c:out></h4>
 											</div>
 											<div class="col-xs-2" >
 												<div class="icone-flecha ">
@@ -67,7 +67,7 @@
 												</div>
 											</div>
 											<div class="col-xs-4">
-												<h4 class="cidade"><c:out value="${voo.itinerario.destino}"></c:out></h4>
+												<h4 class="cidade"><c:out value="${passagem.poltrona.detalhes}"></c:out></h4>
 											</div>
 										</div>
 										
@@ -77,10 +77,10 @@
 											<h4><strong>Valor</strong>	</h4>
 										</div>
 										<div class="row custo">
-											<h4>Apartir de <strong><span>R$<c:out value="${voo.itinerario.valor + voo.aeronave.poltronas[0].valor}"></c:out></span></strong></h4>
+											<h4>Apartir de <strong><span>R$<c:out value="${passagem.valor}"></c:out></span></strong></h4>
 										</div>
 										<div class="row botao-comprar">
-											<a class="btn btn-success" href="/Passagem?acao=listarPassagens&id=<c:out value="${voo.id}"></c:out>">Comprar</a>
+											<a class="btn btn-success" href="/Passageiro?acao=cadastrarPassageiro&id=<c:out value="${passagem.id}"></c:out>">Comprar</a>
 										</div>
 									</div>
 								</div>

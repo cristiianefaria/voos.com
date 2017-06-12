@@ -37,7 +37,7 @@ public class PassageiroClienteController extends HttpServlet {
 	private Long idPessoa;
 	private String acao;
 	private boolean isErro;
-	private boolean isEditar;
+	private boolean isCadastro;
 	
 	public PassageiroClienteController() {
 		super();
@@ -45,6 +45,7 @@ public class PassageiroClienteController extends HttpServlet {
 		clienteBS = new ClienteBS();
 		idPassageiroCliente = new Long(0);
 		idPessoa = new Long(0);
+		isCadastro = false;
 		
 	}
 
@@ -54,6 +55,7 @@ public class PassageiroClienteController extends HttpServlet {
 		List<Entidade> passageirosClientes = new ArrayList<Entidade>();
         request.setAttribute("isErro", false);
         request.setAttribute("isEditar", false);
+        request.setAttribute("isCadastro", false);
 		
 		switch (acao) {
 		case "listarPassageiro":
@@ -110,6 +112,13 @@ public class PassageiroClienteController extends HttpServlet {
 			request.setAttribute("isPassageiro", false);
 			clienteBS.listar("").forEach(c-> passageirosClientes.add(c));
 			break;
+		case "cadastrarPassageiro":
+			request.setAttribute("isPassageiro", true);
+			request.setAttribute("isCadastro", true);
+			isCadastro = true;
+			
+			
+			break;
 		default:
 			break;
 		}
@@ -123,7 +132,7 @@ public class PassageiroClienteController extends HttpServlet {
 			throws ServletException, IOException {
 
 		String botao = request.getParameter("botao");
-		String nome = "";
+		String busca = "";
 		String desconto = validaCampos(request.getParameter("percentDesconto"));
 		String codigoParam = validaCampos(request.getParameter("codigo"));
 		String senha = validaCampos(request.getParameter("senha"));
@@ -143,7 +152,7 @@ public class PassageiroClienteController extends HttpServlet {
 				request.setAttribute("mensagem", e.getMessage());
 			}
 			
-			request.setAttribute("passageirosClientes", passageiroBS.listar(nome));
+			request.setAttribute("passageirosClientes", passageiroBS.listar(busca));
 			request.setAttribute("isPassageiro", true);
 		}
 
@@ -156,20 +165,30 @@ public class PassageiroClienteController extends HttpServlet {
 				request.setAttribute("mensagem", e.getMessage());
 			}
 			
-			request.setAttribute("passageirosClientes", clienteBS.listar(nome));
+			request.setAttribute("passageirosClientes", clienteBS.listar(busca));
 			request.setAttribute("isPassageiro", false);
 		}
 
-		nome = request.getParameter("pesquisar");
+		busca = request.getParameter("pesquisar");
 
 		if (botao.equals("Pesquisar Passageiro")) {
-			List<Passageiro> list = passageiroBS.listar(nome);
-			request.setAttribute("passageirosClientes", passageiroBS.listar(nome));
+			
+			if(isCadastro){
+				 Passageiro consultarPorCpf = passageiroBS.consultarPorCpf(busca);
+				 request.setAttribute("passageiroCliente", consultarPorCpf);
+			}
+				
+			else{
+				List<Passageiro> list = passageiroBS.listar(busca);
+				request.setAttribute("passageirosClientes", passageiroBS.listar(busca));
+			}
+				
+			
 			request.setAttribute("isPassageiro", true);
 		}
 
 		if (botao.equals("Pesquisar Cliente")) {
-			request.setAttribute("passageirosClientes", clienteBS.listar(nome));
+			request.setAttribute("passageirosClientes", clienteBS.listar(busca));
 			request.setAttribute("isPassageiro", false);
 		}
 

@@ -27,7 +27,7 @@ public class PassageiroBS {
 		
 		try {
 			
-			//validarPessoa(_passageiro.getPessoa());
+			validarPessoa(_passageiro.getPessoa());
 			
 			if (_passageiro.getId() == 0){
 				return dao.inserir(_passageiro);
@@ -42,8 +42,6 @@ public class PassageiroBS {
 		}
 
 	}
-
-
 
 	private int idade(Date dataNascimento) {
 
@@ -91,4 +89,15 @@ public class PassageiroBS {
 			return new Passageiro();
 		}
 	}
+
+	public Passageiro consultarPorCpf(String busca) {
+		try {
+			return dao.buscar(busca);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new Passageiro();
+		}
+	}
+
+	
 }

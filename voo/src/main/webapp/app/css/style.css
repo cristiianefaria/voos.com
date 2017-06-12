@@ -248,7 +248,7 @@ ul.breadcrumb {
 
 .bannerPassagem {
 	position: absolute;
-	top:33%;
+	top: 33%;
 	width: 60%;
 	margin: 0 auto;
 	left: 20%;
@@ -258,4 +258,3 @@ ul.breadcrumb {
 	padding: 30px;
 	background: rgba(255, 255, 255, 0.27);
 }
-

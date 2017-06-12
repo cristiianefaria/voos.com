@@ -33,8 +33,8 @@ public class PassagemDAO {
 			
 			String sql = "INSERT INTO public.passagem("
 					+ "tipo_cliente, situacao, status_checkin, "
-					+ "hash_checkin, codigo_voo, removido) "
-					+ "VALUES (?, ?, ?, ?, ?, ?);";
+					+ "hash_checkin, codigo_voo, removido, codigo_poltrona, valor) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement ps = conn.prepareStatement(sql);
 			
@@ -44,7 +44,8 @@ public class PassagemDAO {
 		    ps.setString(4, passagem.getHashCheckIn());
 		    ps.setLong(5, passagem.getVoo().getId());
 		    ps.setBoolean(6, passagem.getRemovida());
-			
+			ps.setLong(7, passagem.getPoltrona().getId());
+			ps.setDouble(8, passagem.getValor());
 			ps.execute();
 			
 			return true;
@@ -60,7 +61,9 @@ public class PassagemDAO {
 			for (Poltrona poltrona : voo.getAeronave().getPoltronas()) {
 
 				Double valorPassagem = voo.getItinerario().getValor() + poltrona.getValor();
-				Passagem passagem = new Passagem(new Long(0) ,new Passageiro(), new Passageiro(), Passagem.SituacaoEmberto, "", false, valorPassagem, voo);
+				Passagem passagem = new Passagem(new Long(0) ,new Passageiro(),
+						              new Passageiro(), Passagem.SituacaoEmberto, "", 
+						                                      false, valorPassagem, voo, poltrona);
 				incluirPassagem(passagem, conn);
 
 			}
@@ -120,6 +123,7 @@ public class PassagemDAO {
 			passagem.setStatusCheckIn(rs.getBoolean("hash_checkin"));
 			passagem.setVoo(vooDAO.consultar(new Voo(rs.getLong("codigo_voo"))));
 			passagem.setTipoCliente(rs.getString("tipo_cliente"));
+			passagem.setValor(rs.getDouble("valor"));
 			
 			listPassagem.add(passagem);
 			
@@ -132,8 +136,10 @@ public class PassagemDAO {
 		
 		String sql = "select * from passagem where "
 				+ " removido ="+false
-				+ " and siuacao <>"+ Passagem.SituacaoAlocado;
+				+ " and situacao <>'"+Passagem.SituacaoAlocado+"'";
 		
+
+		System.out.println(sql);
 		return sql;
 	
 	}
