@@ -144,7 +144,6 @@ public class VooController extends HttpServlet {
 				e.printStackTrace();
 			}
 			
-			
 			request.setAttribute("aeronaves", aeronaves);
 			request.setAttribute("itinerarios", itinerarios);
 			request.setAttribute("voos", voos);
