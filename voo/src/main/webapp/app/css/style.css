@@ -34,7 +34,9 @@ h3 {
 	font-weight: 600;
 	margin-bottom: 1em;
 }
-
+.altura{
+	height: 550px;
+}
 .espacoTopo {
 	margin-top: 50px;
 	padding-top: 20px;
