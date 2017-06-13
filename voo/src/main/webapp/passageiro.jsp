@@ -32,9 +32,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="alert alert-danger">
-					<c:out value="${mensagem}" />
-				</div>
+				<div class="alert alert-danger"><c:out value="${mensagem}" /></div>
 			</div>
 		</div>
 		<div class="panel panel-default">
@@ -195,7 +193,7 @@
 									<label for="senha">Senha</label> <input type="password"
 										class="form-control" id="senha" placeholder="senha"
 										name="senha"
-										value="<c:out value="${passageiroCliente.senha}"/>">
+										value="<c:out value="${passageiroCliente.pessoa.senha}"/>">
 								</div>
 							</div>
 						</div>

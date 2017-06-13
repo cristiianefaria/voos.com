@@ -38,7 +38,8 @@ public class PassageiroClienteController extends HttpServlet {
 	private String acao;
 	private boolean isErro;
 	private boolean isCadastro;
-	
+	private Long idPassagem;
+
 	public PassageiroClienteController() {
 		super();
 		passageiroBS = new PassageiroBS();
@@ -46,17 +47,17 @@ public class PassageiroClienteController extends HttpServlet {
 		idPassageiroCliente = new Long(0);
 		idPessoa = new Long(0);
 		isCadastro = false;
-		
+
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		acao = request.getParameter("acao");
 		List<Entidade> passageirosClientes = new ArrayList<Entidade>();
-        request.setAttribute("isErro", false);
-        request.setAttribute("isEditar", false);
-        request.setAttribute("isCadastro", false);
-		
+		request.setAttribute("isErro", false);
+		request.setAttribute("isEditar", false);
+		request.setAttribute("isCadastro", false);
+
 		switch (acao) {
 		case "listarPassageiro":
 			request.setAttribute("isPassageiro", true);
@@ -65,10 +66,10 @@ public class PassageiroClienteController extends HttpServlet {
 
 		case "listarCliente":
 			request.setAttribute("isPassageiro", false);
-		   clienteBS.listar("").forEach(c-> passageirosClientes.add(c));
-			
+			clienteBS.listar("").forEach(c -> passageirosClientes.add(c));
+
 			break;
-			
+
 		case "editarPassageiro":
 			int codigoEdicaoPassageiro = Integer.parseInt(request.getParameter("codigo"));
 			Passageiro passageiro = passageiroBS.consultar(new Long(codigoEdicaoPassageiro));
@@ -77,9 +78,9 @@ public class PassageiroClienteController extends HttpServlet {
 			request.setAttribute("isPassageiro", true);
 			request.setAttribute("passageiroCliente", passageiro);
 			break;
-			
+
 		case "editarCliente":
-			
+
 			int codigoEdicaoCliente = Integer.parseInt(request.getParameter("codigo"));
 			Cliente cliente = clienteBS.consultar(new Long(codigoEdicaoCliente));
 			idPassageiroCliente = cliente.getId();
@@ -87,9 +88,9 @@ public class PassageiroClienteController extends HttpServlet {
 			request.setAttribute("isPassageiro", false);
 			request.setAttribute("passageiroCliente", cliente);
 			break;
-			
+
 		case "meusDados":
-			
+
 			int codigo = Integer.parseInt(request.getParameter("codigo"));
 			Cliente dadosDoCliente = clienteBS.consultar(new Long(codigo));
 			idPassageiroCliente = dadosDoCliente.getId();
@@ -102,27 +103,27 @@ public class PassageiroClienteController extends HttpServlet {
 			int codigoExclusao = Integer.parseInt(request.getParameter("codigo"));
 			passageiroBS.excluir(new Long(codigoExclusao));
 			request.setAttribute("isPassageiro", true);
-			passageiroBS.listar("").forEach(c-> passageirosClientes.add(c));
-			
+			passageiroBS.listar("").forEach(c -> passageirosClientes.add(c));
+
 			break;
-		
+
 		case "excluirCliente":
 			int codigoExclusaoCliente = Integer.parseInt(request.getParameter("codigo"));
 			clienteBS.excluir(new Long(codigoExclusaoCliente));
 			request.setAttribute("isPassageiro", false);
-			clienteBS.listar("").forEach(c-> passageirosClientes.add(c));
+			clienteBS.listar("").forEach(c -> passageirosClientes.add(c));
 			break;
 		case "cadastrarPassageiro":
+			idPassagem = Long.parseLong(request.getParameter("idPassagem"));
 			request.setAttribute("isPassageiro", true);
 			request.setAttribute("isCadastro", true);
 			isCadastro = true;
-			
-			
+
 			break;
 		default:
 			break;
 		}
-		
+
 		request.setAttribute("passageirosClientes", passageirosClientes);
 		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
 		view.forward(request, response);
@@ -138,20 +139,21 @@ public class PassageiroClienteController extends HttpServlet {
 		String senha = validaCampos(request.getParameter("senha"));
 		String tipocliente = validaCampos(request.getParameter("tipoCliente"));
 
-		BuilderPessoaCliente build = new BuilderPessoaCliente(obterPessoa(request))
-										 .setPercentDesconto(desconto)
-				                         .setTipoCliente(tipocliente)
-				                         .setIdBuilder(idPassageiroCliente);
+		BuilderPessoaCliente build = new BuilderPessoaCliente(obterPessoa(request)).setPercentDesconto(desconto)
+				.setTipoCliente(tipocliente).setIdBuilder(idPassageiroCliente);
 
 		if (botao.equals("Cadastrar Passageiro")) {
+
 			Passageiro passageiro = build.buildPassageiro();
 			try {
 				passageiroBS.salvar(passageiro);
 			} catch (Exception e) {
+
 				request.setAttribute("isErro", true);
 				request.setAttribute("mensagem", e.getMessage());
+
 			}
-			
+
 			request.setAttribute("passageirosClientes", passageiroBS.listar(busca));
 			request.setAttribute("isPassageiro", true);
 		}
@@ -164,7 +166,7 @@ public class PassageiroClienteController extends HttpServlet {
 				request.setAttribute("isErro", true);
 				request.setAttribute("mensagem", e.getMessage());
 			}
-			
+
 			request.setAttribute("passageirosClientes", clienteBS.listar(busca));
 			request.setAttribute("isPassageiro", false);
 		}
@@ -172,18 +174,28 @@ public class PassageiroClienteController extends HttpServlet {
 		busca = request.getParameter("pesquisar");
 
 		if (botao.equals("Pesquisar Passageiro")) {
-			
-			if(isCadastro){
-				 Passageiro consultarPorCpf = passageiroBS.consultarPorCpf(busca);
-				 request.setAttribute("passageiroCliente", consultarPorCpf);
+
+			if (isCadastro) {
+				try {
+
+					Passageiro consultarPorCpf = passageiroBS.consultarPorCpf(busca);
+					idPassageiroCliente = consultarPorCpf.getId();
+					if (idPassageiroCliente != 0) {
+						request.setAttribute("TextoDoBotao", "Comprar");
+					}
+					request.setAttribute("passageiroCliente", consultarPorCpf);
+				} catch (Exception e) {
+					request.setAttribute("isErro", true);
+					request.setAttribute("mensagem", e.getMessage());
+				}
+
 			}
-				
-			else{
+
+			else {
 				List<Passageiro> list = passageiroBS.listar(busca);
 				request.setAttribute("passageirosClientes", passageiroBS.listar(busca));
 			}
-				
-			
+
 			request.setAttribute("isPassageiro", true);
 		}
 

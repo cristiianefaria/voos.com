@@ -90,13 +90,15 @@ public class PassageiroBS {
 		}
 	}
 
-	public Passageiro consultarPorCpf(String busca) {
-		try {
-			return dao.buscar(busca);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new Passageiro();
-		}
+	public Passageiro consultarPorCpf(String busca) throws Exception {
+		
+			
+			Passageiro passageiro = dao.buscar(busca);
+		    if(passageiro.getId() == 0)
+		    	throw new Exception("Passageiro não encontrado por favor realize o cadastro!");
+		    
+		    return passageiro;
+		 
 	}
 
 	

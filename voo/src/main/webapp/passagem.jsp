@@ -80,7 +80,7 @@
 											<h4>Apartir de <strong><span>R$<c:out value="${passagem.valor}"></c:out></span></strong></h4>
 										</div>
 										<div class="row botao-comprar">
-											<a class="btn btn-success" href="/Passageiro?acao=cadastrarPassageiro&id=<c:out value="${passagem.id}"></c:out>">Comprar</a>
+											<a class="btn btn-success" href="/Passageiro?acao=cadastrarPassageiro&idPassagem=<c:out value="${passagem.id}"></c:out>">Comprar</a>
 										</div>
 									</div>
 								</div>
