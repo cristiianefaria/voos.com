@@ -29,7 +29,7 @@ import br.com.voo.util.ValidarPessoa;
 public class PassageiroClienteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private final String PAGINA = "/passageiro.jsp";
+	private String PAGINA = "/passageiro.jsp";
 	private PassageiroBS passageiroBS;
 	private ClienteBS clienteBS;
 
@@ -177,14 +177,13 @@ public class PassageiroClienteController extends HttpServlet {
 
 			if (isCadastro) {
 				try {
-
+					
 					Passageiro consultarPorCpf = passageiroBS.consultarPorCpf(busca);
 					idPassageiroCliente = consultarPorCpf.getId();
-					if (idPassageiroCliente != 0) {
-						request.setAttribute("TextoDoBotao", "Comprar");
-					}
 					request.setAttribute("passageiroCliente", consultarPorCpf);
+					
 				} catch (Exception e) {
+					
 					request.setAttribute("isErro", true);
 					request.setAttribute("mensagem", e.getMessage());
 				}
