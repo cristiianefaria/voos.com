@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>voos.com</title>
+<title>Voos.Com</title>
+<link rel="icon" type="image/png" href="app/images/favicon.png" />
 </head>
 <body>
 
