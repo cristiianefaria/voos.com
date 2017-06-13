@@ -119,21 +119,20 @@ public class PessoaDAO {
 			throw new Exception(e.getMessage());
 		}
 	}
+
+	
 	public Pessoa validaLogin(String email, String senha) throws Exception{
-			Pessoa pessoaLogin = new Pessoa();
-            PreparedStatement ps = con.prepareStatement("select codigo from pessoa where email = ? and senha = ?");
-            ps.setString(1, email);
-            ps.setString(2, senha);
- 
-            ResultSet rs = ps.executeQuery();
- 
-            if ( rs.next() ){
-            	pessoaLogin.setId(rs.getLong("codigo"));
-                pessoaLogin.setEmail(email);
-                pessoaLogin.setSenha(senha);
-                
-                return pessoaLogin;
-            }
-			return null;
-	}
+	      Pessoa pessoaLogin = new Pessoa();
+	            PreparedStatement ps = con.prepareStatement("select codigo, email from pessoa where email = ? and senha = ?");
+	            ps.setString(1, email);
+	            ps.setString(2, senha);
+	            ResultSet rs = ps.executeQuery();
+	            if (rs.next()){
+	              pessoaLogin.setId(rs.getLong("codigo"));
+	              pessoaLogin.setEmail(email);               
+	              return pessoaLogin;
+	            }else{
+	     return null;
+	   }
+	  }
 }

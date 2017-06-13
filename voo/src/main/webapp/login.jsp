@@ -7,6 +7,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tela de Login</title>
+<link rel="icon" type="image/png" href="app/images/favicon.png" />
 </head>
 <body>
 	<jsp:include page="header.jsp" />

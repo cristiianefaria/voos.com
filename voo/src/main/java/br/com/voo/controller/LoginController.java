@@ -25,16 +25,18 @@ public class LoginController extends HttpServlet {
 		super();
 		dao = new PessoaDAO();
 	}
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 	}
+
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		HttpSession session = request.getSession();
-		
+
 		String email = request.getParameter("usuario");
 		String senha = request.getParameter("senha");
 
@@ -45,13 +47,13 @@ public class LoginController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		Cookie ck =  new Cookie("usuario", email); 
-	    response.addCookie(ck);
-	    
+		Cookie ck = new Cookie("id", pessoa.getId().toString());
+		response.addCookie(ck);
+
 		if (pessoa == null) {
 			session.invalidate();
 			request.getRequestDispatcher("erro.jsp").forward(request, response);
-		}else{
+		} else {
 			session.setAttribute("pessoa", pessoa);
 			request.getRequestDispatcher("itinerario.jsp").forward(request, response);
 		}

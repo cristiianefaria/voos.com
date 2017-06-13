@@ -1,9 +1,13 @@
 <!-- Favicon -->
-<link rel="icon" type="image/png" href="../images/favicon.png" />
+<link rel="icon" type="image/png" href="app/images/favicon.png" />
 
 <!--webfont-->
-<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900' rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900'
+	rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.googleapis.com/css?family=Raleway:400,800,300,100,500,700,600,900'
+	rel='stylesheet' type='text/css'>
 
 
 <!-- Jquery -->
@@ -35,12 +39,17 @@
 <nav class="navbar navbar-default">
 	<div class="container-fluid">
 
-		<div  id="acesso" class="row">
+		<div id="acesso" class="row">
 			<ul class="nav nav-pills pull-right acc">
-				<li><a href="login.jsp"><i class="fa fa-user"
-						aria-hidden="true"></i>&nbsp;Acessar conta</a></li>
+			
 				<li><a href="login.jsp"><i class="fa fa-user-plus"
 						aria-hidden="true"></i>&nbsp;Cadastrar</a></li>
+				<li><a href="login.jsp"><i class="fa fa-user"
+						aria-hidden="true"></i>&nbsp;Acessar conta</a></li>
+				<li><a href="login.jsp"><i class="fa fa-sign-out"
+						aria-hidden="true"></i>&nbsp;Sair</a></li>
+
+
 			</ul>
 		</div>
 		<div class="navbar-header">
