@@ -17,26 +17,27 @@
 			<div class="formularioLogin">
 				<img src="app/images/logomarca2.png">
 				<h4>Acesse sua conta</h4>
-				<form action="#" method="post">
+				<form method="POST" action="Login" >
 					<div class="form-group">
-						<input class="form-control" type="text" Name="Username"
+					<input class="hidden" type="text" name="id">
+						<input class="form-control" type="text" name="usuario"
 							placeholder="USUÁRIO" required="required"><br> <input
-							class="form-control" type="password" Name="Password"
+							class="form-control" type="password" name="senha"
 							placeholder="SENHA" required="required">
 
 						<p>
-							<a href="#"> Faça seu cadastro </a><span>|</span> <a href="#">
-								Esqueceu a senha?</a>
+							<a href="cliente.jsp"> Faça seu cadastro </a><span>|</span> <a
+								href="#"> Esqueceu a senha?</a>
 						</p>
 
 					</div>
 					<div class="text-right">
 						<input class="btn btn-primary" type="submit" value="LOGIN">
 					</div>
+					<input type="hidden" name="acao" value="login" />
 				</form>
 			</div>
 		</div>
-	</div>
 	</div>
 	<jsp:include page="footer.jsp" />
 </body>
