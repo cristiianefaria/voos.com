@@ -35,16 +35,13 @@ public class LoginController extends HttpServlet {
 		String senha = request.getParameter("senha");
 		
 		if (email == null || email.isEmpty()) {
-            erros.add("Email n√£o informado!");
+            erros.add("Email n„o informado!");
         }
         if (senha == null || senha.isEmpty()) {
-            erros.add("Senha n√£o informada!");
+            erros.add("Senha n„o informada!");
         }
 		
-		
 		if (!erros.isExisteErros()) {
-
-			
 			try {
 				user = dao.validaLogin(email, senha);
 			} catch (Exception e) {
@@ -53,22 +50,20 @@ public class LoginController extends HttpServlet {
 			if (user != null) {
 				request.getSession().setAttribute("usuarioLogado", user);
 				response.sendRedirect("itinerario.jsp");
+				
+				Cookie ck = new Cookie("id", user.getId().toString());
+				response.addCookie(ck);
 				return;
 			} else {
-				erros.add("Usu√°rio ou senha incorreto!");
+				erros.add("Usu·rio ou senha incorreto!");
 			}
 		}
-		Cookie ck = new Cookie("id", user.getId().toString());
-		response.addCookie(ck);
-
 		request.getSession().invalidate();
-
 		request.setAttribute("mensagens", erros);
 
 		String URL = "login.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(URL);
 		rd.forward(request, response);
-		
 	}
 
 	@Override
@@ -80,5 +75,4 @@ public class LoginController extends HttpServlet {
 	public String getServletInfo() {
 		return "Short description";
 	}
-	
 }

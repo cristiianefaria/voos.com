@@ -17,13 +17,13 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="bloco">
-						<div class="row"></div>
+						<div class="row">
 						<div class="col-md-12">
 							<h1>Obrigado por efetuar a compra, seu ticket foi enviado
 								por email!</h1>
-							<br> <a href="paginaPrincipal.jsp" class="btn btn-primary">Voltar
+							<br> <a href="paginaInicial.jsp" class="btn btn-primary">Voltar
 								para página principal</a>
-						</div>
+						</div></div>
 					</div>
 				</div>
 			</div>
