@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadastro de Aeronave</title>
+<title>Aeronave | Voos.Com</title>
+<jsp:include page="header.jsp" />
 </head>
 <body>
-	<jsp:include page="header.jsp" />
+	<jsp:include page="menu.jsp" />
 	<div class="page-header">
 		<h1>Aeronave</h1>
 		<ul class="breadcrumb">

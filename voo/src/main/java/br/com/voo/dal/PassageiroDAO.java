@@ -31,11 +31,9 @@ public class PassageiroDAO {
 			if (pessoaDAO.alterar(_passageiro.getPessoa(), conexao)) {
 
 				PreparedStatement ps = conexao.prepareStatement("UPDATE public.passageiro "
-						+ "set responsavel=?, removido=? WHERE codigo = " + _passageiro.getId());
+						+ "set removido=? WHERE codigo = " + _passageiro.getId());
 
-				ps.setLong(1, validaSeResponsavelNulo(_passageiro.getResponsavel()).getId());
-				ps.setBoolean(2, _passageiro.isRemovido());
-
+				ps.setBoolean(1, _passageiro.isRemovido());
 				ps.executeUpdate();
 				conexao.commit();
 				
@@ -94,7 +92,7 @@ public class PassageiroDAO {
 		try {
 
 			String sql = "select * from passageiro p1 inner join pessoa p2 "
-					+ "on p1.codigo_pessoa = p2.codigo where p2.nome like '%" + nome + "%' and p2.removido != true";
+					+ "on p1.codigo_pessoa = p2.codigo where p2.nome like '%" + nome + "%' and p1.removido != true";
 
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ResultSet rs = ps.executeQuery();
@@ -136,7 +134,7 @@ public class PassageiroDAO {
 	public Passageiro consultar(Long id) throws Exception {
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from passageiro p1 " + "inner join pessoa p2 "
-					+ "on p1.codigo_pessoa = p2.codigo where p1.codigo = " +id+" and p2.removido != true");
+					+ "on p1.codigo_pessoa = p2.codigo where p1.codigo = " +id+" and p1.removido != true");
 			ResultSet rs = ps.executeQuery();
 
 			Passageiro passageiro = new Passageiro();
@@ -168,7 +166,7 @@ public class PassageiroDAO {
 
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
-						rs.getString("endereco"), rs.getDate("data_nascimeto"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"), rs.getString("senha"));
 				passageiro.setId(rs.getLong("codigo"));

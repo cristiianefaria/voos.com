@@ -21,12 +21,12 @@ public class Passagem extends Entidade {
 	public static final String SituacaoEmberto = "Em Aberto";
 	public static final String SituacaoAlocado = "Alocada";
 
-	public Passagem(Long codigo, Passageiro passageiro, Passageiro respossavel, String sitiacao, String hashCheckIn,
+	public Passagem(Long codigo, Passageiro passageiro, Passageiro responsavel, String situacao, String hashCheckIn,
 			boolean statusCheckIn, Double valor, Voo voo, Poltrona poltrona) {
 		super();
 		this.passageiro = passageiro;
-		this.responsavel = respossavel;
-		this.situacao = sitiacao;
+		this.responsavel = responsavel;
+		this.situacao = situacao;
 		this.hashCheckIn = hashCheckIn;
 		this.voo = voo;
 		this.statusCheckIn = statusCheckIn;

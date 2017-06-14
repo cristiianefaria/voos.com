@@ -6,10 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>VOOS.COM</title>
+<title>Voos.Com</title>
+<jsp:include page="header.jsp" />
 </head>
 <body>
-	<jsp:include page="header.jsp" />
+	<jsp:include page="menu.jsp" />
 
 	<div class="banner">
 		<div class="banner-video">
