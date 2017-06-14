@@ -21,13 +21,15 @@ public class VendaDAO {
 	
 	final static Logger log = Logger.getLogger(VendaDAO.class.getName());
 
-	public VendaDAO(Connection cnn) {
+	public VendaDAO() {
 		this.cnn = FactoryConexao.getConnection();
 	}
-	public boolean incluir(Venda venda) throws SQLException{
+	
+	
+	public Venda incluir(Venda venda) throws Exception{
 		
 		String sql = " INSERT INTO compra (horario,desconto,tipo_pagamento,"
-				+ "situacao,removido,codigo_passagem,codigo_cliente) VALUES (?,?,?,?,?,?,?)";
+				+ "situacao,removido,codigo_passagem,codigo_cliente) VALUES (?,?,?,?,?,?,?) RETURNING codigo";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setDate(1, Date.valueOf(venda.getHorario()));
@@ -37,11 +39,16 @@ public class VendaDAO {
 		ps.setBoolean(5, venda.getRemovida());
 		ps.setLong(6, venda.getCodigoPassagem());
 		ps.setLong(7, venda.getCodigoCliente());
-		
-		ps.execute();
+
+		ResultSet rs = ps.executeQuery();
 		log.info(ps.toString());
 		
-		return true;
+		venda = new Venda();
+
+		rs.next();
+		venda.setId(rs.getLong("codigo"));
+		
+		return consultar(venda);
 	}
 	
 	public boolean alterar(Venda venda)throws SQLException{
@@ -119,7 +126,7 @@ public class VendaDAO {
 					rs.getDouble("desconto"),
 					rs.getString("tipo_pagamento"),
 					rs.getString("situacao"),
-					new Passagem(), //TODO adicionar passagem aqui
+					passagemDAO.consultarPassagem(rs.getLong("codigo_passagem")), 
 					clienteDAO.consultar(rs.getLong("cliente_codigo")));
 		}
 	    

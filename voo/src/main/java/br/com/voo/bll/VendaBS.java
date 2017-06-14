@@ -27,23 +27,23 @@ public class VendaBS {
 	}
 
 	public VendaBS() {
-
+		this.dao = new VendaDAO();
+		erros = new HashMap<>();
+		bsPassagem = new PassagemBS();
 	}
 
-	public boolean salvar(Venda venda) throws SQLException {
-		boolean retorno = false;
+	public Venda salvar(Venda venda) throws Exception {
+		Venda retorno = new Venda();
 		if (venda != null) {
-
 			if (venda.getId().intValue() == 0) {
-				
-				validaVenda(venda);
+				//validaVenda(venda);
 				retorno = dao.incluir(venda);
-				
 			} else {
-				retorno = dao.alterar(venda);
+				dao.alterar(venda);
+				return new Venda();
 			}
 		}
-		return true;
+		return retorno;
 	}
 
 	private void validaVenda(Venda venda) {

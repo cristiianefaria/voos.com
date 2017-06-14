@@ -21,8 +21,9 @@ public class BuilderPessoaCliente extends Entidade {
 		return tipoCliente;
 	}
 
-	public void setTipoCliente(TipoCliente tipoCliente) {
+	public BuilderPessoaCliente setTipoCliente(TipoCliente tipoCliente) {
 		this.tipoCliente = tipoCliente;
+		return this;
 	}
 
 	public Pessoa getPessoa() {

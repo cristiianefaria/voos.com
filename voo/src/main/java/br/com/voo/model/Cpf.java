@@ -1,5 +1,8 @@
 package br.com.voo.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Cpf extends Documento {
 
 	

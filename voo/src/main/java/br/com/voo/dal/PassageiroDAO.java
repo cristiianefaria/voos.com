@@ -143,7 +143,7 @@ public class PassageiroDAO {
 
 			if (rs.next()) {
 				Pessoa p = new Pessoa(rs.getLong("codigo_pessoa"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
-						rs.getString("endereco"), rs.getDate("data_nascimeto"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"), rs.getString("senha"));
 				passageiro.setId(rs.getLong("codigo"));

@@ -2,6 +2,9 @@ package br.com.voo.model;
 
 import java.time.LocalDate;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Venda extends Entidade {
 
 	private LocalDate horario;
@@ -14,6 +17,7 @@ public class Venda extends Entidade {
 
 	public Venda(){
 		super();
+		this.horario = LocalDate.now();
 	}
 	
 	public Venda(Long id){
@@ -65,6 +69,16 @@ public class Venda extends Entidade {
 	public Long getCodigoCliente(){
 		return this.cliente.getId();
 	}
+
+	public void setPassagem(Passagem passagem) {
+		this.passagem = passagem;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	
+	
 	
 	
 }

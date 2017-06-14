@@ -2,6 +2,10 @@ package br.com.voo.model;
 
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+
+@XmlRootElement
 public class Pessoa extends Entidade {
 
 	private String nome;

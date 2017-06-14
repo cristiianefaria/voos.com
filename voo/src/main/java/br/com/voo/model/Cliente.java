@@ -1,5 +1,8 @@
 package br.com.voo.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Cliente extends Entidade {
 
 	private Pessoa pessoa;
@@ -11,7 +14,7 @@ public class Cliente extends Entidade {
 	public Cliente(BuilderPessoaCliente build) {
 		
 		this.pessoa = build.getPessoa();
-		this.id = build.id;
+		this.id = build.getId();
 		this.milhagem = build.getMilhagem();
 		this.percentDesconto = build.getPercentDesconto();
 		this.tipoCliente = build.getTipoCliente();

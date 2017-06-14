@@ -1,5 +1,8 @@
 package br.com.voo.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Passagem extends Entidade {
 
 	private Passageiro passageiro;
@@ -77,7 +80,7 @@ public class Passagem extends Entidade {
 	}
 
 	public Double getValor() {
-		return valor;
+		return voo.getItinerario().getValor() + poltrona.getValor();
 	}
 
 	public void setValor(Double valor) {
