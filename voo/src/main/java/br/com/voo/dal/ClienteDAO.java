@@ -128,6 +128,34 @@ public class ClienteDAO {
 			throw new Exception(e.getMessage());
 		}
 	}
+	
+	public Cliente consultarClientePorPessoa(Long id) throws Exception {
+		try {
+			PreparedStatement ps = conexao.prepareStatement("select * from cliente c1 " + "inner join pessoa p1 "
+					+ "on c1.codigo_pessoa = p1.codigo " + "where p1.codigo = " +id+" and p1.removido != true");
+			ResultSet rs = ps.executeQuery();
+
+			Cliente cliente = null;
+			if (rs.next()) {
+				Pessoa p = new Pessoa(rs.getLong("codigo_pessoa"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"), rs.getString("senha"));
+
+				cliente = new Cliente(p);
+				cliente.setId(rs.getLong("codigo"));
+				cliente.setMilhagem(rs.getInt("milhagem"));
+				cliente.setPercentDesconto(rs.getDouble("percent_desconto"));
+				cliente.setTipoCliente(obterTipoCliente(rs.getString("tipo_cliente")));
+				cliente.setRemovido(rs.getBoolean("removido"));
+			}
+
+			return cliente != null ? cliente : new Cliente();
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
 
 	public boolean alterar(Cliente _cliente) throws Exception {
 		try {

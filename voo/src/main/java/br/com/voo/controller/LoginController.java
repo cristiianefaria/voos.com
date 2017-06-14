@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.voo.dal.PessoaDAO;
+import br.com.voo.model.Cliente;
 import br.com.voo.model.Pessoa;
 import br.com.voo.util.Erro;
 
@@ -19,7 +20,8 @@ public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private PessoaDAO dao;
-	private Pessoa user = null;
+	private Pessoa pessoa = null;
+	private Cliente cliente =  new Cliente();
 
 	public LoginController() {
 		super();
@@ -43,19 +45,19 @@ public class LoginController extends HttpServlet {
 		
 		if (!erros.isExisteErros()) {
 			try {
-				user = dao.validaLogin(email, senha);
+				pessoa = dao.validaLogin(email, senha);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (user != null) {
-				request.getSession().setAttribute("usuarioLogado", user);
+			if (pessoa != null) {
+				request.getSession().setAttribute("usuarioLogado", pessoa);
 				response.sendRedirect("itinerario.jsp");
 				
-				Cookie ck = new Cookie("id", user.getId().toString());
+				Cookie ck = new Cookie("idCliente", cliente.getId().toString());
 				response.addCookie(ck);
 				return;
 			} else {
-				erros.add("Usuário ou senha incorreto!");
+				erros.add("Usuário ou senha, incorreto!");
 			}
 		}
 		request.getSession().invalidate();
