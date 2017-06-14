@@ -91,5 +91,15 @@ public class ClienteBS {
 		}
 		
 	}
+	
+	public Cliente consultaClientePorPessoa(Long id){
+		try {
+			Cliente cliente = dao.consultarClientePorPessoa(id);
+			return cliente;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

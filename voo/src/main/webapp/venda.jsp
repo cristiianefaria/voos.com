@@ -11,6 +11,13 @@
 </head>
 <body>
 	<jsp:include page="menu.jsp" />
+		<div class="page-header">
+		<h1>Dados da Passagem</h1>
+		<ul class="breadcrumb">
+			<li><a href="index.jsp">home</a></li>
+			<li>dados da passagem</li>
+		</ul>
+	</div>
 
 	<div class="container">
 		<div class="espacoTopo"></div>
@@ -94,6 +101,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<h3>Situação:</h3>
+							<hr>
 							<label>inserir jsp populado</label><br>
 						</div>
 					</div>

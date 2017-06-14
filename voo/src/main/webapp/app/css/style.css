@@ -34,8 +34,8 @@ h3 {
 	margin-bottom: 1em;
 }
 
-.h5 {
-	color: #81BEF7;
+h5 {
+	color: #191970;
 	font-weight: 600;
 	margin-bottom: 1em;
 }
@@ -51,9 +51,10 @@ h3 {
 
 hr {
 	height: 4px;
-	width: 30%;
+	width: 10%;
 	text-align: left;
-	margin: 0 auto 0 0;
+	margin: -20px auto 10px 0;
+	border-color: #81BEF7;
 }
 
 .page-header {
