@@ -2,6 +2,7 @@ package br.com.voo.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -24,11 +25,13 @@ public class VendaController extends HttpServlet {
 	PassageiroBS passageiroBs;
 	PassagemBS passagemBs;
 	ClienteBS clienteBS;
+	Cliente cliente;
 	public VendaController() {
         super();
         passageiroBs = new PassageiroBS();
         passagemBs = new PassagemBS();
-        clienteBS = new ClienteBS(); 
+        clienteBS = new ClienteBS();
+        cliente = new Cliente();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,17 +47,20 @@ public class VendaController extends HttpServlet {
 				Passagem passagem = passagemBs.consultaPassagem(idPassagem);
 				Cookie[] cookie = request.getCookies();
 				
-				Long idClienete = new Long(0);
+				Long idCliente = new Long(0);
 				for (Cookie cookie2 : cookie) {
-					if(cookie2.getValue().equals("idCliente"))
-					    idClienete = Long.parseLong(cookie2.getValue());
+					if(cookie2.getName().equals("idCliente"))
+					    idCliente = Long.parseLong(cookie2.getName());
 				}
 				
-				Cliente cliente = clienteBS.consultar(idClienete);
+				Cliente cliente = clienteBS.consultar(idCliente);
 				
+				passagem.setPassageiro(passageiro);
+				passagem.setSituacao(Passagem.SituacaoAlocado);
 				
+				request.setAttribute("passagem", passagem);
+				request.setAttribute("cliente", cliente);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -63,9 +69,10 @@ public class VendaController extends HttpServlet {
 		default:
 			break;
 		}
+		
+		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
+		view.forward(request, response);
 	   	
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

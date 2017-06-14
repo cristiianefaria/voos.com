@@ -48,6 +48,7 @@ public class PassageiroClienteController extends HttpServlet {
 		idPassageiroCliente = new Long(0);
 		idPessoa = new Long(0);
 		isCadastro = false;
+		idPassagem = new Long(0);
 
 	}
 
@@ -187,6 +188,9 @@ public class PassageiroClienteController extends HttpServlet {
 			if (isCadastro) {
 				try {
 
+					
+					request.setAttribute("idPassagem", idPassagem);
+					
 					Passageiro consultarPorCpf = passageiroBS.consultarPorCpf(busca);
 					idPassageiroCliente = consultarPorCpf.getId();
 					request.setAttribute("passageiroCliente", consultarPorCpf);

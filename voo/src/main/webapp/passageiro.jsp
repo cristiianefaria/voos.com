@@ -96,7 +96,7 @@
 									<label for="horario">Data Nascimento</label>
 									<div class='input-group date' id='dataNascimento'>
 										<input name="horario" type='text' class="form-control"
-											value='<time:format pattern="dd/MM/yyyy HH:mm" value="${voo.horario}" />' />
+											value='<time:format pattern="dd/MM/yyyy HH:mm" value="${passageiroCliente.pessoa.dataNascimento}" />' />
 										<span class="input-group-addon"> <span><i
 												class="fa fa-calendar-plus-o" aria-hidden="true"></i></span>
 										</span>
@@ -228,7 +228,7 @@
 							<div class="row">
 								<div class="row botao-comprar">
 									<a class="btn btn-success"
-										href="/VendaController?acao=comprarPassagem&cpfPassageiro=<c:out value="${passageiroCliente.pessoa.cpf.numero}"></c:out>&idPassagem=<c:out value="${idPassagem}"></c:out>">Comprar</a>
+										href="/Venda?acao=comprarPassagem&cpfPassageiro=<c:out value="${passageiroCliente.pessoa.cpf.numero}"></c:out>&idPassagem=<c:out value="${idPassagem}"></c:out>">Comprar</a>
 								</div>
 							</div>
 						</c:if>

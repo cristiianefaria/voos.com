@@ -22,24 +22,19 @@
 							<h3>Cliente</h3>
 							<hr>
 							<div class="col-md-12">
-								<label>Nome:</label><label>inserir jsp do cliente
-									populado</label>
+								<label>Nome:</label><label><c:out value="${cliente.pessoa.nome}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>CPF:</label><label>inserir jsp do cliente
-									populado</label>
+								<label>CPF:</label><label><c:out value="${cliente.pessoa.cpf.numero}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>Data de Nascimento:</label><label>inserir jsp do
-									cliente populado</label>
+								<label>Data de Nascimento:</label><label><c:out value="${cliente.pessoa.dataNascimento}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>Telefone:</label><label>inserir jsp do cliente
-									populado</label>
+								<label>Telefone:</label><label><c:out value="${cliente.pessoa.telefone}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>Email:</label><label>inserir jsp do cliente
-									populado</label>
+								<label>Email:</label><label><c:out value="${cliente.pessoa.email}"/></label>
 							</div>
 						</div>
 					</div>
@@ -51,8 +46,7 @@
 								<div class="col-md-6">
 									<h5>Dados da passagem:</h5>
 									<div class="col-md-12">
-										<label>Situação:</label><label>inserir jsp do cliente
-											populado</label>
+										<label>Situação:</label><label>inserir jsp do cliente populado</label>
 									</div>
 									<div class="col-md-12">
 										<label>Voo:</label><label>inserir jsp do cliente
