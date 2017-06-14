@@ -102,4 +102,14 @@ public class ClienteBS {
 		}
 	}
 
+	public Cliente consultar(String email, String senha) {
+		try {
+			Cliente cliente = dao.consultar(email, senha);
+			return cliente;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

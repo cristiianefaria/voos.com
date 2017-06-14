@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.voo.bll.ClienteBS;
 import br.com.voo.dal.PessoaDAO;
 import br.com.voo.model.Cliente;
 import br.com.voo.model.Pessoa;
@@ -20,12 +21,14 @@ public class LoginController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private PessoaDAO dao;
-	private Pessoa pessoa = null;
-	private Cliente cliente =  new Cliente();
+	private Cliente cliente;
+	ClienteBS clienteBs;
 
 	public LoginController() {
 		super();
 		dao = new PessoaDAO();
+		clienteBs = new ClienteBS();
+		cliente  =  new Cliente();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -37,27 +40,27 @@ public class LoginController extends HttpServlet {
 		String senha = request.getParameter("senha");
 		
 		if (email == null || email.isEmpty()) {
-            erros.add("Email não informado!");
+            erros.add("Email nï¿½o informado!");
         }
         if (senha == null || senha.isEmpty()) {
-            erros.add("Senha não informada!");
+            erros.add("Senha nï¿½o informada!");
         }
 		
 		if (!erros.isExisteErros()) {
 			try {
-				pessoa = dao.validaLogin(email, senha);
+				cliente = clienteBs.consultar(email, senha);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (pessoa != null) {
-				request.getSession().setAttribute("usuarioLogado", pessoa);
+			if (cliente != null) {
+				request.getSession().setAttribute("usuarioLogado", cliente);
 				response.sendRedirect("itinerario.jsp");
 				
 				Cookie ck = new Cookie("idCliente", cliente.getId().toString());
 				response.addCookie(ck);
 				return;
 			} else {
-				erros.add("Usuário ou senha, incorreto!");
+				erros.add("Usuï¿½rio ou senha, incorreto!");
 			}
 		}
 		request.getSession().invalidate();
