@@ -6,9 +6,8 @@ body {
 
 #erro {
 	width: 80%;
-	margin: 0 auto;
-	border: 1px solid red;
-	background-color: beige;
+	margin: 20px auto;
+	color: red;
 }
 
 .telaLogin {
@@ -33,6 +32,16 @@ h3 {
 	font-size: 1.8em;
 	font-weight: 600;
 	margin-bottom: 1em;
+}
+
+.h5 {
+	color: #81BEF7;
+	font-weight: 600;
+	margin-bottom: 1em;
+}
+
+.altura {
+	height: 550px;
 }
 
 .espacoTopo {

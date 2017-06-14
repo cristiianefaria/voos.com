@@ -19,14 +19,13 @@
 			<div class="formularioLogin">
 				<img src="app/images/logomarca2.png">
 				<h4>Acesse sua conta</h4>
-				
 				<form method="POST" action="Login">
 					<div class="form-group">
 						<input class="hidden" type="text" name="id"> <input
-							class="form-control" type="text" name="usuario" 
-							placeholder="USUÁRIO"  value="${param.usuario}"/><br> <input
-							class="form-control" type="password" name="senha" 
-							placeholder="SENHA" >
+							class="form-control" type="text" name="usuario"
+							placeholder="USUÁRIO" value="${param.usuario}" /><br> <input
+							class="form-control" type="password" name="senha"
+							placeholder="SENHA">
 
 						<p>
 							<a href="cliente.jsp"> Faça seu cadastro </a><span>|</span> <a
@@ -38,7 +37,8 @@
 						<input class="btn btn-primary" type="submit" value="LOGIN">
 					</div>
 					<input type="hidden" name="acessar" value="login" />
-				</form><br>
+				</form>
+				<br>
 				<c:if test="${mensagens.existeErros}">
 					<div id="erro">
 						<ul>
