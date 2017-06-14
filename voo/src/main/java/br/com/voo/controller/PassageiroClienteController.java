@@ -19,6 +19,7 @@ import br.com.voo.bll.PassageiroBS;
 import br.com.voo.bll.PessoaBS;
 import br.com.voo.model.BuilderPessoaCliente;
 import br.com.voo.model.Cliente;
+import br.com.voo.model.Cpf;
 import br.com.voo.model.Entidade;
 import br.com.voo.model.EstadoCivil;
 import br.com.voo.model.Passageiro;
@@ -57,6 +58,7 @@ public class PassageiroClienteController extends HttpServlet {
 		request.setAttribute("isErro", false);
 		request.setAttribute("isEditar", false);
 		request.setAttribute("isCadastro", false);
+		request.setAttribute("isVenda", false);
 
 		switch (acao) {
 		case "listarPassageiro":
@@ -113,10 +115,15 @@ public class PassageiroClienteController extends HttpServlet {
 			request.setAttribute("isPassageiro", false);
 			clienteBS.listar("").forEach(c -> passageirosClientes.add(c));
 			break;
+			
 		case "cadastrarPassageiro":
 			idPassagem = Long.parseLong(request.getParameter("idPassagem"));
+			
+			
+			request.setAttribute("idPassagem", idPassagem);
 			request.setAttribute("isPassageiro", true);
 			request.setAttribute("isCadastro", true);
+			request.setAttribute("isVenda", true);
 			isCadastro = true;
 
 			break;
@@ -146,7 +153,9 @@ public class PassageiroClienteController extends HttpServlet {
 
 			Passageiro passageiro = build.buildPassageiro();
 			try {
+
 				passageiroBS.salvar(passageiro);
+
 			} catch (Exception e) {
 
 				request.setAttribute("isErro", true);
@@ -177,13 +186,14 @@ public class PassageiroClienteController extends HttpServlet {
 
 			if (isCadastro) {
 				try {
-					
+
 					Passageiro consultarPorCpf = passageiroBS.consultarPorCpf(busca);
 					idPassageiroCliente = consultarPorCpf.getId();
 					request.setAttribute("passageiroCliente", consultarPorCpf);
-					
+					request.setAttribute("isVenda", true);
+
 				} catch (Exception e) {
-					
+
 					request.setAttribute("isErro", true);
 					request.setAttribute("mensagem", e.getMessage());
 				}

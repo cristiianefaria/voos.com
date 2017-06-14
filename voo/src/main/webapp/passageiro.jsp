@@ -33,35 +33,36 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<div class="alert alert-danger"><c:out value="${mensagem}" /></div>
+				<div class="alert alert-danger">
+					<c:out value="${mensagem}" />
+				</div>
 			</div>
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="bloco">
 					<form action="Passageiro" method="POST">
-							<div class="row">
-								<div class="col-md-6"></div>
-								<div class="col-md-6">
-									<div class="input-group">
-										<input type="text" id="pesquisar" name="pesquisar"
-											class="form-control" placeholder="Digite o nome...">
-										<span class="input-group-btn"> <c:if
-												test="${isPassageiro == false}">
-												<button class="btn btn-primary" value="Pesquisar Cliente"
-													name="botao" type="submit">Pesquisar</button>
-											</c:if> 
-											<c:if test="${isPassageiro == true}">
-												<button class="btn btn-primary" value="Pesquisar Passageiro"
-													name="botao" type="submit">Pesquisar</button>
-											</c:if>
-										</span>
-									</div>
+						<div class="row">
+							<div class="col-md-6"></div>
+							<div class="col-md-6">
+								<div class="input-group">
+									<input type="text" id="pesquisar" name="pesquisar"
+										class="form-control" placeholder="Digite o nome..."> <span
+										class="input-group-btn"> <c:if
+											test="${isPassageiro == false}">
+											<button class="btn btn-primary" value="Pesquisar Cliente"
+												name="botao" type="submit">Pesquisar</button>
+										</c:if> <c:if test="${isPassageiro == true}">
+											<button class="btn btn-primary" value="Pesquisar Passageiro"
+												name="botao" type="submit">Pesquisar</button>
+										</c:if>
+									</span>
 								</div>
 							</div>
-				
+						</div>
 
-						
+
+
 					</form>
 				</div>
 				<c:if test="${isPassageiro == true}">
@@ -202,22 +203,32 @@
 
 
 
-
-						<c:if test="${isPassageiro == true}">
-							<div class="row">
-								<div class="text-right">
-									<input class="btn btn-success" type="submit"
-										value="Cadastrar Passageiro" name="botao">
+						<c:if test="${isVenda == false}">
+							<c:if test="${isPassageiro == true}">
+								<div class="row">
+									<div class="text-right">
+										<input class="btn btn-success" type="submit"
+											value="Cadastrar Passageiro" name="botao">
+									</div>
 								</div>
-							</div>
+							</c:if>
+
+
+							<c:if test="${isPassageiro == false}">
+								<div class="row">
+									<div class="text-right">
+										<input class="btn btn-success" type="submit"
+											value="Cadastrar Cliente" name="botao">
+									</div>
+								</div>
+							</c:if>
 						</c:if>
 
-
-						<c:if test="${isPassageiro == false}">
+						<c:if test="${isVenda == true}">
 							<div class="row">
-								<div class="text-right">
-									<input class="btn btn-success" type="submit"
-										value="Cadastrar Cliente" name="botao">
+								<div class="row botao-comprar">
+									<a class="btn btn-success"
+										href="/VendaController?acao=comprarPassagem&cpfPassageiro=<c:out value="${passageiroCliente.pessoa.cpf.numero}"></c:out>&idPassagem=<c:out value="${idPassagem}"></c:out>">Comprar</a>
 								</div>
 							</div>
 						</c:if>
