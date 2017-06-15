@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 
 import br.com.voo.bll.ClienteBS;
 import br.com.voo.bll.PassageiroBS;
+import br.com.voo.bll.PassagemBS;
 import br.com.voo.bll.PoltronaBS;
 import br.com.voo.bll.VendaBS;
 import br.com.voo.bll.VooBS;
@@ -36,6 +37,7 @@ public class VendaService {
 	VooBS vooBS = new VooBS();
 	PoltronaBS poltronaBS = new PoltronaBS();
 	VendaBS vendaBS = new VendaBS();
+	PassagemBS passagemBS = new PassagemBS();
 	
 	@POST
 	@Produces("application/json")
@@ -52,7 +54,7 @@ public class VendaService {
 			Voo voo = vooBS.consultar(compra.getPassagem().getVoo());
 			Poltrona poltrona = poltronaBS.consultar(compra.getPassagem().getPoltrona());
 			
-			Passagem passagem = new Passagem();
+			Passagem passagem = passagemBS.consultaPassagem(compra.getPassagem().getId());
 			
 			passagem.setPassageiro(passageiro);
 			passagem.setPoltrona(poltrona);
@@ -73,8 +75,7 @@ public class VendaService {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String moodeloDeCompra(){
-		
+	public String moodeloDeCompra(){		
 		Gson gson = new Gson();
 		Compra compra = new Compra();
 		

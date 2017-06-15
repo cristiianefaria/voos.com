@@ -18,6 +18,9 @@ public class Venda extends Entidade {
 	public Venda(){
 		super();
 		this.horario = LocalDate.now();
+		this.desconto = new Double(0);
+		this.situacao = "Em Aberto";
+		this.tipoDePagamento = "";
 	}
 	
 	public Venda(Long id){

@@ -25,7 +25,6 @@ public class VendaDAO {
 		this.cnn = FactoryConexao.getConnection();
 	}
 	
-	
 	public Venda incluir(Venda venda) throws Exception{
 		
 		String sql = " INSERT INTO compra (horario,desconto,tipo_pagamento,"
@@ -71,7 +70,6 @@ public class VendaDAO {
 		ps.setLong(6, venda.getCodigoCliente());
 		ps.setBoolean(7, venda.getRemovida());
 		ps.setLong(8, venda.getId());
-		
 		
 		ps.execute();
 		log.info(ps.toString());
