@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.voo.bll.ClienteBS;
 import br.com.voo.dal.PessoaDAO;
 import br.com.voo.model.Cliente;
-import br.com.voo.model.Pessoa;
 import br.com.voo.util.Erro;
 
 @WebServlet("/Login")
@@ -40,10 +39,10 @@ public class LoginController extends HttpServlet {
 		String senha = request.getParameter("senha");
 		
 		if (email == null || email.isEmpty()) {
-            erros.add("Email n�o informado!");
+            erros.add("Email não informado!");
         }
         if (senha == null || senha.isEmpty()) {
-            erros.add("Senha n�o informada!");
+            erros.add("Senha não informada!");
         }
 		
 		if (!erros.isExisteErros()) {
@@ -52,21 +51,23 @@ public class LoginController extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			if (cliente != null) {
+			if (cliente == null) {
+				//session.invalidate();
+				 erros.add("Usuário ou senha, incorreto!");
+				return;
+			} else {
+				
 				request.getSession().setAttribute("usuarioLogado", cliente);
-				response.sendRedirect("itinerario.jsp");
+				request.getRequestDispatcher("itinerario.jsp").forward(request, response);
 				
 				Cookie ck = new Cookie("idCliente", cliente.getId().toString());
 				response.addCookie(ck);
-				return;
-			} else {
-				erros.add("Usu�rio ou senha, incorreto!");
 			}
 		}
 		request.getSession().invalidate();
 		request.setAttribute("mensagens", erros);
 
-		String URL = "login.jsp";
+		String URL = "/login.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(URL);
 		rd.forward(request, response);
 	}

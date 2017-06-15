@@ -208,7 +208,7 @@ public class ClienteDAO {
 		
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from cliente c1 " + "inner join pessoa p1 "
-					+ "on c1.codigo_pessoa = p1.codigo " + "where p1.email = " +email+" and p1.senha = "+senha+" and p1.removido != true");
+					+ "on c1.codigo_pessoa = p1.codigo " + "where p1.email = '"+email+"' and p1.senha = '"+senha+"' and p1.removido != true");
 			ResultSet rs = ps.executeQuery();
 
 			Cliente cliente = null;
