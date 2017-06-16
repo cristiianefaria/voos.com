@@ -91,14 +91,11 @@ public class PassageiroBS {
 	}
 
 	public Passageiro consultarPorCpf(String busca) throws Exception {
-		
 			
 			Passageiro passageiro = dao.buscar(busca);
 		    if(passageiro.getId() == 0)
 		    	throw new Exception("Passageiro não encontrado por favor realize o cadastro!");
-		    
 		    return passageiro;
-		 
 	}
 
 	
