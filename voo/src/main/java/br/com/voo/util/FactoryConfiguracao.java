@@ -13,7 +13,7 @@ public class FactoryConfiguracao {
 			return thiago();
 		}else if("localhost.localdomain".equals(hostname)){
 			return bruno();
-		}else if("cristiane".equals(hostname)){
+		}else if("ubuntu-notebook".equals(hostname)){
 			return cristiane();
 		}
 		

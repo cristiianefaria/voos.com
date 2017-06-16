@@ -53,8 +53,9 @@ public class ItinerarioDAO {
 	public List<Itinerario> listar() throws SQLException {
 		List<Itinerario> lista = new ArrayList<Itinerario>();
 
-		Statement st = connection.createStatement();
-		ResultSet rs = st.executeQuery("select * from itinerario where removido = false");
+		PreparedStatement st = connection.prepareStatement(
+				"update itinerario set origem=?, destino=?, valor=?, removido=?  where codigo=?");
+		ResultSet rs = st.executeQuery();
 
 		while (rs.next()) {
 			Itinerario itinerario = new Itinerario();
