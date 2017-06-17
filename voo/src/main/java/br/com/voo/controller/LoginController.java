@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.voo.bll.ClienteBS;
 import br.com.voo.dal.PessoaDAO;
 import br.com.voo.model.Cliente;
+import br.com.voo.model.Pessoa;
 import br.com.voo.util.Erro;
 
 @WebServlet("/Login")
@@ -22,47 +23,61 @@ public class LoginController extends HttpServlet {
 	private PessoaDAO dao;
 	private Cliente cliente;
 	ClienteBS clienteBs;
+	Cookie ck;
 
 	public LoginController() {
 		super();
 		dao = new PessoaDAO();
 		clienteBs = new ClienteBS();
-		cliente  =  new Cliente();
+		cliente = new Cliente();
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
+		String botao = request.getParameter("botao");
+
 		Erro erros = new Erro();
-		
-		String email = request.getParameter("usuario");
-		String senha = request.getParameter("senha");
-		
-		if (email == null || email.isEmpty()) {
-            erros.add("Email não informado!");
-        }
-        if (senha == null || senha.isEmpty()) {
-            erros.add("Senha não informada!");
-        }
-		
-		if (!erros.isExisteErros()) {
-			try {
-				cliente = clienteBs.consultar(email, senha);
-			} catch (Exception e) {
-				e.printStackTrace();
+
+		if (botao.equalsIgnoreCase("Login")) {
+
+			String email = request.getParameter("usuario");
+			String senha = request.getParameter("senha");
+
+			if (email == null || email.isEmpty()) {
+				erros.add("Email não informado!");
 			}
-			if (cliente == null) {
-				//session.invalidate();
-				 erros.add("Usuário ou senha, incorreto!");
-				return;
-			} else {
-				
-				request.getSession().setAttribute("usuarioLogado", cliente);
-				request.getRequestDispatcher("itinerario.jsp").forward(request, response);
-				
-				Cookie ck = new Cookie("idCliente", cliente.getId().toString());
-				response.addCookie(ck);
+			if (senha == null || senha.isEmpty()) {
+				erros.add("Senha não informada!");
 			}
+			Pessoa p= null;
+			if (!erros.isExisteErros()) {
+				try {
+					cliente = clienteBs.consultar(email, senha);
+					//p = dao.validaLogin(email, senha);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				if (cliente != null) {
+
+					request.getSession().setAttribute("usuarioLogado", cliente);
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+
+					ck = new Cookie("idCliente", cliente.getId().toString());
+					response.addCookie(ck);
+
+					return;
+				} else {
+					erros.add("Usuário ou senha incorreto!");
+				}
+			}
+		} else if (botao.equals("logout")) {
+			request.getSession().invalidate();
+
+			ck = new Cookie("idCliente", "");
+
+			response.addCookie(ck);
+
 		}
 		request.getSession().invalidate();
 		request.setAttribute("mensagens", erros);
@@ -75,6 +90,12 @@ public class LoginController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		processRequest(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		processRequest(request, response);
 	}
 
 	@Override

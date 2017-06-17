@@ -16,12 +16,12 @@
 				<ul class="nav nav-pills pull-right acc">
 
 
-					<li><a href="login.jsp"><i class="fa fa-user-plus"
+					<li><a href="passageiro.jsp"><i class="fa fa-user-plus"
 							aria-hidden="true"></i>&nbsp;Cadastrar</a></li>
 					<li><a href="login.jsp"><i class="fa fa-user"
-							aria-hidden="true"></i> Olá ${sessionScope.usuarioLogado.nome} |&nbsp;Acessar conta</a></li>
+							aria-hidden="true"></i>Acessar conta</a></li>
 					
-					<li><a href="login.jsp"><i class="fa fa-sign-out"></i>&nbsp;Sair</a></li>
+					<li><a href="Login?botao=logout"><i class="fa fa-sign-out"></i>&nbsp;Sair</a></li>
 
 				</ul>
 			</div>

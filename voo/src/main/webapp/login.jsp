@@ -34,7 +34,7 @@
 
 					</div>
 					<div class="text-right">
-						<input class="btn btn-primary" type="submit" value="LOGIN">
+						<input class="btn btn-primary" name="botao" type="submit" value="Login">
 					</div>
 					<input type="hidden" name="acessar" value="login" />
 				</form>
