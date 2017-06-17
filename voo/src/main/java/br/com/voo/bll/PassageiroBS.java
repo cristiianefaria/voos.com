@@ -23,14 +23,14 @@ public class PassageiroBS {
 		this.dao = new PassageiroDAO();
 	}
 
-	public boolean salvar(Passageiro _passageiro) throws Exception {
+	public boolean salvar(Passageiro _passageiro, boolean salvarPessoa) throws Exception {
 		
 		try {
 			
 			//validarPessoa(_passageiro.getPessoa());
 			
 			if (_passageiro.getId() == 0){
-				return dao.inserir(_passageiro);
+				return dao.inserir(_passageiro, salvarPessoa);
 			}else{
 				Long codigoPessoa = dao.consultar(_passageiro.getId()).getPessoa().getId();
 				_passageiro.getPessoa().setId(codigoPessoa);
@@ -97,6 +97,19 @@ public class PassageiroBS {
 		    	throw new Exception("Passageiro não encontrado por favor realize o cadastro!");
 		    return passageiro;
 	}
+	public Passageiro consultarPeloCodigoPessoa(Long idPessoa) {
+		
+		try {
+			Passageiro passageiro = dao.consultarPeloIdPessoa(idPessoa);
+		    return passageiro;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+}
+
+	
 
 	
 }

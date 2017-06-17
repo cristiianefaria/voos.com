@@ -61,10 +61,14 @@ public class LoginController extends HttpServlet {
 				if (cliente != null) {
 
 					request.getSession().setAttribute("usuarioLogado", cliente);
-					request.getRequestDispatcher("index.jsp").forward(request, response);
+					
+					Long id = cliente.getId();
+					System.out.println("ID = "+id);
 
 					ck = new Cookie("idCliente", cliente.getId().toString());
 					response.addCookie(ck);
+
+					request.getRequestDispatcher("index.jsp").forward(request, response);
 
 					return;
 				} else {

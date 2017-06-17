@@ -21,16 +21,11 @@ public class IndexController extends HttpServlet {
 		itinerarioBS = new ItinerarioBS();
 	}
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		
-		
 		req.setAttribute("itinerarios", itinerarioBS.listar());
 		RequestDispatcher view = req.getRequestDispatcher(PAGINA);
 		view.forward(req, resp);

@@ -54,7 +54,7 @@ public class ItinerarioDAO {
 		List<Itinerario> lista = new ArrayList<Itinerario>();
 
 		PreparedStatement st = connection.prepareStatement(
-				"update itinerario set origem=?, destino=?, valor=?, removido=?  where codigo=?");
+				"select * from itinerario");
 		ResultSet rs = st.executeQuery();
 
 		while (rs.next()) {

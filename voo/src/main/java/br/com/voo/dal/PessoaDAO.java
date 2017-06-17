@@ -25,10 +25,13 @@ public class PessoaDAO {
 		con = FactoryConexao.getConnection();
 	}
 
-	public boolean salvar(Pessoa _pessoa, Connection conexao) throws Exception {
+	public boolean salvar(Pessoa _pessoa, Connection conexao, boolean salvarPessoa) throws Exception {
 		try {
 			
 			
+			if(salvarPessoa == false){
+				return true;
+			}
 			
 			PreparedStatement ps = conexao
 					.prepareStatement("INSERT INTO public.pessoa("

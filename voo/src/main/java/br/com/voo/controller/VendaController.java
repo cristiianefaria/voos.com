@@ -50,7 +50,7 @@ public class VendaController extends HttpServlet {
 				Long idCliente = new Long(0);
 				for (Cookie cookie2 : cookie) {
 					if(cookie2.getName().equals("idCliente"))
-					    idCliente = Long.parseLong(cookie2.getName());
+					    idCliente = Long.parseLong(cookie2.getValue());
 				}
 				
 				Cliente cliente = clienteBS.consultar(idCliente);

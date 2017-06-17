@@ -38,7 +38,7 @@ public class PassageiroService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response setPassageiro(Passageiro passageiro){
 		try {
-			passageiroBS.salvar(passageiro);
+			passageiroBS.salvar(passageiro, true);
 			return  Response.status(200)
 					.entity(passageiroBS.consultarPorCpf(
 							passageiro.getPessoa().getCpf().getNumero()))

@@ -29,19 +29,19 @@
 							<h3>Cliente</h3>
 							<hr>
 							<div class="col-md-12">
-								<label>Nome:</label><label><c:out value="${cliente.pessoa.nome}"/></label>
+								<label>Nome: </label><label><c:out value="${cliente.pessoa.nome}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>CPF:</label><label><c:out value="${cliente.pessoa.cpf.numero}"/></label>
+								<label>CPF: </label><label><c:out value="${cliente.pessoa.cpf.numero}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>Data de Nascimento:</label><label><c:out value="${cliente.pessoa.dataNascimento}"/></label>
+								<label>Data de Nascimento: </label><label><c:out value="${cliente.pessoa.dataNascimento}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>Telefone:</label><label><c:out value="${cliente.pessoa.telefone}"/></label>
+								<label>Telefone: </label><label><c:out value="${cliente.pessoa.telefone}"/></label>
 							</div>
 							<div class="col-md-6">
-								<label>Email:</label><label><c:out value="${cliente.pessoa.email}"/></label>
+								<label>Email: </label><label><c:out value="${cliente.pessoa.email}"/></label>
 							</div>
 						</div>
 					</div>
