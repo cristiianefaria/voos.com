@@ -183,18 +183,20 @@ public class PassageiroDAO {
 
 	public Passageiro buscar(String cpf) throws Exception {
 		try {
-			PreparedStatement ps = conexao.prepareStatement("select * from pessoa p1 " + "left join passageiro p2 "
-					+ "on p2.codigo_pessoa = p1.codigo where p2.cpf = '" + cpf + "'");
+			PreparedStatement ps = conexao.prepareStatement("select p2.codigo as codigoPassageiro,* from pessoa p1 " + "left join passageiro p2 "
+					+ "on p2.codigo_pessoa = p1.codigo where p1.cpf = '" + cpf + "'");
 			ResultSet rs = ps.executeQuery();
 
 			Passageiro passageiro = new Passageiro();
 
 			if (rs.next()) {
-				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+				Pessoa p = new Pessoa(rs.getLong("codigo"),rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimento"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"), rs.getString("senha"));
-				passageiro.setId(rs.getLong("codigo"));
+				
+				Long idPessoa = rs.getLong("codigoPassageiro");
+				passageiro.setId(rs.getLong("codigoPassageiro"));
 
 				passageiro.setPessoa(p);
 			}

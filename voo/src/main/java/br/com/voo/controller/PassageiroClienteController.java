@@ -198,10 +198,12 @@ public class PassageiroClienteController extends HttpServlet {
 
 					request.setAttribute("idPassagem", idPassagem);
 					
+					
 					Passageiro consulta = passageiroBS.consultarPorCpf(busca);
 					idPassageiroCliente = consulta.getId();
 					
-					if(passageiroBS.consultarPeloCodigoPessoa(consulta.getPessoa().getId()).getId() == 0){
+					
+					if(consulta.getId() == 0){
 						passageiroBS.salvar(consulta, false);
 					}
 					

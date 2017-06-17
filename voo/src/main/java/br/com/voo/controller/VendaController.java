@@ -1,6 +1,7 @@
 package br.com.voo.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,25 +14,32 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.voo.bll.ClienteBS;
 import br.com.voo.bll.PassageiroBS;
 import br.com.voo.bll.PassagemBS;
+import br.com.voo.bll.VendaBS;
 import br.com.voo.model.Cliente;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Passagem;
+import br.com.voo.model.Venda;
 
 @WebServlet("/Venda")
 public class VendaController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private final static String PAGINA = "/venda.jsp";
+	private String PAGINA = "/venda.jsp";
 	PassageiroBS passageiroBs;
 	PassagemBS passagemBs;
 	ClienteBS clienteBS;
 	Cliente cliente;
+	Passagem passagem;
+	VendaBS vendaBs;
+	Venda venda;
+	
 	public VendaController() {
         super();
         passageiroBs = new PassageiroBS();
         passagemBs = new PassagemBS();
         clienteBS = new ClienteBS();
-        cliente = new Cliente();
+        Passagem passagem = new Passagem();
+        vendaBs  = new VendaBS();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +52,7 @@ public class VendaController extends HttpServlet {
 		case "comprarPassagem":
 			try {
 				Passageiro passageiro = passageiroBs.consultarPorCpf(cpfCliente);
-				Passagem passagem = passagemBs.consultaPassagem(idPassagem);
+			    passagem = passagemBs.consultaPassagem(idPassagem);
 				Cookie[] cookie = request.getCookies();
 				
 				Long idCliente = new Long(0);
@@ -53,7 +61,7 @@ public class VendaController extends HttpServlet {
 					    idCliente = Long.parseLong(cookie2.getValue());
 				}
 				
-				Cliente cliente = clienteBS.consultar(idCliente);
+				cliente = clienteBS.consultar(idCliente);
 				
 				passagem.setPassageiro(passageiro);
 				passagem.setSituacao(Passagem.SituacaoAlocado);
@@ -76,6 +84,31 @@ public class VendaController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		try {
+			
+			String tipoPgto = request.getParameter("formaPagamento");
+			
+			venda = new Venda(LocalDate.now(), 
+								cliente.getPercentDesconto(), 
+					             	tipoPgto, "Vendido", passagem, cliente);
+			
+
+			vendaBs.salvar(venda);
+			
+			PAGINA = "/conclusaoDeVenda.jsp";
+			
+		} catch (Exception e) {
+			request.setAttribute("isErro", true);
+			request.setAttribute("mensagem", e.getMessage());
+			
+			request.setAttribute("passagem", passagem);
+			request.setAttribute("cliente", cliente);
+		}
+		
+		RequestDispatcher view = request.getRequestDispatcher(PAGINA);
+		view.forward(request, response);
+	
 	}
 
 }

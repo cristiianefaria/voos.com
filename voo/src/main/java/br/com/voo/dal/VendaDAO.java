@@ -23,14 +23,17 @@ public class VendaDAO {
 
 	public VendaDAO() {
 		this.cnn = FactoryConexao.getConnection();
+		passagemDAO = new PassagemDAO();
+		clienteDAO = new ClienteDAO();
 	}
 	
 	public Venda incluir(Venda venda) throws Exception{
 		
-		String sql = " INSERT INTO compra (horario,desconto,tipo_pagamento,"
+		String sql = " INSERT INTO venda (horario,desconto,tipo_pagamento,"
 				+ "situacao,removido,codigo_passagem,codigo_cliente) VALUES (?,?,?,?,?,?,?) RETURNING codigo";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
+		
 		ps.setDate(1, Date.valueOf(venda.getHorario()));
 		ps.setDouble(2, venda.getDesconto());
 		ps.setString(3, venda.getTipoDePagamento());
@@ -107,7 +110,7 @@ public class VendaDAO {
 	
 	public Venda consultar(Venda venda) throws SQLException, Exception{
 		
-		String sql = "SELECT * FROM compra WHERE codigo = ? and removido = false";
+		String sql = "SELECT * FROM venda WHERE codigo = ? and removido = false";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
 		ps.setLong(1, venda.getId());
@@ -118,6 +121,7 @@ public class VendaDAO {
 		Venda retorno = new Venda();
 		
 		if(rs.next()){
+
 			retorno = new Venda(
 					rs.getLong("codigo"),
 					rs.getDate("horario").toLocalDate(),
@@ -125,7 +129,7 @@ public class VendaDAO {
 					rs.getString("tipo_pagamento"),
 					rs.getString("situacao"),
 					passagemDAO.consultarPassagem(rs.getLong("codigo_passagem")), 
-					clienteDAO.consultar(rs.getLong("cliente_codigo")));
+					clienteDAO.consultar(rs.getLong("codigo_cliente")));
 		}
 	    
 		return retorno;
