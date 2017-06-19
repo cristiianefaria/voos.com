@@ -7,6 +7,7 @@ public class Poltrona extends Entidade {
 	private String classe;
 	private String detalhes;
 	private Aeronave aeronave;
+	private String descricaoPoltrona;
 	
 	public Poltrona() {
 		super();
@@ -85,6 +86,13 @@ public class Poltrona extends Entidade {
 	
 	public Long getCodigoAeronave() {
 		return this.aeronave.getId();
+	}
+	public String getDescricaoPoltrona(){
+		this.descricaoPoltrona = "Descrição:" +descricao+
+				                 "Classe: " +classe;
+		return descricaoPoltrona;
+		
+		
 	}
 
 	

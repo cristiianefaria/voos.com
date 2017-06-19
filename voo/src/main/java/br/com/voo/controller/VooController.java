@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -84,8 +85,10 @@ public class VooController extends HttpServlet {
 			}
 		}else if(acao.equals("comprarPassagem")){
 			try{
+				
 				voos = vooBS.listar();
 				pagina = LISTAGEM;
+				
 			}catch(Exception e){
 				e.printStackTrace();
 			}
@@ -150,6 +153,7 @@ public class VooController extends HttpServlet {
 		}else if(botao.equals("Buscar Passagem")){
 			
 			try {
+				
 				String itinerario = request.getParameter("itinerario");
 				request.setAttribute("voos", vooBS.listar());
 				pagina = LISTAGEM;

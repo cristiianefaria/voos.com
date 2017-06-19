@@ -7,18 +7,16 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tela de Login</title>
-
 <jsp:include page="header.jsp" />
 </head>
 <body>
-	<jsp:include page="menu.jsp" />
 	<div class="container-fluid">
 
 		<div class="telaLogin">
 			<div class="espacoTopo"></div>
 			<div class="formularioLogin">
 				<img src="app/images/logomarca2.png">
-				<h4>Acesse sua conta</h4>
+				<h4>Acesse seu cadastro!</h4>
 				<form method="POST" action="Login">
 					<div class="form-group">
 						<input class="hidden" type="text" name="id"> <input
@@ -27,14 +25,14 @@
 							class="form-control" type="password" name="senha"
 							placeholder="SENHA">
 
-						<p>
-							<a href="cliente.jsp"> Faça seu cadastro </a><span>|</span> <a
-								href="#"> Esqueceu a senha?</a>
+						<p class="text-left">
+							<a href="passageiro.jsp"> Faça seu cadastro </a>
 						</p>
 
 					</div>
 					<div class="text-right">
-						<input class="btn btn-primary" type="submit" value="LOGIN">
+						<a href="paginaInicial.jsp" class="btn btn-default">Voltar</a> <input
+							class="btn btn-primary" name="botao" type="submit" value="Login">
 					</div>
 					<input type="hidden" name="acessar" value="login" />
 				</form>
@@ -51,6 +49,5 @@
 			</div>
 		</div>
 	</div>
-	<jsp:include page="footer.jsp" />
 </body>
 </html>

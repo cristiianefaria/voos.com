@@ -22,6 +22,10 @@ public class PessoaBS {
 		this.idPessoa = idPessoa;
 	}
 
+	public PessoaBS() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private String validaCampos(String parameter) {
 
 		return parameter != null ? parameter : "";

@@ -29,15 +29,15 @@ public class FactoryConfiguracao {
 	
 	private static String thiago(){
 		String url = "jdbc:postgresql://localhost:5432/voocom";
-        String user = "thiago";
+        String user = "postgres";
         String password = "123456";
         return url+"?user="+user+"&password="+password;
 	}
 	
 	private static String cristiane(){
 		String url = "jdbc:postgresql://localhost:5432/voocom";
-        String user = "cris";
-        String password = "cristiane";
+        String user = "postgres";
+        String password = "123456";
         return url+"?user="+user+"&password="+password;
 	}
 	

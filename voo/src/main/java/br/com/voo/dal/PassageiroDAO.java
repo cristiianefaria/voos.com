@@ -52,7 +52,7 @@ public class PassageiroDAO {
 		return responsavel != null ? responsavel : new Passageiro();
 	}
 
-	public boolean inserir(Passageiro _passageiro) throws Exception {
+	public boolean inserir(Passageiro _passageiro,  boolean salvarPessoa) throws Exception {
 
 		try {
 			PreparedStatement ps = conexao.prepareStatement(
@@ -60,7 +60,7 @@ public class PassageiroDAO {
 
 			conexao.setAutoCommit(false);
 
-			if (pessoaDAO.salvar(_passageiro.getPessoa(), conexao)) {
+			if (pessoaDAO.salvar(_passageiro.getPessoa(), conexao, salvarPessoa)) {
 				long codigoPessoa = pessoaDAO
 						.consultar(_passageiro.getPessoa().getCpf(), _passageiro.getPessoa().getCnpj(), conexao)
 						.getId();
@@ -186,20 +186,47 @@ public class PassageiroDAO {
 		}
 	}
 
-	public Passageiro buscar(String cpf) throws Exception {
+	public Passageiro consultarPeloIdPessoa(Long id) throws Exception {
 		try {
 			PreparedStatement ps = conexao.prepareStatement("select * from passageiro p1 " + "inner join pessoa p2 "
-					+ "on p1.codigo_pessoa = p2.codigo where p2.cpf = '" + cpf + "'");
+					+ "on p1.codigo_pessoa = p2.codigo where p1.codigo_pessoa = " +id+" and p1.removido != true");
 			ResultSet rs = ps.executeQuery();
 
 			Passageiro passageiro = new Passageiro();
 
 			if (rs.next()) {
-				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+				Pessoa p = new Pessoa(rs.getLong("codigo_pessoa"), rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
 						rs.getString("endereco"), rs.getDate("data_nascimento"),
 						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
 						rs.getString("email"), rs.getString("senha"));
 				passageiro.setId(rs.getLong("codigo"));
+
+				passageiro.setPessoa(p);
+			}
+
+			return passageiro;
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	public Passageiro buscar(String cpf) throws Exception {
+		try {
+			PreparedStatement ps = conexao.prepareStatement("select p2.codigo as codigoPassageiro,* from pessoa p1 " + "left join passageiro p2 "
+					+ "on p2.codigo_pessoa = p1.codigo where p1.cpf = '" + cpf + "'");
+			ResultSet rs = ps.executeQuery();
+
+			Passageiro passageiro = new Passageiro();
+
+			if (rs.next()) {
+				Pessoa p = new Pessoa(rs.getLong("codigo"),rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"), rs.getString("senha"));
+				
+				Long idPessoa = rs.getLong("codigoPassageiro");
+				passageiro.setId(rs.getLong("codigoPassageiro"));
 
 				passageiro.setPessoa(p);
 			}

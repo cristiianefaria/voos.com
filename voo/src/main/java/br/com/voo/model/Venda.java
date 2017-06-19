@@ -38,6 +38,8 @@ public class Venda extends Entidade {
 		this.cliente = cliente;
 	}
 	
+
+
 	public Venda(Long id,LocalDate horario, Double desconto, String tipoDePagamento, String situacao, Passagem passagem,
 			Cliente cliente) {
 		super(id);
@@ -80,8 +82,9 @@ public class Venda extends Entidade {
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
-	
-	
+	public void setTipoDePagamento(String tipoDePagamento) {
+		this.tipoDePagamento = tipoDePagamento;
+	}
 	
 	
 }

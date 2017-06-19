@@ -33,6 +33,7 @@ public class VendaBS {
 	}
 
 	public Venda salvar(Venda venda) throws Exception {
+		
 		Venda retorno = new Venda();
 		if (venda != null) {
 			if (venda.getId().intValue() == 0) {

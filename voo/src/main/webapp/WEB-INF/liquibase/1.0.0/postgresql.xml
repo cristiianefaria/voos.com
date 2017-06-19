@@ -209,10 +209,11 @@
 		</addColumn>
 	</changeSet>
 	<changeSet id="014" author="Thiago">
-	<addColumn tableName="passagem">
-	<column name="valor" type="java.sql.types.DOUBLE"></column>
-	</addColumn>
+		<addColumn tableName="passagem">
+			<column name="valor" type="java.sql.types.DOUBLE"></column>
+		</addColumn>
 	</changeSet>
+	
 
 </databaseChangeLog>
 

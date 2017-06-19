@@ -28,7 +28,7 @@ public class ClienteDAO {
 			PreparedStatement ps = conexao.prepareStatement("INSERT INTO public.cliente " + "(codigo_pessoa, milhagem, "
 					+ "percent_desconto, tipo_cliente, removido) " + "VALUES (?, ?, ?, ?, ?);");
 			conexao.setAutoCommit(false);
-			if (pessoa.salvar(_cliente.getPessoa(), conexao)) {
+			if (pessoa.salvar(_cliente.getPessoa(), conexao, true)) {
 				long codigoPessoa = pessoa
 						.consultar(_cliente.getPessoa().getCpf(), _cliente.getPessoa().getCnpj(), conexao).getId();
 

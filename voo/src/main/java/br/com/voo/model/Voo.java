@@ -7,6 +7,7 @@ public class Voo extends Entidade {
 	private LocalDateTime horario;
 	private Itinerario itinerario;
 	private Aeronave aeronave;
+	private String descricaoVoo;
 	
 	public Voo(){
 		
@@ -66,6 +67,14 @@ public class Voo extends Entidade {
 
 	public Aeronave getAeronave() {
 		return aeronave;
+	}
+	public String getDescricaoVoo(){
+		
+		this.descricaoVoo =  " Horario: "+horario+
+				             " Aeronave: "+aeronave.getDescricao()+
+			               	 " Origem: " + itinerario.getOrigem()+
+				             " Destino: "+ itinerario.getDestino();
+		return descricaoVoo;
 	}
 	
 	

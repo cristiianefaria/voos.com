@@ -10,6 +10,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -40,6 +41,7 @@ public class PassageiroClienteController extends HttpServlet {
 	private boolean isErro;
 	private boolean isCadastro;
 	private Long idPassagem;
+	private Long idCliente;
 
 	public PassageiroClienteController() {
 		super();
@@ -49,6 +51,7 @@ public class PassageiroClienteController extends HttpServlet {
 		idPessoa = new Long(0);
 		isCadastro = false;
 		idPassagem = new Long(0);
+		idCliente = new Long(0);
 
 	}
 
@@ -118,9 +121,14 @@ public class PassageiroClienteController extends HttpServlet {
 			break;
 			
 		case "cadastrarPassageiro":
+			
+			for (Cookie cookie : request.getCookies()) {
+				if(cookie.getName().equals("idCliente")){
+					idCliente = Long.parseLong(cookie.getValue());
+				}
+			}
+			
 			idPassagem = Long.parseLong(request.getParameter("idPassagem"));
-			
-			
 			request.setAttribute("idPassagem", idPassagem);
 			request.setAttribute("isPassageiro", true);
 			request.setAttribute("isCadastro", true);
@@ -155,7 +163,7 @@ public class PassageiroClienteController extends HttpServlet {
 			Passageiro passageiro = build.buildPassageiro();
 			try {
 
-				passageiroBS.salvar(passageiro);
+				passageiroBS.salvar(passageiro, true);
 
 			} catch (Exception e) {
 
@@ -188,12 +196,18 @@ public class PassageiroClienteController extends HttpServlet {
 			if (isCadastro) {
 				try {
 
-					
 					request.setAttribute("idPassagem", idPassagem);
 					
-					Passageiro consultarPorCpf = passageiroBS.consultarPorCpf(busca);
-					idPassageiroCliente = consultarPorCpf.getId();
-					request.setAttribute("passageiroCliente", consultarPorCpf);
+					
+					Passageiro consulta = passageiroBS.consultarPorCpf(busca);
+					idPassageiroCliente = consulta.getId();
+					
+					
+					if(consulta.getId() == 0){
+						passageiroBS.salvar(consulta, false);
+					}
+					
+					request.setAttribute("passageiroCliente", consulta);
 					request.setAttribute("isVenda", true);
 
 				} catch (Exception e) {

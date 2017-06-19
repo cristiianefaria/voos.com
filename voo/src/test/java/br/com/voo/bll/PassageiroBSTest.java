@@ -48,8 +48,8 @@ public class PassageiroBSTest {
 	@Test
 	public void test_Salvar_Passageiro_Valido() {
 		try {
-			Mockito.when(dao.inserir(_passageiro)).thenReturn(true);
-			boolean resultado = bs.salvar(_passageiro);
+			Mockito.when(dao.inserir(_passageiro, true)).thenReturn(true);
+			boolean resultado = bs.salvar(_passageiro, true);
 			assertTrue(resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("");
@@ -67,9 +67,9 @@ public class PassageiroBSTest {
 					"Rua cp 33 quadra 77 lote 11 conjunto primavera", _data, EstadoCivil.Casado,"99999999","thiago@gmail","1234");
 
 			_passageiro = new Passageiro(p);
-			Mockito.when(dao.inserir(_passageiro)).thenReturn(true);
+			Mockito.when(dao.inserir(_passageiro, true)).thenReturn(true);
 
-			boolean resultado = bs.salvar(_passageiro);
+			boolean resultado = bs.salvar(_passageiro, true);
 			assertEquals(true, resultado);
 		} catch (Exception e) {
 			assertThat(e).hasMessage("É necessario informar o responsavel!");
