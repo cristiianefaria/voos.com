@@ -117,6 +117,36 @@ public class PassageiroDAO {
 		}
 
 	}
+	
+	public List<Passageiro> listarPorCpf(String cpf) throws Exception {
+		try {
+
+			String sql = "select * from passageiro p1 inner join pessoa p2 "
+					+ "on p1.codigo_pessoa = p2.codigo where p2.cpf = '" + cpf + "' and p1.removido != true";
+
+			PreparedStatement ps = conexao.prepareStatement(sql);
+			ResultSet rs = ps.executeQuery();
+			List<Passageiro> lista = new ArrayList<Passageiro>();
+
+			while (rs.next()) {
+				Passageiro passageiro = new Passageiro();
+				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
+						rs.getString("endereco"), rs.getDate("data_nascimento"),
+						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
+						rs.getString("email"), rs.getString("senha"));
+				passageiro.setId(rs.getLong("codigo"));
+				passageiro.setPessoa(p);
+
+				lista.add(passageiro);
+			}
+
+			return lista;
+
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+
+	}
 
 	public boolean excluir(long id) throws Exception {
 		try {
