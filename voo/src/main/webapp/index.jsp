@@ -10,7 +10,7 @@
 <body>
 
 	<%
-	    response.sendRedirect("http://localhost:8080/paginaInicial.jsp");
+	    response.sendRedirect("http://localhost:8080/Index");
 	%>
 
 

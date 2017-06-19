@@ -9,7 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Gerenciamento de voos</title>
 <jsp:include page="header.jsp" />
-<jsp:include page="validaSessao.jsp" />
 </head>
 <body>
 	<jsp:include page="menu.jsp" />

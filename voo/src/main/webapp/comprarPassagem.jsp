@@ -7,7 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Comprar Passagem | Voos.Com</title>
-<jsp:include page="validaSessao.jsp" />
 <jsp:include page="header.jsp" />
 </head>
 <body>

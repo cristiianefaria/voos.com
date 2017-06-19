@@ -34,16 +34,11 @@ public class LoginController extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		Erro erros = new Erro();
 
 		String botao = request.getParameter("botao") == null ? "" : request.getParameter("botao");
 
-		
-		/*String sair = request.getParameter("sair") != null ? request.getParameter("sair") : "";*/
-		
-		
-		
 		if (botao.equals("sair")) {
 			request.getSession().setAttribute("usuarioLogado", null);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
@@ -78,21 +73,15 @@ public class LoginController extends HttpServlet {
 					ck = new Cookie("idCliente", cliente.getId().toString());
 					response.addCookie(ck);
 
-					request.getRequestDispatcher("paginaInicial.jsp").forward(request, response);
+					request.getRequestDispatcher("index.jsp").forward(request, response);
 
 					return;
 				} else {
 					erros.add("Usuário ou senha incorreto!");
 				}
 			}
-		} else if (botao.equals("logout")) {
-			request.getSession().invalidate();
-
-			ck = new Cookie("idCliente", "");
-
-			response.addCookie(ck);
-
 		}
+
 		request.getSession().invalidate();
 		request.setAttribute("mensagens", erros);
 
