@@ -37,7 +37,7 @@ public class FactoryConfiguracao {
 	private static String cristiane(){
 		String url = "jdbc:postgresql://localhost:5432/voocom";
         String user = "postgres";
-        String password = "cristiane";
+        String password = "123456";
         return url+"?user="+user+"&password="+password;
 	}
 	
