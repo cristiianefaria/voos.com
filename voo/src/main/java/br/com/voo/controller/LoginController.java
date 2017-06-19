@@ -34,12 +34,22 @@ public class LoginController extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		String botao = request.getParameter("botao");
-
+		
 		Erro erros = new Erro();
 
-		if (botao.equalsIgnoreCase("Login")) {
+		String botao = request.getParameter("botao") == null ? "" : request.getParameter("botao");
+
+		
+		/*String sair = request.getParameter("sair") != null ? request.getParameter("sair") : "";*/
+		
+		
+		
+		if (botao.equals("sair")) {
+			request.getSession().setAttribute("usuarioLogado", null);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}
+
+		if (botao.equals("Login")) {
 
 			String email = request.getParameter("usuario");
 			String senha = request.getParameter("senha");
@@ -50,25 +60,25 @@ public class LoginController extends HttpServlet {
 			if (senha == null || senha.isEmpty()) {
 				erros.add("Senha não informada!");
 			}
-			Pessoa p= null;
+			Pessoa p = null;
 			if (!erros.isExisteErros()) {
 				try {
 					cliente = clienteBs.consultar(email, senha);
-					//p = dao.validaLogin(email, senha);
+					// p = dao.validaLogin(email, senha);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				if (cliente != null) {
 
 					request.getSession().setAttribute("usuarioLogado", cliente);
-					
+
 					Long id = cliente.getId();
-					System.out.println("ID = "+id);
+					System.out.println("ID = " + id);
 
 					ck = new Cookie("idCliente", cliente.getId().toString());
 					response.addCookie(ck);
 
-					request.getRequestDispatcher("index.jsp").forward(request, response);
+					request.getRequestDispatcher("paginaInicial.jsp").forward(request, response);
 
 					return;
 				} else {

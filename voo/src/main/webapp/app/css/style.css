@@ -171,7 +171,7 @@ ul.breadcrumb {
 
 .navbar-default {
 	background-color: #000099;
-	border-color: #81bef7;
+	border-color: #000099;
 	margin-bottom: 0;
 }
 
@@ -223,7 +223,7 @@ ul.breadcrumb {
 }
 
 .navbar-default .navbar-toggle {
-	border-color: #81bef7;
+	border-color: #000099;
 }
 
 .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus
@@ -236,7 +236,7 @@ ul.breadcrumb {
 }
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
-	border-color: #ecf0f1;
+	border-color: #000099;
 }
 
 .navbar-default .navbar-link {
