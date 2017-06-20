@@ -45,4 +45,8 @@ public class PassagemBS {
 		}
 	}
 
+	public Passagem consultaPassagemPeloHash(String hashCode) throws Exception {
+		return dao.consultarPassagemPeloHashCode(hashCode);
+	}
+
 }

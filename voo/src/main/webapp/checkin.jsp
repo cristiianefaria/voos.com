@@ -17,14 +17,21 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="bloco">
+					<form action="Checkin" method="POST">
+					<h3 style="text-align: center;">Realizar Checkin</h3>
 						<div class="row">
-							<div class="col-md-12">
-								<h1>Obrigado por efetuar a compra, seu ticket foi enviado
-									por email!</h1>
-								<br> <a href="paginaInicial.jsp" class="btn btn-primary">Voltar
-									para página principal</a>
+							<div class="col-md-10">
+								<label>Identificador</label>
+								<input class="form-control" placeholder="Informe o Identificador" type="text" name="hash"> 
+							</div>
+							<div class ="col-md-2">
+								<div class="form-group">
+									<label for="teste" style="color: white;">gfhf</label><br/>
+									<input id="teste" name="teste" type="submit" class="btn btn-primary" style="text-align: right;">	
+								</div>
 							</div>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
