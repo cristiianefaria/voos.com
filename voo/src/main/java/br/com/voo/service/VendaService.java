@@ -2,12 +2,12 @@ package br.com.voo.service;
 
 import java.util.Date;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 
@@ -41,10 +41,7 @@ public class VendaService {
 	
 	@POST
 	@Produces("application/json")
-	@Consumes("application/json")
-	public String venderPassagem(Compra compra){
-		
-		Gson gson = new Gson();
+	public Response venderPassagem(Compra compra){
 		
 		Venda resposta = new Venda();
 		try{
@@ -53,7 +50,6 @@ public class VendaService {
 			Cliente cliente = clienteBS.consultar(compra.getCliente().getId());
 			Voo voo = vooBS.consultar(compra.getPassagem().getVoo());
 			Poltrona poltrona = poltronaBS.consultar(compra.getPassagem().getPoltrona());
-			
 			Passagem passagem = passagemBS.consultaPassagem(compra.getPassagem().getId());
 			
 			passagem.setPassageiro(passageiro);
@@ -63,20 +59,19 @@ public class VendaService {
 			Venda venda = new Venda();
 			venda.setPassagem(passagem);
 			venda.setCliente(cliente);
-			
+
 			resposta = vendaBS.salvar(venda);
 			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return gson.toJson(resposta);
+		return Response.status(200).entity(resposta).build();
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public String moodeloDeCompra(){		
-		Gson gson = new Gson();
+	public Response moodeloDeCompra(){		
 		Compra compra = new Compra();
 		
 		BuilderPessoaCliente builder = new BuilderPessoaCliente(new Pessoa("Bruno Rodrigues",
@@ -105,7 +100,7 @@ public class VendaService {
 				new Poltrona()
 				));
 
-		return gson.toJson(compra);
+		return Response.status(200).entity(compra).build();
 	}
 	
 }

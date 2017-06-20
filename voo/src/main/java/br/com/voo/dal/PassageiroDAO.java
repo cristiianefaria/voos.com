@@ -26,7 +26,6 @@ public class PassageiroDAO {
 	public boolean alterar(Passageiro _passageiro) throws Exception {
 
 		try {
-			
 			conexao.setAutoCommit(false);
 			if (pessoaDAO.alterar(_passageiro.getPessoa(), conexao)) {
 
@@ -48,7 +47,6 @@ public class PassageiroDAO {
 	}
 
 	private Passageiro validaSeResponsavelNulo(Passageiro responsavel) {
-
 		return responsavel != null ? responsavel : new Passageiro();
 	}
 
@@ -67,11 +65,9 @@ public class PassageiroDAO {
 
 				ps.setLong(1, codigoPessoa);
 				ps.setBoolean(2, _passageiro.isRemovido());
-
 				ResultSet rs = ps.executeQuery();
 				rs.next();
 				_passageiro.setId(rs.getLong("codigo"));
-				
 				//contato.ineserir(_passageiro.getContato(), conexao);
 				conexao.commit();
 				return true;
@@ -89,8 +85,8 @@ public class PassageiroDAO {
 	}
 
 	public List<Passageiro> listar(String nome) throws Exception {
-		try {
 
+		try {
 			String sql = "select * from passageiro p1 inner join pessoa p2 "
 					+ "on p1.codigo_pessoa = p2.codigo where p2.nome like '%" + nome + "%' and p1.removido != true";
 
@@ -106,7 +102,6 @@ public class PassageiroDAO {
 						rs.getString("email"), rs.getString("senha"));
 				passageiro.setId(rs.getLong("codigo"));
 				passageiro.setPessoa(p);
-
 				lista.add(passageiro);
 			}
 
@@ -118,36 +113,6 @@ public class PassageiroDAO {
 
 	}
 	
-	public List<Passageiro> listarPorCpf(String cpf) throws Exception {
-		try {
-
-			String sql = "select * from passageiro p1 inner join pessoa p2 "
-					+ "on p1.codigo_pessoa = p2.codigo where p2.cpf = '" + cpf + "' and p1.removido != true";
-
-			PreparedStatement ps = conexao.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			List<Passageiro> lista = new ArrayList<Passageiro>();
-
-			while (rs.next()) {
-				Passageiro passageiro = new Passageiro();
-				Pessoa p = new Pessoa(rs.getString("nome"), rs.getString("cpf"), rs.getString("cnpj"),
-						rs.getString("endereco"), rs.getDate("data_nascimento"),
-						ValidarPessoa.estadoCivilDescricao(rs.getString("estado_civil")), rs.getString("telefone"),
-						rs.getString("email"), rs.getString("senha"));
-				passageiro.setId(rs.getLong("codigo"));
-				passageiro.setPessoa(p);
-
-				lista.add(passageiro);
-			}
-
-			return lista;
-
-		} catch (Exception e) {
-			throw new Exception(e.getMessage());
-		}
-
-	}
-
 	public boolean excluir(long id) throws Exception {
 		try {
 			Passageiro passageiro = consultar(id);
