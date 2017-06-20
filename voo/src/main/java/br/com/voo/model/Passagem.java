@@ -2,14 +2,19 @@ package br.com.voo.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement
 public class Passagem extends Entidade {
 
+	@JsonIgnore
 	private Passageiro passageiro;
+	
+	@JsonIgnore
 	private Passageiro responsavel;
 	private Voo voo;
 	private String situacao;
-	private String statusChekIn;
+	private String statusChekIn = "Aguardando Confirmação";
 	private String hashCheckIn;
 	private Poltrona poltrona;
 	private boolean statusCheckIn;
@@ -22,7 +27,7 @@ public class Passagem extends Entidade {
 	public static final String SituacaoAlocado = "Alocada";
 
 	public Passagem(Long codigo, Passageiro passageiro, Passageiro responsavel, String situacao, String hashCheckIn,
-			boolean statusCheckIn, Double valor, Voo voo, Poltrona poltrona) {
+		boolean statusCheckIn, Double valor, Voo voo, Poltrona poltrona) {
 		super();
 		this.passageiro = passageiro;
 		this.responsavel = responsavel;
@@ -38,21 +43,14 @@ public class Passagem extends Entidade {
 	public Passagem() {
 		super();
 	}
-
+	
+	@JsonIgnore
 	public Passageiro getPassageiro() {
 		return passageiro;
 	}
 
 	public void setPassageiro(Passageiro passageiro) {
 		this.passageiro = passageiro;
-	}
-
-	public Passageiro getRespossavel() {
-		return responsavel;
-	}
-
-	public void setRespossavel(Passageiro respossavel) {
-		this.responsavel = respossavel;
 	}
 
 	public String getSituacao() {
@@ -87,6 +85,7 @@ public class Passagem extends Entidade {
 		this.valor = valor;
 	}
 
+	@JsonIgnore
 	public Passageiro getResponsavel() {
 		return responsavel;
 	}
@@ -108,6 +107,7 @@ public class Passagem extends Entidade {
 	}
 
 	public void setPoltrona(Poltrona poltrona) {
+		this.situacao = this.SituacaoAlocado;
 		this.poltrona = poltrona;
 	}
 

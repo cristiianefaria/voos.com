@@ -4,12 +4,20 @@ import java.time.LocalDateTime;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @XmlRootElement
 public class Voo extends Entidade {
 	
 	private LocalDateTime horario;
+	
+	@JsonIgnore
 	private Itinerario itinerario;
+	
+	@JsonIgnore
 	private Aeronave aeronave;
+	
+	@JsonIgnore
 	private String descricaoVoo;
 	
 	public Voo(){
@@ -43,11 +51,13 @@ public class Voo extends Entidade {
 	public LocalDateTime getHorario() {
 		return horario;
 	}
-
+	
+	@JsonIgnore
 	public long getCodigoAeronave() {
 		return aeronave.getId();
 	}
 	
+	@JsonIgnore
 	public long getCodigoItinerario(){
 		return itinerario.getId();
 	}
@@ -68,9 +78,12 @@ public class Voo extends Entidade {
 		return itinerario;
 	}
 
+	@JsonIgnore
 	public Aeronave getAeronave() {
 		return aeronave;
 	}
+	
+	@JsonIgnore
 	public String getDescricaoVoo(){
 		
 		this.descricaoVoo =  " Horario: "+horario+

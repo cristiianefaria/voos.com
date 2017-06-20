@@ -96,7 +96,7 @@ public class PoltronaDAO {
     }
     
     public List<Poltrona> listar(Poltrona poltrona)throws SQLException{
-    	String sql = "SELECT * FROM poltrona where codigo_aeronave = ? and removido = false";
+    	String sql = "SELECT * FROM poltrona where codigo_aeronave = ? and removido = false ORDER BY valor";
 
     	PreparedStatement ps = cnn.prepareStatement(sql);
     	ps.setLong(1, poltrona.getCodigoAeronave());

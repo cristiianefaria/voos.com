@@ -19,7 +19,7 @@ public class Venda extends Entidade {
 		super();
 		this.horario = LocalDate.now();
 		this.desconto = new Double(0);
-		this.situacao = "Em Aberto";
+		this.situacao = "Comprada";
 		this.tipoDePagamento = "";
 	}
 	
@@ -65,6 +65,10 @@ public class Venda extends Entidade {
 	
 	public String getSituacao() {
 		return situacao;
+	}
+	
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
 	}
 	
 	public Long getCodigoPassagem(){

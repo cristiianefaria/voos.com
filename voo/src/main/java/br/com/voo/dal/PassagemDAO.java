@@ -135,7 +135,8 @@ public class PassagemDAO {
 	private String obterConsulta(Voo voo) {
 		
 		String sql = "select * from passagem where "
-				+ " removido ="+false
+				+ " codigo_voo = "+ voo.getId()
+				+ " and removido ="+false
 				+ " and situacao <>'"+Passagem.SituacaoAlocado+"'";
 		
 

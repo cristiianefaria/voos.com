@@ -44,7 +44,14 @@ public class PassagemController extends HttpServlet {
 			
 			Long id = Long.parseLong(request.getParameter("id"));
 			Voo voo = vooBs.consultar(new Voo(id));	
-			passagens = bs.listarPassagens(voo);
+			
+			try{
+				passagens = bs.listarPassagens(voo);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
+			
 			request.setAttribute("isLista", true);
 			break;
 

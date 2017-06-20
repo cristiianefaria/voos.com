@@ -9,8 +9,6 @@ public class Passageiro extends Entidade {
 	private boolean removido;
 	private Contato contato;
 	
-	private Passageiro responsavel;
-	
 	public Passageiro(Pessoa pessoa) {
 		super();
 		this.pessoa = pessoa;
@@ -35,13 +33,6 @@ public class Passageiro extends Entidade {
 		this.pessoa = pessoa;
 	}
 
-	public Passageiro getResponsavel() {
-		return responsavel;
-	}
-	
-	public void setResponsavel(Passageiro responsavel) {
-		this.responsavel = responsavel;
-	}
 	public boolean isRemovido() {
 		return removido;
 	}

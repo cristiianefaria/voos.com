@@ -27,35 +27,22 @@ public class PassagemBS {
 	public void AlterarPassagem(Passagem passagem){
 		try {
 			dao.alterarPassagem(passagem);
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List<Passagem> listarPassagens(Voo voo) {
-		
-		try {
-			
-			return dao.listarPassagens(voo);
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ArrayList<Passagem>();
-		}
+	public List<Passagem> listarPassagens(Voo voo) throws Exception{
+		return dao.listarPassagens(voo);
 	}
 
 	public Passagem consultaPassagem(Long codigoPassagem) {
 		try {
-		
 			return dao.consultarPassagem(codigoPassagem);
 		} catch (Exception e) {
-			
 			e.printStackTrace();
-		return null;
-			
+			return null;
 		}
-		
 	}
 
 }
