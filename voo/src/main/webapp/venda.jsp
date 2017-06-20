@@ -70,6 +70,8 @@
 										<label>Situação:</label><label><c:out
 												value="${passagem.situacao}" /></label>
 									</div>
+									
+									
 									<div class="col-md-12">
 										<label>Voo:</label><label><c:out
 												value="${passagem.voo.descricaoVoo}" /></label>

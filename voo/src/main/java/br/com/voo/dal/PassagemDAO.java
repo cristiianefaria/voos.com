@@ -76,20 +76,20 @@ public class PassagemDAO {
 	public boolean alterarPassagem(Passagem passagem) throws Exception {
 		try {
 		
-			String sql = "UPDATE public.passagem"
-					+ "SET codigo_responsavel=?, tipo_cliente=?, situacao=?, status_checkin=?, "
+			String sql = "UPDATE public.passagem "
+					+ "SET  tipo_cliente=?, situacao=?, status_checkin=?, "
 					+ "hash_checkin=?, codigo_voo=?, removido=?, codigo_passageiro=? "
 					+ "WHERE codigo = "+passagem.getId()+";";
 			PreparedStatement ps =  conexao.prepareStatement(sql);
 			
-		    ps.setLong(1, passagem.getResponsavel().getId());
-		    ps.setString(2, "");
-		    ps.setString(3, passagem.getSituacao());
-		    ps.setString(4, passagem.getStatusChekIn());
-		    ps.setString(5, passagem.getHashCheckIn());
-		    ps.setLong(6, passagem.getVoo().getId());
-		    ps.setBoolean(7, passagem.getRemovida());
-		    ps.setLong(8, passagem.getPassageiro().getId());
+			
+		    ps.setString(1, "");
+		    ps.setString(2, passagem.getSituacao());
+		    ps.setString(3, passagem.getStatusChekIn());
+		    ps.setString(4, passagem.getHashCheckIn());
+		    ps.setLong(5, passagem.getVoo().getId());
+		    ps.setBoolean(6, passagem.getRemovida());
+		    ps.setLong(7, passagem.getPassageiro().getId());
 			
 			ps.executeUpdate();
 			ps.close();
@@ -171,7 +171,7 @@ public class PassagemDAO {
 
 	public Passagem consultarPassagemPeloHashCode(String hashCode) throws Exception {
 		
-		String sql = "select * from passagem where hash_checkin = "+hashCode+" and removido = false;";
+		String sql = "select * from passagem where hash_checkin = '"+hashCode+"' and removido = false;";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		
 		ResultSet rs = ps.executeQuery();

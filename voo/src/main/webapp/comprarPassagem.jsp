@@ -21,10 +21,17 @@
 							<div class="col-md-12">
 								<h1>Obrigado por efetuar a compra, seu ticket foi enviado
 									por email!</h1>
+								<br> <br>
+								<div class="col-md-12">
+									<label>Identificador:</label><label><c:out
+											value="${hash}" /></label>
+								</div>
 								<br> <a href="paginaInicial.jsp" class="btn btn-primary">Voltar
 									para página principal</a>
 							</div>
+
 						</div>
+
 					</div>
 				</div>
 			</div>

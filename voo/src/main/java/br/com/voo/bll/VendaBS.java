@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.SimpleEmail;
 import org.omg.CORBA.DATA_CONVERSION;
 
@@ -79,16 +80,18 @@ public class VendaBS {
 		return dao.listar(idUsuario);
 	}
 
-	public void enviarEmail(Pessoa passageiro, Pessoa cliente) {
+	public void enviarEmail(Passagem passagem) {
 		try {
 			
 			SimpleEmail email = new SimpleEmail();
-			email.setHostName("aspmx.l.google.com");
-			email.setSmtpPort(25);
-			email.addTo("brunocroh@gmail.com", "cliente");
-			email.setFrom("thiagorodriguescamara@gmail.com", "aminorejgafay261188"); 
-			email.setSubject("Mensagem de Teste");
-			email.setMsg("Teste de Email utilizando commons-email");
+			email.setHostName("smtp.gmail.com");
+			email.setSmtpPort(465);
+			email.setAuthenticator(new DefaultAuthenticator("thiagorodriguescamara@gmail.com", "aminorejgafay261188"));
+			email.setSSLOnConnect(true);
+			email.setFrom("thiagorodriguescamara@gmail.com");
+			email.addTo("thiago.rodrigues@inventsoftware.com.br");
+			email.setSubject("voo.com");
+			email.setMsg("Obrigado por camprar na voo.com seu identificador é:"+ passagem.getHashCheckIn());
 			email.send(); 
 			
 		} catch (Exception e) {

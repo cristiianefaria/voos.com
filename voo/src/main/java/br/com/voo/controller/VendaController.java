@@ -2,6 +2,7 @@ package br.com.voo.controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -89,14 +90,18 @@ public class VendaController extends HttpServlet {
 			
 			String tipoPgto = request.getParameter("formaPagamento");
 			
+			passagem.setHashCheckIn(passagemBs.obterHash());
+			passagemBs.AlterarPassagem(passagem);
+			
 			venda = new Venda(LocalDate.now(), 
 								cliente.getPercentDesconto(), 
 					             	tipoPgto, "Vendido", passagem, cliente);
 
 			vendaBs.salvar(venda);
 			
-			PAGINA = "/conclusaoDeVenda.jsp";
-			//vendaBs.enviarEmail(passagem.getPassageiro().getPessoa(), cliente.getPessoa());
+			PAGINA = "/comprarPassagem.jsp";
+			request.setAttribute("hash", passagem.getHashCheckIn());
+			vendaBs.enviarEmail(passagem);
 			
 		} catch (Exception e) {
 			request.setAttribute("isErro", true);
@@ -111,4 +116,5 @@ public class VendaController extends HttpServlet {
 	
 	}
 
+	
 }
