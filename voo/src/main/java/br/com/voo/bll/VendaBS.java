@@ -49,7 +49,7 @@ public class VendaBS {
 		return retorno;
 	}
 
-	private void validaVenda(Venda venda) {
+	private void validaVenda(Venda venda) throws Exception {
 
 		Passagem passagem = bsPassagem.consultaPassagem(venda.getCodigoPassagem());
 		Data data = new Data(passagem.getPassageiro().getPessoa().getDataNascimento());
@@ -75,8 +75,8 @@ public class VendaBS {
 		return dao.consultar(venda);
 	}
 
-	public List<Venda> listar() throws SQLException, Exception {
-		return dao.listar();
+	public List<Venda> listar(Long idUsuario) throws SQLException, Exception {
+		return dao.listar(idUsuario);
 	}
 
 	public void enviarEmail(Pessoa passageiro, Pessoa cliente) {

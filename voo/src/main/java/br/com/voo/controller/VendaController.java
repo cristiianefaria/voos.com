@@ -96,7 +96,7 @@ public class VendaController extends HttpServlet {
 			vendaBs.salvar(venda);
 			
 			PAGINA = "/conclusaoDeVenda.jsp";
-			vendaBs.enviarEmail(passagem.getPassageiro().getPessoa(), cliente.getPessoa());
+			//vendaBs.enviarEmail(passagem.getPassageiro().getPessoa(), cliente.getPessoa());
 			
 		} catch (Exception e) {
 			request.setAttribute("isErro", true);

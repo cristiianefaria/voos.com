@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import br.com.voo.bll.PassagemBS;
 import br.com.voo.model.Passagem;
 import br.com.voo.model.Venda;
 import br.com.voo.util.FactoryConexao;
@@ -18,6 +19,7 @@ public class VendaDAO {
 	Connection cnn;
 	PassagemDAO passagemDAO;
 	ClienteDAO clienteDAO;
+	PassagemBS passagemBS = new PassagemBS();
 	
 	final static Logger log = Logger.getLogger(VendaDAO.class.getName());
 
@@ -135,11 +137,13 @@ public class VendaDAO {
 		return retorno;
 	}
 	
-	public List<Venda> listar() throws SQLException, Exception{
+	public List<Venda> listar(Long id) throws SQLException, Exception{
 		
-		String sql = "SELECT * FROM compra WHERE removido = false";
+		String sql = "SELECT * FROM venda WHERE removido = false and codigo_cliente = ?";
 		
 		PreparedStatement ps = cnn.prepareStatement(sql);
+		ps.setLong(1, id);
+		
 		
 		ResultSet rs = ps.executeQuery();
 		log.info(ps.toString());
@@ -151,10 +155,10 @@ public class VendaDAO {
 					rs.getLong("codigo"),
 					rs.getDate("horario").toLocalDate(),
 					rs.getDouble("desconto"),
-					rs.getString("tipo_de_pagamento"),
+					rs.getString("tipo_pagamento"),
 					rs.getString("situacao"),
-					new Passagem(), //TODO adicionar passagem aqui
-					clienteDAO.consultar(rs.getLong("cliente_codigo")));
+				    passagemBS.consultaPassagem(rs.getLong("codigo_passagem")),
+					clienteDAO.consultar(rs.getLong("codigo_cliente")));
 			vendas.add(venda);
 		}
 	    

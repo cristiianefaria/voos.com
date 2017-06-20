@@ -36,13 +36,8 @@ public class PassagemBS {
 		return dao.listarPassagens(voo);
 	}
 
-	public Passagem consultaPassagem(Long codigoPassagem) {
-		try {
+	public Passagem consultaPassagem(Long codigoPassagem)throws Exception {
 			return dao.consultarPassagem(codigoPassagem);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	public Passagem consultaPassagemPeloHash(String hashCode) throws Exception {

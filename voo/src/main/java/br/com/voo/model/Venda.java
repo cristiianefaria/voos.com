@@ -63,6 +63,10 @@ public class Venda extends Entidade {
 		return tipoDePagamento;
 	}
 	
+	public Passagem getPassagem() {
+		return passagem;
+	}
+	
 	public String getSituacao() {
 		return situacao;
 	}

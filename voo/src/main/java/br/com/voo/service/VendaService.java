@@ -19,6 +19,7 @@ import br.com.voo.model.Cliente;
 import br.com.voo.model.Passageiro;
 import br.com.voo.model.Passagem;
 import br.com.voo.model.Venda;
+import br.com.voo.model.Voo;
 
 @Path("/venda")
 public class VendaService {
@@ -68,14 +69,19 @@ public class VendaService {
 	public Response venderPassagem(@PathParam("idusuario") String idUsuario){
 		List<Venda> vendas = new ArrayList<Venda>();
 		Long id_usuario = Long.parseLong(idUsuario);
-		Venda resposta = new Venda();
+		List<Voo> resposta = new ArrayList<Voo>();
 		try{
-			vendas = vendaBS.listar();
+			vendas = vendaBS.listar(id_usuario);
+			vendas.forEach(e -> resposta.add(e.getPassagem().getVoo()));
+
+			return Response.status(200).entity(resposta).build();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		return Response.status(200).entity(resposta).build();
+		return Response.status(404).build();
+		
+		
 	}
 	
 
