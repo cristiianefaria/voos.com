@@ -99,8 +99,9 @@ public class VendaController extends HttpServlet {
 
 			vendaBs.salvar(venda);
 			
-			PAGINA = "/conclusaoDeVenda.jsp";
-			vendaBs.enviarEmail(passagem.getPassageiro().getPessoa(), cliente.getPessoa());
+			PAGINA = "/comprarPassagem.jsp";
+			request.setAttribute("hash", passagem.getHashCheckIn());
+			vendaBs.enviarEmail(passagem);
 			
 		} catch (Exception e) {
 			request.setAttribute("isErro", true);

@@ -12,6 +12,7 @@
 <body>
 
 	<h1>Venda Concluída</h1>
+	
 	<jsp:include page="footer.jsp" />
 </body>
 </html>

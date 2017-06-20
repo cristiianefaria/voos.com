@@ -17,11 +17,6 @@
 		<div class="panel panel-default">
 			<div class="panel-body">
 				<div class="row">
-					<div class="col-md-12">
-						<div class="alert alert-danger">
-							<c:out value="${mensagem}" />
-						</div>
-					</div>
 					<div class="bloco">
 						<h3>Checkin Confirmado</h3>
 						<div class="row">
