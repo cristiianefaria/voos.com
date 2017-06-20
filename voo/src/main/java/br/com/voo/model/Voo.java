@@ -2,6 +2,9 @@ package br.com.voo.model;
 
 import java.time.LocalDateTime;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Voo extends Entidade {
 	
 	private LocalDateTime horario;

@@ -8,8 +8,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.gson.Gson;
-
 import br.com.voo.bll.PassageiroBS;
 import br.com.voo.model.Passageiro;
 
@@ -17,20 +15,23 @@ import br.com.voo.model.Passageiro;
 public class PassageiroService {
 
  	PassageiroBS passageiroBS = new PassageiroBS();
- 	Gson gson = new Gson();
  	
 	@GET
 	@Path("/{cpf}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getPassageiro(@PathParam("cpf") String nome){
+	public Response getPassageiro(@PathParam("cpf") String cpf){
 		
-		return Response.status(200).entity(passageiroBS.listar(nome)).build();
+		try {
+			return Response.status(200).entity(passageiroBS.consultarPorCpf(cpf)).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return Response.status(404).entity("Não foi possivel consultar este passageiro").build();
 	}
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getPassageiro(){
-		
+	public Response getPassageiros(){
 		return Response.status(200).entity(passageiroBS.listar("")).build();
 	}
 	
