@@ -44,11 +44,22 @@ public class CheckinController extends HttpServlet {
 		String hashCode = req.getParameter("hash");
 		try {
 
-			Passagem pasagem = passagemBs.consultaPassagemPeloHash(hashCode);
+			Passagem passagem = passagemBs.consultaPassagemPeloHash(hashCode);
 			
+			passagemBs.confirmarCheckin(passagem);
+			
+			
+			req.setAttribute("passagem", passagem);
+			String confirmacao = "/confirmacaoCheckin.jsp";
+			RequestDispatcher view = req.getRequestDispatcher(confirmacao);
+			view.forward(req, resp);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			
+			req.setAttribute("isErro", true);
+			req.setAttribute("mensagem", e.getMessage());
+			RequestDispatcher view = req.getRequestDispatcher(PAGINA);
+			view.forward(req, resp);
 		}
 		
 		

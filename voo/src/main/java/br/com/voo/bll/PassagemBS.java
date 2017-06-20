@@ -56,4 +56,17 @@ public class PassagemBS {
 		return hashNumero.toString();
 	}
 
+	public void confirmarCheckin(Passagem passagem) throws Exception {
+		
+		if(passagem != null && passagem.getId()> 0){
+			
+			passagem.setStatusCheckIn(true);
+			passagem.setStatusChekIn("Confirmado");
+			dao.alterarPassagem(passagem);
+			
+		}else
+			throw new Exception("Passagem não encontrada! verifique o identificador.");
+		
+	}
+
 }

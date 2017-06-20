@@ -171,7 +171,7 @@ public class PassagemDAO {
 
 	public Passagem consultarPassagemPeloHashCode(String hashCode) throws Exception {
 		
-		String sql = "select * from passagem where hash_checkin = "+hashCode+" and removido = false;";
+		String sql = "select * from passagem where hash_checkin = '"+hashCode+"' and removido = false;";
 		PreparedStatement ps = conexao.prepareStatement(sql);
 		
 		ResultSet rs = ps.executeQuery();
