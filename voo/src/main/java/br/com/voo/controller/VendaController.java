@@ -92,11 +92,11 @@ public class VendaController extends HttpServlet {
 			venda = new Venda(LocalDate.now(), 
 								cliente.getPercentDesconto(), 
 					             	tipoPgto, "Vendido", passagem, cliente);
-			
 
 			vendaBs.salvar(venda);
 			
 			PAGINA = "/conclusaoDeVenda.jsp";
+			vendaBs.enviarEmail(passagem.getPassageiro().getPessoa(), cliente.getPessoa());
 			
 		} catch (Exception e) {
 			request.setAttribute("isErro", true);

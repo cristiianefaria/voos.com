@@ -167,4 +167,28 @@ public class PassagemDAO {
 		return passagem;
 		
 	}
+
+	public Passagem consultarPassagemPeloHashCode(String hashCode) throws Exception {
+		
+		String sql = "select * from passagem where hash_checkin = "+hashCode+" and removido = false;";
+		PreparedStatement ps = conexao.prepareStatement(sql);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		Passagem passagem = new Passagem();
+		if(rs.next()){
+			passagem.setId(rs.getLong("codigo"));
+			passagem.setHashCheckIn(rs.getString("hash_checkin"));
+			passagem.setPassageiro(passageiroDAO.consultar(rs.getLong("codigo_passageiro")));
+			passagem.setPoltrona(poltronaDAO.consultar(new Poltrona(rs.getLong("codigo_poltrona"))));
+			passagem.setSituacao(rs.getString("situacao"));
+			passagem.setRemovida(rs.getBoolean("removido"));
+			passagem.setStatusCheckIn(rs.getBoolean("hash_checkin"));
+			passagem.setVoo(vooDAO.consultar(new Voo(rs.getLong("codigo_voo"))));
+			passagem.setTipoCliente(rs.getString("tipo_cliente"));
+			
+		}
+		return passagem;
+
+	}
 }

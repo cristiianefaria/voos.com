@@ -5,10 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.mail.SimpleEmail;
 import org.omg.CORBA.DATA_CONVERSION;
 
 import br.com.voo.dal.VendaDAO;
 import br.com.voo.model.Passagem;
+import br.com.voo.model.Pessoa;
 import br.com.voo.model.Venda;
 import br.com.voo.util.Data;
 
@@ -75,6 +77,24 @@ public class VendaBS {
 
 	public List<Venda> listar() throws SQLException, Exception {
 		return dao.listar();
+	}
+
+	public void enviarEmail(Pessoa passageiro, Pessoa cliente) {
+		try {
+			
+			SimpleEmail email = new SimpleEmail();
+			email.setHostName("aspmx.l.google.com");
+			email.setSmtpPort(25);
+			email.addTo("brunocroh@gmail.com", "cliente");
+			email.setFrom("thiagorodriguescamara@gmail.com", "aminorejgafay261188"); 
+			email.setSubject("Mensagem de Teste");
+			email.setMsg("Teste de Email utilizando commons-email");
+			email.send(); 
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }
