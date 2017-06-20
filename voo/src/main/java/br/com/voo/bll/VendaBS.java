@@ -83,9 +83,9 @@ public class VendaBS {
 		try {
 			
 			SimpleEmail email = new SimpleEmail();
-			email.setHostName("aspmx.l.google.com");
-			email.setSmtpPort(25);
-			email.addTo("brunocroh@gmail.com", "cliente");
+			email.setHostName("smtp.gmail.com");
+			email.setSmtpPort(587);
+			email.addTo("thiago.rodrigues@inventsoftware.com.br", "cliente");
 			email.setFrom("thiagorodriguescamara@gmail.com", "aminorejgafay261188"); 
 			email.setSubject("Mensagem de Teste");
 			email.setMsg("Teste de Email utilizando commons-email");

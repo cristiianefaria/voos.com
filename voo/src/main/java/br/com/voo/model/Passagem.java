@@ -30,7 +30,7 @@ public class Passagem extends Entidade {
 		boolean statusCheckIn, Double valor, Voo voo, Poltrona poltrona) {
 		super();
 		this.passageiro = passageiro;
-		this.responsavel = responsavel;
+		this.responsavel = responsavel != null ? responsavel : new Passageiro();
 		this.situacao = situacao;
 		this.hashCheckIn = hashCheckIn;
 		this.voo = voo;
@@ -42,6 +42,7 @@ public class Passagem extends Entidade {
     
 	public Passagem() {
 		super();
+		this.responsavel = new Passageiro();
 	}
 	
 	@JsonIgnore
