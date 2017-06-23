@@ -10,14 +10,12 @@ import org.easyrules.annotation.Action;
 public class DefineDestinoCE {
 
 	private Indicacao indicacao;
+	private TipoDeLugar ambiente;
 
 	@Condition
 	public boolean when() {
 		if (indicacao.getAmbiente() == indicacao.getAmbiente().PARQUEAQUATICO
-				&& (indicacao.getDinheiro() == indicacao.getDinheiro().ALTO
-						|| indicacao.getDinheiro() == indicacao.getDinheiro().MODERADO)
-				&& (indicacao.getCompanhia() == indicacao.getCompanhia().AMIGOS
-						|| indicacao.getCompanhia() == indicacao.getCompanhia().FAMILIA)) {
+						&& indicacao.getCompanhia() == indicacao.getCompanhia().AMIGOS) {
 			return true;
 		}
 		return false;
@@ -25,11 +23,20 @@ public class DefineDestinoCE {
 
 	@Action (order = 1)
 	public void primeiraAcao() throws Exception {
-		System.out.println("AQUIRIS");
-		indicacao.setDestino(Indicacao.Destino.AQUIRIS);
+		System.out.println("Destino para FORTALEZA - Aquiris");
+		ambiente.setDestino(TipoDeLugar.Destino.AQUIRIS);
+	}
+	
+	@Action (order = 2)
+	public void segundaAcao() throws Exception {
+		System.out.println("Destino para Goias - CALDAS NOVAS");
+		ambiente.setDestino(TipoDeLugar.Destino.CALDASNOVAS);
 	}
 
-	public DefineDestinoCE(Indicacao indicacao) {
+	public DefineDestinoCE(Indicacao indicacao, TipoDeLugar ambiente) {
+		super();
 		this.indicacao = indicacao;
+		this.ambiente = ambiente;
 	}
+	
 }

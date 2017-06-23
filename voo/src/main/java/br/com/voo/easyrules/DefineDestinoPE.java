@@ -9,26 +9,27 @@ import org.easyrules.annotation.Rule;
 public class DefineDestinoPE {
 
 	private Indicacao indicacao;
+	private TipoDeLugar ambiente;
 
 	@Condition
 	public boolean when() {
 		if (indicacao.getAmbiente() == indicacao.getAmbiente().PRAIA
-				&& (indicacao.getDinheiro() == indicacao.getDinheiro().ALTO
-				|| indicacao.getDinheiro() == indicacao.getDinheiro().MODERADO)
-				&& (indicacao.getCompanhia() == indicacao.getCompanhia().AMIGOS 
-				|| indicacao.getCompanhia() == indicacao.getCompanhia().CASAL)){
+				&& indicacao.getCompanhia() == indicacao.getCompanhia().CASAL) {
 			return true;
 		}
 		return false;
 	}
 
-	@Action (order = 1)
+	@Action(order = 1)
 	public void primeiraAcao() throws Exception {
-		System.out.println("Fernando de noronha");
-		indicacao.setDestino(Indicacao.Destino.FERNANDODENORONHA);
+		System.out.println("Destino para Pernambuco - Fernando de noronha");
+		ambiente.setDestino(TipoDeLugar.Destino.FERNANDODENORONHA);
 	}
 
-	public DefineDestinoPE(Indicacao indicacao) {
+	public DefineDestinoPE(Indicacao indicacao, TipoDeLugar ambiente) {
+		super();
 		this.indicacao = indicacao;
+		this.ambiente = ambiente;
 	}
+
 }

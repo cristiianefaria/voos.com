@@ -4,33 +4,33 @@ import org.easyrules.annotation.Action;
 import org.easyrules.annotation.Condition;
 import org.easyrules.annotation.Rule;
 
-import br.com.voo.model.Itinerario;
 
 @Rule(name = "Destino Buzios", description = "regra criada para indicar"
 		+ " destino para Rio de Janeiro - Buzios, ambiente praia")
 public class DefineDestinoRJ {
-	
+
 	private Indicacao indicacao;
+	private TipoDeLugar ambiente;
 
 	@Condition
 	public boolean when() {
 		if (indicacao.getAmbiente() == indicacao.getAmbiente().PRAIA
-				&& (indicacao.getDinheiro() == indicacao.getDinheiro().BAIXO
-				|| indicacao.getDinheiro() == indicacao.getDinheiro().MODERADO)
-				&& (indicacao.getCompanhia() == indicacao.getCompanhia().AMIGOS 
-				|| indicacao.getCompanhia() == indicacao.getCompanhia().FAMILIA)){
+				&& indicacao.getCompanhia() == indicacao.getCompanhia().FAMILIA) {
 			return true;
 		}
 		return false;
 	}
 
-	@Action (order = 1)
+	@Action(order = 1)
 	public void primeiraAcao() throws Exception {
-		System.out.println("buzios");
-		indicacao.setDestino(Indicacao.Destino.BUZIOS);
+		System.out.println("Destino para Rio de Janeiro - Buzios");
+		ambiente.setDestino(TipoDeLugar.Destino.BUZIOS);
 	}
 
-	public DefineDestinoRJ(Indicacao indicacao) {
+	public DefineDestinoRJ(Indicacao indicacao, TipoDeLugar ambiente) {
+		super();
 		this.indicacao = indicacao;
+		this.ambiente = ambiente;
 	}
+
 }

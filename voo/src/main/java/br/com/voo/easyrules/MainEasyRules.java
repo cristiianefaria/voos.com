@@ -1,31 +1,38 @@
 package br.com.voo.easyrules;
 
-import org.easyrules.api.RulesEngine;
 import static org.easyrules.core.RulesEngineBuilder.aNewRulesEngine;
+
+import org.easyrules.api.RulesEngine;
 
 public class MainEasyRules {
 
 	public static void main(String[] args) {
 
-		Indicacao indicacao = new Indicacao(Indicacao.Ambiente.PRAIA);
+		TipoDeLugar tipoDeLugar = new TipoDeLugar();
+		Indicacao indicacao = new Indicacao(Indicacao.Ambiente.PARQUE, Indicacao.Companhia.AMIGOS);
 
-		DefineDestinoCE defineDestinoCE = new DefineDestinoCE(indicacao);
-		DefineDestinoPE defineDestinoPE = new DefineDestinoPE(indicacao);
-		DefineDestinoGO defineDestinoGO = new DefineDestinoGO(indicacao);
-		DefineDestinoRJ defineDestinoRJ = new DefineDestinoRJ(indicacao);
-		DefineDestinoSC defineDestinoSC = new DefineDestinoSC(indicacao);
-		DefineDestinoSP defineDestinoSP = new DefineDestinoSP(indicacao);
+		DefineDestinoCE defineDestinoCE = new DefineDestinoCE(indicacao, tipoDeLugar);
+		DefineDestinoPE defineDestinoPE = new DefineDestinoPE(indicacao, tipoDeLugar);
+		DefineDestinoGO defineDestinoGO = new DefineDestinoGO(indicacao, tipoDeLugar);
+		DefineDestinoRJ defineDestinoRJ = new DefineDestinoRJ(indicacao, tipoDeLugar);
+		DefineDestinoSC defineDestinoSC = new DefineDestinoSC(indicacao, tipoDeLugar);
+		DefineDestinoSP defineDestinoSP = new DefineDestinoSP(indicacao, tipoDeLugar);
+		
+		
 
 		RulesEngine rulesEngine = aNewRulesEngine().withSilentMode(true).build();
 
 		rulesEngine.registerRule(defineDestinoCE);
 		rulesEngine.registerRule(defineDestinoPE);
 		rulesEngine.registerRule(defineDestinoGO);
-
 		rulesEngine.registerRule(defineDestinoRJ);
 		rulesEngine.registerRule(defineDestinoSC);
 		rulesEngine.registerRule(defineDestinoSP);
 		rulesEngine.fireRules();
+		
+
+		
+		
 
 	}
 
